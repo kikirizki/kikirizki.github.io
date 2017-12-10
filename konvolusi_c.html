@@ -11,6 +11,9 @@
     <script type="text/x-mathjax-config">MathJax.Hub.Config({
 tex2jax: {inlineMath: [['$','$'], ['\\\\(','\\)']]}
 });
+
+
+
     </script><!-- Bootstrap-->
     <!--<base href="https://kikirizki.github.io">-->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -22,6 +25,9 @@ script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')-->
     <link rel="stylesheet" href="css/style.css">
     <script>window.console = window.console || function (t) {
 };
+
+
+
     </script><!-- if lte IE 10link(rel='stylesheet', type='text/css', href='flippingcircle/css/fallback.css')--><!--if lte IE 8style.
 .main{display:none;} .support-note .note-ie{display:block;}-->
     <style>#Container {
@@ -54,6 +60,9 @@ text-align:justify;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
     background-color:#03a9f4;
 }
+
+
+
 
     </style>
 </head>
@@ -91,38 +100,46 @@ text-align:justify;
 <div class="container-fluid">
     <div class="row">
         <div class="read-area col-md-offset-1 col-md-10 text-center">
-            <div class="page-header"><h2>Jaringan Saraf Tiruan I</h2>
+            <div class="page-header"><h2>Implementasi Operasi Konvolusi Menggunakan Bahasa C</h2>
                 <hr>
-                <div><p>Dalam matematika, ilmu komputer dan sains alam seringkali menjadi sumber inspirasi ,
-                    banyak algoritma yang terinsipirasi dari bagaimana alam kita bekerja, sebagai contoh <a
-                            href="https://en.wikipedia.org/wiki/Ant_colony_optimization_algorithms">algoritma semut</a>,
-                    algoritma ini mencari jalur optimal pada graf berdasarkan tingkah laku semut dalam mencari jalur
-                    terpendak antara koloni semut dengan sumber makanan, selain itu masih banyak lagi algoritma yang
-                    terinspirasi oleh alam, kemudian pada 1950s dan 1960s seorang ilmuan bernama <a
-                            href="http://en.wikipedia.org/wiki/Frank_Rosenblatt">Frank Rosenblatt</a>, mengembangkan
-                    model berdasakan jaringan saraf pada otak, yang diebut <em>perceptron</em>, Frank terinspirasi
-                    berdasarkan hasil penelitian dua ilmuan sebelumnya yaitu <a
-                            href="http://en.wikipedia.org/wiki/Warren_McCulloch">Warren McCulloch</a> dan <a
-                            href="http://en.wikipedia.org/wiki/Walter_Pitts">Walter Pitts</a>, jadi bagaimana cara kerja
-                    <em>perceptron</em> ? <em> perceptron mengambil </em> beberapa input biner $x_1,x_2,\ldots ,x_n$ ,
-                </p>
-                    <p><img src="http://neuralnetworksanddeeplearning.com/images/tikz9.png" alt="peceptron" width="280"
-                            height="138"/></p>
-                    <p><img/>Pda gambar diatas terdapat tiga input yaitu $x_1,x_2,,x_3$ , Rossenbalt memperkenalkan
-                        aturan sederhana untuk menghitung output, dia memeperkenalkan istilah "bobot", bobot adalah
-                        bilangan real yang menunjukan pengaruh input tertentu terhadap output perhatikan gambar berikut
+                <div>
+
+                    <p>
+                        Konvolusi adalah operasi yang banyak digunakan dalam pemrosesan sinyal, pengolah citra dan
+                        berbagai terapan lainnya seperti dibidang fisika atau teknik. Operasi konvolusi yang dibahas
+                        dalam artikel adalah operasi konvolusi untuk bidang <i>computer vision</i> saja. Definisi
+                        operasi konvolusi memiliki perbedaan istilah antara definisinya dalam <i>computer vision</i>/<i>deep
+                        learning</i> dan matematika. Untuk definisi operasi konvolusi yang lebih umum silahkan baca <a
+                            href="">disini</a>
                     </p>
-                    <p><img src="https://blog.dbrgn.ch/images/2013/3/26/perceptron.png" alt="perceptron with weight"
-                            width="397" height="262"/></p>
-                    <p>Untuk menghitung output output kita hitung $\sum_{i=1}^{n} w_ix_i$ perhatikan bahwa nilai $w_i$
-                        menunjukan seberapa besar pengaruh $x_i$ terhadap output, sebagai contoh, misal $w_i=0$ maka
-                        berapa pun nilai $x_i$ tidak akan berpengaruh terhadap nilai$\sum_{i=1}^{n} w_ix_i$ ketika $w_i$
-                        sangat besar, atau sangat kecil, maka perubahan nilai $x_i$ akan memberikan pengaruh terhadap
-                        nilai $\sum_{i=1}^{n} w_ix_i$. tetapi pada praktiknya biasanya nilai $w_i$ dibatasi dari $-1$
-                        sampai $1$ atau $0$ sampai $1$, kemudian setelah itu juga diperkenalkan istilah ambang batas
-                        atau<em> threshold</em> , yaitu sebuah batas yang menentukan apakah output berniali $1$ atau $0$
-                        output bernilai $1$ jika $\sum_{i=1}^{n} w_ix_i&gt;threshold$ dan $0$ untuk $\sum_{i=1}^{n}
-                        w_ix_i&lt;threshold$,</p>
+                    <p>Misalkan kita memiliki sebuah matriks $A$ berukuran $5 \times 5$, dan $B$ matrik $3 \times 3$
+
+                        $$A=\begin{bmatrix}
+                        1 & 1 & 1 & 0 & 0 \\
+                        0 & 1 & 1 & 1 & 0 \\
+                        0 & 0 & 1 & 1 & 1 \\
+                        0 & 0 & 1 & 1 & 0 \\
+                        0 & 1 & 1 & 0 & 0
+                        \end{bmatrix}$$,
+
+                         $$B=\begin{bmatrix}
+                        1 & 0 & 1 \\
+                        0 & 1 & 0 \\
+                        1 & 0 & 1
+                        \end{bmatrix}$$,
+
+
+                    </p>
+                    <p>
+                    Matrik $A$ dikonvolusi menggunakan matrik $B$ dinotasikan $A \star B =C$ dimana
+                        $C_{kl}=\sum\limits^{3}_{i=1}\sum\limits^{3}_{j=1}A_{i+k-1,j+l-1}B_{ij}$ dengan $1 \leq k,l \leq 3$. Untuk mempermudah
+                        operasi tersebut dapat diilustrasikan menggunakan animasi di bawah ini
+                    </p>
+                    <p><img src="https://kikirizki.github.io/images/conv_animation.gif" alt="konvolusi"
+                    />
+                        <small>sumber : <a href="https://towardsdatascience.com/applied-deep-learning-part-4-convolutional-neural-networks-584bc134c1e2">Applied Deep Learning - Part 4: Convolutional Neural Networks</a></small>
+                    </p>
+
                     <p>berikut ini ada beberapa sumber yang berkaitan dengan jaringan saraf tiruan</p>
                     <p><a href="neuralnetworkanddeeplearning.com">neuralnetworkanddeeplearning.com</a>, <a
                             href="http://www.deeplearningbook.org/">http://www.deeplearningbook.org</a>, </p>
@@ -153,16 +170,25 @@ text-align:justify;
 <script src="js/graph.js"></script>
 <script>var big = document.getElementById("bigimage");
 //    big.style.height="3000px";
+
+
+
 </script>
 <script src="js/scroll.js"></script>
 <script>$('.card-button').click(function () {
 $(this).parent().toggleClass('expand');
 });
 //# sourceURL=pen.js
+
+
+
 </script>
 <script>if (document.location.search.match(/type=embed/gi)) {
 window.parent.postMessage("resize", "*");
 }
+
+
+
 </script>
 </body>
 </html>
