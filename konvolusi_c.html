@@ -16,6 +16,7 @@ tex2jax: {inlineMath: [['$','$'], ['\\\\(','\\)']]}
 
 
 
+
     </script><!-- Bootstrap-->
     <!--<base href="https://kikirizki.github.io">-->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -27,6 +28,7 @@ script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')-->
     <link rel="stylesheet" href="css/style.css">
     <script>window.console = window.console || function (t) {
 };
+
 
 
 
@@ -64,6 +66,7 @@ text-align:justify;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
     background-color:#03a9f4;
 }
+
 
 
 
@@ -108,6 +111,7 @@ text-align:justify;
         <div class="read-area col-md-offset-1 col-md-10 text-center">
             <div class="page-header"><h2>Implementasi Operasi Konvolusi Menggunakan Bahasa C</h2>
                 <hr>
+                <h3>Operasi Konvolusi</h3>
                 <div>
 
                     <p>
@@ -142,15 +146,28 @@ text-align:justify;
                         3$. Untuk mempermudah
                         operasi tersebut dapat diilustrasikan menggunakan animasi di bawah ini
                     </p>
-                    <p><img src="https://kikirizki.github.io/images/conv_animation.gif" alt="konvolusi"
+                    <p><img style="width:100%" src="https://kikirizki.github.io/images/conv_animation.gif"
+                            alt="konvolusi"
                     />
                         <br>
                         <small>sumber : <a
                                 href="https://towardsdatascience.com/applied-deep-learning-part-4-convolutional-neural-networks-584bc134c1e2">Applied
                             Deep Learning - Part 4: Convolutional Neural Networks</a></small>
                     </p>
+                    <h3>Program C Untuk Memuat dan Membuat Matrik Gambar</h3>
+                    <p>
+                        Kita akan membuat tiga file yaitu : <i>gambar.c, gambar.h,</i> dan <i>main.c</i> pertama kita
+                        akan membuat
+                        <i>struct</i> untuk pada <i>gambar.h</i>. <i>Struk</i>
+                        dapat dibayangkan sebagai komposisi dari beberapa tipe
+                        data primitif atau dapat dibayangkan sebagai kelas tanpa
+                        fungsi.
+                    <pre>
+                    <span>#ifndef GAMBAR_H</span>
+                    <span>#define GAMBAR_H</span>
+                        </pre>
 
-                    <p>berikut ini ada beberapa sumber yang berkaitan dengan jaringan saraf tiruan</p>
+                    </p>
 
                 </div>
             </div>
@@ -184,6 +201,7 @@ text-align:justify;
 
 
 
+
 </script>
 <script src="js/scroll.js"></script>
 <script>$('.card-button').click(function () {
@@ -195,10 +213,12 @@ $(this).parent().toggleClass('expand');
 
 
 
+
 </script>
 <script>if (document.location.search.match(/type=embed/gi)) {
 window.parent.postMessage("resize", "*");
 }
+
 
 
 
