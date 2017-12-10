@@ -165,8 +165,42 @@ text-align:justify;
                     <pre>
                     <span>#ifndef GAMBAR_H</span>
                     <span>#define GAMBAR_H</span>
-                        </pre>
+                    <span>typedef struct{</span>
+                    <span>int w;</span>
+                    <span>int h;</span>
+                    <span>int c;</span>
+                    <span>float *data;</span>
+                    <span>}image;</span>
+                    <span></span>
+                    <span></span>
+                    <span>image make_image(int w,int h,int c);</span>
+                    <span>#endif</span>
+                </pre>
+                    <br>
 
+                    Pada baris ketiga kita membuat struct bernama
+                    <i>image</i>. Kemudian kita buat prototype fungsi
+                    make_image, fungsi ini berguna untuk membuat struct
+                    seperti yang telah kita buat.
+
+                    <pre>
+                        <span>#include "gambar.h"</span>
+                        <span>#include &ltstdio.h&gt </span>
+                        <span></span>
+                        <span>image make_image(int w,int h,int c) </span>
+                        <span>{ </span>
+                        <span>image out;</span>
+                        <span>out.w=w;</span>
+                        <span>out.h=h;</span>
+                        <span>out.c=c;</span>
+                        <span>out.data=calloc(h*w*c,sizeof(float));</span>
+                        <span>return out;</span>
+                        <span>}</span>
+                    </pre>
+                     <br>
+                    Pada baris ke 10 kita mengalokasikan data
+                    sebanyak <b>h*w*c</b> objek, dimana masing-masing
+                    beukuran <b>sizeof(float)</b>
                     </p>
 
                 </div>
