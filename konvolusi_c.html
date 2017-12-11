@@ -202,6 +202,28 @@ text-align:justify;
                     sebanyak <b>h*w*c</b> objek, dimana masing-masing
                     beukuran <b>sizeof(float)</b>
                     </p>
+                    <p>
+                    Baiklah selanjutnya kita akan membuat fungsi
+                    untuk meload gambar dari file. Fungsi ini menggunakan
+                    <i>library</i> <a href="https://github.com/nothings/stb">stb image</a> 
+                    <i>library</i> ini memiliki lisensi public domain sehingga
+                    dapat dengan bebas kita gunakan. File gambar.c
+                    diatas kini menjadi:
+                    <pre>
+                    <span>#include "gambar.h"</span>
+                    <span>#include &ltstdio.h&gt</span>
+                    <span>#define STB_IMAGE_IMPLEMENTATION</span>
+                    <span>#include "stb_image.h"</span>
+                    <span></span>
+                    <span>image load_image(char *filename,int channels){</span>
+                    <span>int w, h, c;</span>
+                    <span>unsigned char *data = stbi_load(filename, &w, &h, &c, channels);
+                    </pre>
+                    setelah fungsi stbi_load() dipanggil nilai w,h,c akan
+                    berubah sesuai dengan lebar, tinggi dan channel gambar 
+
+
+                    </p>
 
                 </div>
             </div>
