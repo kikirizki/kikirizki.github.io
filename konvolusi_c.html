@@ -217,20 +217,64 @@ text-align:justify;
                     <span></span>
                     <span>image load_image(char *filename,int channels){</span>
                     <span>int w, h, c;</span>
-                    <span>unsigned char *data = stbi_load(filename, &w, &h, &c, channels);
+                    <span>unsigned char *data = stbi_load(filename, &w, &h, &c, channels);</span>
                     </pre>
-                    setelah fungsi stbi_load() dipanggil nilai w,h,c akan
+                    Setelah fungsi stbi_load() dipanggil nilai w,h,c akan
                     berubah sesuai dengan lebar, tinggi dan channel gambar. Fungsi stbi_load() 
-                    me-return pointer dari data gambar yang dimuat struktur
-                    data dari gambar yang dimuat oleh stb_image adalah, 
+                    me-return pointer pertama dari struktur data gambar yang dimuat. Struktur
+                    data dari gambar yang dimuat oleh stb_image berpola seperti ini, 
                     <span style="color:red">$p_{1,1,1}$</span> ,
                     <span style="color:green"> $p_{1,1,2}$</span> ,
                     <span style="color:blue">$p_{1,1,3}$</span> ,
                     <span style="color:red">$p_{1,2,1}$</span>,
                     <span style="color:green">$p_{1,2,2}$</span>,
                     <span style="color:blue">$p_{1,2,3}$</span>
-                  
-                    </p>
+                    <br>
+                    Kita akan memuat dan menyimpan data gambar ke
+                    dalam stuct image dengan pola seperti ini
+                    <span style="color:red">$p_{1,1,1}$</span> ,
+                    <span style="color:red">$p_{1,2,1}$</span>,
+                    ...,
+
+                    <span style="color:green"> $p_{1,1,2}$</span> ,
+                    <span style="color:green">$p_{1,2,2}$</span>,
+                    ...,
+
+                    <span style="color:blue">$p_{1,1,3}$</span> ,
+                    <span style="color:blue">$p_{1,2,3}$</span>
+                    <br>
+                    Untuk mengkonversi struktur data stb_image
+                    menjadi struktur data seperti yang kita inginkan
+                    gunakan kode seperti berikut ini:
+                    <br>
+                    <pre>
+                    <span>#include "gambar.h"</span>
+                    <span>#include &ltstdio.h&gt</span>
+                    <span>#define STB_IMAGE_IMPLEMENTATION</span>
+                    <span>#include "stb_image.h"</span>
+                    <span></span>
+                    <span>image load_image(char *filename,int channels){</span>
+                    <span>int w, h, c;</span>
+                    <span>unsigned char *data = stbi_load(filename, &w, &h, &c, channels);</span>
+                    <span></span>
+                    <span>image im = make_image(w,h,c)</span>
+                    <span>for(k=0;k&ltc;++k){ </span>
+                    <span>  for(j=0;j&lth;++j){    </span>
+                    <span>        for(i = 0;i&ltw;++i){ </span>
+                    <span>        int dst_index = i + w*j + w*h*k;</span>
+                    <span>        int src_index = k + c*i + c*w*j;</span>
+                     <span>         im.data[dst_index] = (float)data[src_index]/255;
+ </span><span> </span>
+         <span>                                       }
+ </span><span> </span>
+                 <span>                         }
+   </span>      <span>                             }
+          </span>
+                   </pre>
+
+
+                  </p>
+                    
                     <div id="disqus_thread"></div>
                     <script>
 
