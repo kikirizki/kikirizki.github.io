@@ -258,18 +258,18 @@ text-align:justify;
                     <span>unsigned char *data = stbi_load(filename, &w, &h, &c, channels);</span>
                     <span></span>
                     <span>image im = make_image(w,h,c)</span>
-                    <span>for(k=0;k&ltc;++k){ </span>
-                    <span>  for(j=0;j&lth;++j){    </span>
+                    <span>  for(k=0;k&ltc;++k){ </span>
+                    <span>     for(j=0;j&lth;++j){    </span>
                     <span>        for(i = 0;i&ltw;++i){ </span>
-                    <span>        int dst_index = i + w*j + w*h*k;</span>
-                    <span>        int src_index = k + c*i + c*w*j;</span>
-                     <span>         im.data[dst_index] = (float)data[src_index]/255;
- </span><span> </span>
-         <span>                                       }
- </span><span> </span>
-                 <span>                         }
-   </span>      <span>                             }
-          </span>
+                    <span>            int dst_index = i + w*j + w*h*k;</span>
+                    <span>            int src_index = k + c*i + c*w*j;</span>
+                    <span>            im.data[dst_index] = (float)data[src_index]/255;</span>
+                    <span>                          }</span>
+                    <span>                       }</span>
+                    <span>                   }</span>
+                    <span>  free(data);</span>
+                    <span>  return im;</span>
+                    <span>    }</span>
                    </pre>
 
 
