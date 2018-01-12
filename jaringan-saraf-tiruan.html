@@ -84,7 +84,7 @@ text-align:justify;
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 myjumbotron"><img
-                    src="images/machinelearning.svg" class="category-image img-responsive"></div>
+                    src="images/deeplearning.svg" class="category-image img-responsive"></div>
         </div>
     </div>
 </div>
@@ -94,35 +94,60 @@ text-align:justify;
             <div class="page-header"><h2>Jaringan Saraf Tiruan I</h2>
                 <hr>
                 <div><p>Dalam matematika, ilmu komputer dan sains alam seringkali menjadi sumber inspirasi ,
-                    banyak algoritma yang terinsipirasi dari bagaimana alam kita bekerja, sebagai contoh <a
+                    banyak algoritma yang terinsipirasi dari alam, tingkah laku hewan, atau biologi, salah satu contoh algoritma yang
+ terinspirasi dari tingkah laku hewan adalah <a
                             href="https://en.wikipedia.org/wiki/Ant_colony_optimization_algorithms">algoritma semut</a>,
                     algoritma ini mencari jalur optimal pada graf berdasarkan tingkah laku semut dalam mencari jalur
-                    terpendak antara koloni semut dengan sumber makanan, selain itu masih banyak lagi algoritma yang
-                    terinspirasi oleh alam, kemudian pada 1950s dan 1960s seorang ilmuan bernama <a
+                    terpendak antara koloni semut dengan sumber makanan.Kaitannya dengan jaringan saraf tiruan, pada 1950s dan 1960s seorang ilmuan bernama <a
                             href="http://en.wikipedia.org/wiki/Frank_Rosenblatt">Frank Rosenblatt</a>, mengembangkan
-                    model berdasakan jaringan saraf pada otak, yang diebut <em>perceptron</em>, Frank terinspirasi
-                    berdasarkan hasil penelitian dua ilmuan sebelumnya yaitu <a
+                    model matematika berdasakan jaringan saraf pada otak, yang diebut <em>perceptron</em>, Frank terinspirasi
+                    dari hasil penelitian dua ilmuan sebelumnya yaitu <a
                             href="http://en.wikipedia.org/wiki/Warren_McCulloch">Warren McCulloch</a> dan <a
-                            href="http://en.wikipedia.org/wiki/Walter_Pitts">Walter Pitts</a>, jadi bagaimana cara kerja
-                    <em>perceptron</em> ? <em> perceptron mengambil </em> beberapa input biner $x_1,x_2,\ldots ,x_n$ ,
+                            href="http://en.wikipedia.org/wiki/Walter_Pitts">Walter Pitts</a>. Cara kerja otak tentu saja rumit dan belum ada orang
+yang mengerti dengan pasti bagaimana cara otak bekerja, namun kita memiliki beberapa petunjuk berdasarkan hasil penelitian para ilmuan berikut
+ini cara kerja model matematika dari jaringan saraf tiruan yang diajukan oleh Frank
+                    (<em>perceptron</em>).
                 </p>
                     <p><img src="http://neuralnetworksanddeeplearning.com/images/tikz9.png" alt="peceptron" width="280"
                             height="138"/></p>
-                    <p><img/>Pda gambar diatas terdapat tiga input yaitu $x_1,x_2,,x_3$ , Rossenbalt memperkenalkan
+                    <p><img/> 
+                        Kita dapat dapat membayangkan perceptron sebagai fungsi yang memetakan vektor berdimensi-$n$ ke skalar. 
+                        Pada gambar diatas vektor input adalah vektor $\textbf{x}$ dengan elemen $x_1,x_2,x_3$ , Rossenbalt memperkenalkan
                         aturan sederhana untuk menghitung output, dia memeperkenalkan istilah "bobot", bobot adalah
-                        bilangan real yang menunjukan pengaruh input tertentu terhadap output perhatikan gambar berikut
+                        bilangan real yang menunjukan pengaruh input tertentu terhadap output perhatikan gambar berikut.
+                        Output dari perceptron dihitung sebagai berikut $output = g(\sum^{3}_{i=1}x_iw_i+w_0)$ dimana $g(.)$ adalah sebuah fungsi
+                        yang biasa disebut fungsi aktifasi.
                     </p>
                     <p><img src="https://blog.dbrgn.ch/images/2013/3/26/perceptron.png" alt="perceptron with weight"
                             width="397" height="262"/></p>
-                    <p>Untuk menghitung output output kita hitung $\sum_{i=1}^{n} w_ix_i$ perhatikan bahwa nilai $w_i$
-                        menunjukan seberapa besar pengaruh $x_i$ terhadap output, sebagai contoh, misal $w_i=0$ maka
-                        berapa pun nilai $x_i$ tidak akan berpengaruh terhadap nilai$\sum_{i=1}^{n} w_ix_i$ ketika $w_i$
-                        sangat besar, atau sangat kecil, maka perubahan nilai $x_i$ akan memberikan pengaruh terhadap
-                        nilai $\sum_{i=1}^{n} w_ix_i$. tetapi pada praktiknya biasanya nilai $w_i$ dibatasi dari $-1$
-                        sampai $1$ atau $0$ sampai $1$, kemudian setelah itu juga diperkenalkan istilah ambang batas
-                        atau<em> threshold</em> , yaitu sebuah batas yang menentukan apakah output berniali $1$ atau $0$
-                        output bernilai $1$ jika $\sum_{i=1}^{n} w_ix_i&gt;threshold$ dan $0$ untuk $\sum_{i=1}^{n}
-                        w_ix_i&lt;threshold$,</p>
+                
+
+                     <p>Untuk memberikan intuisi bagaimana <em>perceptron</em> bekerja marilah kita simak ilustrasi berikut. Misalkan dalam kontes pencarian bakat,
+                        juri menentukan kriteria kelulusan kontestan berdasarkan pada tiga kriteria yaitu penampilan, vokal dan penjiwaan misalnya nilai
+                        penampilan, vokal dan penjiwaan beruturut-turut ditulis sebagai $x_1,x_2,x_3$ karena kontes yang dilombakan adalah tarik suara,  
+                        juri memutuskan untuk tidak terlalu memprioritaskan penampilan sehingga bobot untuk penampilan $w_1$ memiliki nilai yang rendah
+                        misalnya $0.25$, kemudian bobot untuk vokal misalnya $0.75$ dan penjiwaan $0.5$. Misalkan seorang kontestan A memiliki nilai penampilan $0.75$ (skala dari 0 sampai 1, 1 artinya nilai sempurna), vokal $0.5$ dan penjiwaan $0.6$ apakah kontestan A akan lulus berdasarkan sistem penilaian juri. Juri harus memutuskan batas nilai untuk mencapai kelulusan misalnya dalam
+                        contoh ini batas kelulusannya adalah <em>0.75</em> jadi jika total skor bernilai lebih dari <em>0.75</em> maka kontestan lulus. Mari kita hitung $\sum^{3}_{i=1}x_iw_i+w_0=x_1w_1+x_2w_2+x_3w_3=0.75\times0.25+0.5\times0.75+0.6\times0.5+0=0.8625$ karena $0.8625\ge0.75$ maka kontestan lulus. Tunggu dulu dimana fungsi $g(.)$ ?. Dalam contoh ini fungsi $g(.)$ adalah <a href="http://epubs.siam.org/doi/abs/10.1137/1.9780898718539.ch3">fungsi threshold</a>
+yaitu fungsi memberikan output 1 jika nilai input lebih besar dari <b>0.75</b> dan 0 jika nilai input lebih kecil dari <b>0.75</b>, atau secara matematis ditulis.
+<br>
+<br>
+
+                       $  g(z) =
+  \begin{cases}
+                                   1 & \text{jika $z \ge 0.75$} \\
+                                   0 & \text{lainnya} \\
+ 
+  \end{cases}$ 
+<br>
+<br>
+nilai <b>1</b> berarti kontestan lulus dan nilai <b>0</b> artinya kontestan tidak lulus. Perhatikan bahwa nilai <b>bobot</b> menentukan <b>pengaruh</b> kriteria terhadap hasil keputusan misalkan 
+penampilan miliki bobot yang rendah yaitu $w_1=0.0001$ misalkan ada dua orang (kontestan A dan B) dengan nilai vokal dan penjiwaan yang sama yaitu nilai vokal 0.6 dan nilai penjiwaan 0.7
+tetapi kontestan A memiliki penampilan sempurna yaitu 1 sementara kontestan B memiliki penampilan biasa saja yaitu 0.5. Mari kita hitung total nilai untuk kontestan A   $\sum^{3}_{i=1}x_iw_i+w_0=x_1w_1+x_2w_2+x_3w_3=1\times0.0001+0.6\times0.75+0.7\times0.5+0=0.8000999999999999$. Sementara total nilai kontestan B $\sum^{3}_{i=1}x_iw_i+w_0=x_1w_1+x_2w_2+x_3w_3=0.5\times0.0001+0.6\times0.75+0.7\times0.5+0=0.8000499999999999
+$. Perhatikan bahwa karena bobot kriteria penampilan sangat kecil ($w_1=0.0001$) total nilai dari kontestan A dan B memiliki selisih yang sedikit walaupun perbedaan penampilan 
+antara kontestan A dan B sangat besar. Artinya jika bobot kriteria penampilan kecil maka pengaruh penampilan terhadap total penilaian juga kecil atau dengan kata lain penampilan <b>tidak
+terlalu</b> menjadi "bahan pertimbangan". Dalam <i>deep learning</i> kriteria yang dibahas dalam contoh ini biasa disebut <i>feature</i>.   
+                     </p>
+
                     <p>berikut ini ada beberapa sumber yang berkaitan dengan jaringan saraf tiruan</p>
                     <p><a href="neuralnetworkanddeeplearning.com">neuralnetworkanddeeplearning.com</a>, <a
                             href="http://www.deeplearningbook.org/">http://www.deeplearningbook.org</a>, </p>
