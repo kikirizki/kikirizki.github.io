@@ -14,9 +14,11 @@ function setup() {
     var c3 = new Neuron(0, 0);
     var c4 = new Neuron(0, 50);
     var c5 = new Neuron(0, 100);
-    var d1 = new Neuron(150, -50);
-    var d2 = new Neuron(150, 0);
-    var d3 = new Neuron(150, 50);
+    var d1 = new Neuron(150, -75);
+    var d2 = new Neuron(150, -25);
+    var d3 = new Neuron(150, 25);
+    var d4 = new Neuron(150, 75);
+
     nn.connect(a1, b1,1);
     nn.connect(a1, b2,0.5);
     nn.connect(a1, b3,1);
@@ -64,6 +66,11 @@ function setup() {
     nn.connect(c4, d3,random(1));
     nn.connect(c5, d3,random(1));
 
+    nn.connect(c1, d4,random(1));
+    nn.connect(c2, d4,random(1));
+    nn.connect(c3, d4,random(1));
+    nn.connect(c4, d4,random(1));
+    nn.connect(c5, d4,random(1));
 
 
     nn.addNeuron(a1);
@@ -79,6 +86,7 @@ function setup() {
     nn.addNeuron(d1);
     nn.addNeuron(d2);
     nn.addNeuron(d3);
+    nn.addNeuron(d4);
 }
 
 function draw() {
