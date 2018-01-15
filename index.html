@@ -44,6 +44,7 @@ script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')-->
 
 
     </style>
+
 </head>
 <body>
 <canvas id="c"></canvas>
@@ -71,13 +72,15 @@ script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')-->
                         class="fa fa-google-plus fa-2x"></i></a></li>
             </ul>
         </div><!-- /.navbar-collapse--></div><!-- /.container-fluid--></nav>
-<div id="bigimage" style=" height:100vh;"></div>
-
+<!--<div id="bigimage" style=" height:100vh;"></div>-->
+<div id="tictac" style=" height:100vh;"></div>
 
 <div id="ml" class="dark-section container-fluid">
     <div class="container">
         <div class="row">
-            <div class="col-md-6 col-sm-12"><img src="images/deeplearning.svg" class="category-image img-responsive">
+            <div class="col-md-6 col-sm-12">
+                <!--<img src="images/deeplearning.svg" class="category-image img-responsive">-->
+            <div id="nn"></div>
             </div>
             <div class="col-md-6 col-sm-12 text-center">
                 <div class="page-header"><h1>Deep Learning</h1></div>
@@ -175,9 +178,13 @@ script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed-->
 <script src="js/bootstrap.min.js"></script>
-<script src="js/graph.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.js"></script>
+
+<script src="js/network.js"></script>
+<!--<script src="js/graph.js"></script>-->
 <script>var big = document.getElementById("bigimage");
-//    big.style.height="3000px";
+//    big.style.height="3000px";-->
 
 
 
@@ -198,5 +205,8 @@ script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')-->
 
 
 </script>
+<script src="js/tictactoe.js"></script>
+
+
 </body>
 </html>

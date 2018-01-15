@@ -142,8 +142,21 @@ yaitu fungsi memberikan output 1 jika nilai input lebih besar dari <b>0.75</b> d
 <br>
 nilai <b>1</b> berarti kontestan lulus dan nilai <b>0</b> artinya kontestan tidak lulus. Perhatikan bahwa nilai <b>bobot</b> menentukan <b>pengaruh</b> kriteria terhadap hasil keputusan misalkan 
 penampilan miliki bobot yang rendah yaitu $w_1=0.0001$ misalkan ada dua orang (kontestan A dan B) dengan nilai vokal dan penjiwaan yang sama yaitu nilai vokal 0.6 dan nilai penjiwaan 0.7
-tetapi kontestan A memiliki penampilan sempurna yaitu 1 sementara kontestan B memiliki penampilan biasa saja yaitu 0.5. Mari kita hitung total nilai untuk kontestan A   $\sum^{3}_{i=1}x_iw_i+w_0=x_1w_1+x_2w_2+x_3w_3=1\times0.0001+0.6\times0.75+0.7\times0.5+0=0.8000999999999999$. Sementara total nilai kontestan B $\sum^{3}_{i=1}x_iw_i+w_0=x_1w_1+x_2w_2+x_3w_3=0.5\times0.0001+0.6\times0.75+0.7\times0.5+0=0.8000499999999999
-$. Perhatikan bahwa karena bobot kriteria penampilan sangat kecil ($w_1=0.0001$) total nilai dari kontestan A dan B memiliki selisih yang sedikit walaupun perbedaan penampilan 
+tetapi kontestan A memiliki penampilan sempurna yaitu 1 sementara kontestan B memiliki penampilan biasa saja yaitu 0.5. Mari kita hitung total nilai untuk kontestan A  adalah
+<br>
+<br>
+
+ $\sum^{3}_{i=1}x_iw_i+w_0=x_1w_1+x_2w_2+x_3w_3=1\times0.0001+0.6\times0.75+0.7\times0.5+0=0.8000999999999999$.
+<br>
+<br>
+ Sementara total nilai kontestan B 
+<br>
+<br>
+$\sum^{3}_{i=1}x_iw_i+w_0=x_1w_1+x_2w_2+x_3w_3=0.5\times0.0001+0.6\times0.75+0.7\times0.5+0=0.8000499999999999$.
+<br>
+<br>
+
+Perhatikan bahwa karena bobot kriteria penampilan sangat kecil ($w_1=0.0001$) total nilai dari kontestan A dan B memiliki selisih yang sedikit walaupun perbedaan penampilan 
 antara kontestan A dan B sangat besar. Artinya jika bobot kriteria penampilan kecil maka pengaruh penampilan terhadap total penilaian juga kecil atau dengan kata lain penampilan <b>tidak
 terlalu</b> menjadi "bahan pertimbangan". Dalam <i>deep learning</i> kriteria yang dibahas dalam contoh ini biasa disebut <i>feature</i>.   
                      </p>
