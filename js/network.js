@@ -1,6 +1,7 @@
 var nn;
 function setup() {
-    var cnv=createCanvas(640, 360);
+    var cnv=createCanvas(640,360);
+   
     cnv.parent("nn");
     nn = new Network(width/2, height/2);
     var a1 = new Neuron(-275,0);
