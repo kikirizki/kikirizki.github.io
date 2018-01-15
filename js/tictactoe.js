@@ -56,7 +56,7 @@ function CreateCanvas(){
 
 function SetCanvasSize(){
     pageW = cvs.width = window.innerWidth;
-    pageH = cvs.height = window.innerHeight;
+    pageH = cvs.height = Math.min( window.innerWidth, window.innerHeight);
 
     boardSize = Math.min(pageW, pageH) - 2*Config.outerMargin;
     sqSize = Math.floor((boardSize - 2*Config.innerMargin)/3);
