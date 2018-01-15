@@ -2,9 +2,10 @@ canvas {
     position: relative;
     top: 0;
     left: 0;
-    height:auto!important;
-    width:100%!important;
+    height: auto !important;
+    width: 100% !important;
 }
+
 /*navigationbar style begin*/
 #nav {
     -webkit-transition: all 0.5s ease;
@@ -12,29 +13,32 @@ canvas {
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
 }
+
 pre {
-  line-height:0.428571;
-  counter-reset: line;
-  background: #303030;
-  color: #f1f1f1;
-  padding: 10px 16px;
-  border-radius: 2px;
-  border-top: 4px solid #00aeef;
-  -moz-box-shadow: inset 0 0 10px #000;
-  box-shadow: inset 0 0 10px #000;
+    line-height: 0.428571;
+    counter-reset: line;
+    background: #303030;
+    color: #f1f1f1;
+    padding: 10px 16px;
+    border-radius: 2px;
+    border-top: 4px solid #00aeef;
+    -moz-box-shadow: inset 0 0 10px #000;
+    box-shadow: inset 0 0 10px #000;
 }
+
 pre span {
-  display: block;
-  line-height: 1.5rem;
+    display: block;
+    line-height: 1.5rem;
 }
+
 pre span:before {
-  counter-increment: line;
-  content: counter(line);
-  display: inline-block;
-  border-right: 1px solid #ddd;
-  padding: 0 .5em;
-  margin-right: .5em;
-  color: #888
+    counter-increment: line;
+    content: counter(line);
+    display: inline-block;
+    border-right: 1px solid #ddd;
+    padding: 0 .5em;
+    margin-right: .5em;
+    color: #888
 }
 
 .navbar-raised {
@@ -42,37 +46,37 @@ pre span:before {
     background-color: white;
 }
 
-
 .dark-section {
-    padding-top:80px ;
-    padding-bottom:80px ;
+    padding-top: 80px;
+    padding-bottom: 80px;
     color: white;
-    background-color:#03a9f4;
+    background-color: #03a9f4;
 }
 
 .nav > li > a {
     color: rgba(66, 133, 244, 1);
 }
 
-.img-responsive{
-    width:70%;
+.img-responsive {
+    width: 70%;
 }
+
 /*navigationbar styles end*/
 /*expandable card begin*/
 
- .card-wrapper {
-     font-family: Roboto, sans-serif;
-     width: 100%;
-     height: 100%;
-     margin: 0;
-     padding: 0;
-     color: #FFF;
-     background: #FAFAFA;
- }
+.card-wrapper {
+    font-family: Roboto, sans-serif;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    color: #FFF;
+    background: #FAFAFA;
+}
 
 h1 {
-    font-weight: 700;
-    font-size: 48px;
+    font-weight: 500;
+
     margin: 20px 0 0 0;
     padding: 0 20px;
 }
@@ -94,20 +98,26 @@ a {
     padding-right: 10px;
     cursor: pointer;
 }
-a:hover{
-color:yellow;
-text-decoration:none;
+
+a:hover {
+    color: yellow;
+    text-decoration: none;
 }
-li{
-list-style:none;
+
+li {
+    list-style: none;
 }
-.judul-artikel{
-font-size:22px;
+
+.judul-artikel {
+    font-size: large;
+    font-weight: lighter;
 }
-.white-text{
-color:white;
+
+.white-text {
+    color: white;
 
 }
+
 .sub {
     margin: 0;
 }
@@ -210,8 +220,9 @@ color:white;
     line-height: 52px;
     color: #FFC400;
 }
+
 /*expandable card end*/
-.category-image{
+.category-image {
     margin: auto;
 }
 
@@ -220,150 +231,166 @@ body {
     overflow-x: hidden;
 }
 
-
 .read-area {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.17);
 }
-.myjumbotron{
+
+.myjumbotron {
     height: 50%;
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.input-box{
+.input-box {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.17);
-    margin-top:64px;
-    padding-top:64px;
+    margin-top: 64px;
+    padding-top: 64px;
 }
 
-h2 		 {
-    text-align:center;
-    margin-bottom:50px;
+h2 {
+    text-align: center;
+    margin-bottom: 50px;
 }
+
 h2 small {
-    font-weight:normal;
-    color:#888;
-    display:block;
+    font-weight: normal;
+    color: #888;
+    display: block;
 }
-.footer 	{ text-align:center; }
-.footer a  { color:#53B2C8; }
+
+.footer {
+    text-align: center;
+}
+
+.footer a {
+    color: #53B2C8;
+}
 
 /* form starting stylings ------------------------------- */
-.group 			  {
-    position:relative;
-    margin-bottom:45px;
+.group {
+    position: relative;
+    margin-bottom: 45px;
 }
-input 				{
-    font-size:18px;
-    padding:10px 10px 10px 5px;
-    display:block;
-    width:300px;
-    border:none;
-    border-bottom:1px solid #757575;
+
+input {
+    font-size: 18px;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    width: 300px;
+    border: none;
+    border-bottom: 1px solid #757575;
 }
-input:focus 		{ outline:none; }
+
+input:focus {
+    outline: none;
+}
 
 /* LABEL ======================================= */
-label 				 {
-    color:#999;
-    font-size:18px;
-    font-weight:normal;
-    position:absolute;
-    pointer-events:none;
-    left:5px;
-    top:10px;
-    transition:0.2s ease all;
-    -moz-transition:0.2s ease all;
-    -webkit-transition:0.2s ease all;
+label {
+    color: #999;
+    font-size: 18px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 5px;
+    top: 10px;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
 }
 
 /* active state */
-input:focus ~ label, input:valid ~ label 		{
-    top:-20px;
-    font-size:14px;
-    color:#5264AE;
+input:focus ~ label, input:valid ~ label {
+    top: -20px;
+    font-size: 14px;
+    color: #5264AE;
 }
-
 
 /* BOTTOM BARS ================================= */
-.bar 	{ position:relative; display:block; width:100%; }
-.bar:before, .bar:after 	{
-    content:'';
-    height:2px;
-    width:0;
-    bottom:1px;
-    position:absolute;
-    background:#5264AE;
-    transition:0.2s ease all;
-    -moz-transition:0.2s ease all;
-    -webkit-transition:0.2s ease all;
+.bar {
+    position: relative;
+    display: block;
+    width: 100%;
 }
+
+.bar:before, .bar:after {
+    content: '';
+    height: 2px;
+    width: 0;
+    bottom: 1px;
+    position: absolute;
+    background: #5264AE;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
 .bar:before {
-    left:50%;
+    left: 50%;
 }
+
 .bar:after {
-    right:50%;
+    right: 50%;
 }
 
 /* active state */
 input:focus ~ .bar:before, input:focus ~ .bar:after {
-    width:50%;
+    width: 50%;
 }
 
 /* HIGHLIGHTER ================================== */
 .highlight {
-    position:absolute;
-    height:60%;
-    width:100px;
-    top:25%;
-    left:0;
-    pointer-events:none;
-    opacity:0.5;
+    position: absolute;
+    height: 60%;
+    width: 100px;
+    top: 25%;
+    left: 0;
+    pointer-events: none;
+    opacity: 0.5;
 }
 
 /* active state */
 input:focus ~ .highlight {
-    -webkit-animation:inputHighlighter 0.3s ease;
-    -moz-animation:inputHighlighter 0.3s ease;
-    animation:inputHighlighter 0.3s ease;
+    -webkit-animation: inputHighlighter 0.3s ease;
+    -moz-animation: inputHighlighter 0.3s ease;
+    animation: inputHighlighter 0.3s ease;
 }
 
 /* ANIMATIONS ================ */
 @-webkit-keyframes inputHighlighter {
-    from { background:#5264AE; }
-    to 	{ width:0; background:transparent; }
+    from {
+        background: #5264AE;
+    }
+    to {
+        width: 0;
+        background: transparent;
+    }
 }
+
 @-moz-keyframes inputHighlighter {
-    from { background:#5264AE; }
-    to 	{ width:0; background:transparent; }
+    from {
+        background: #5264AE;
+    }
+    to {
+        width: 0;
+        background: transparent;
+    }
 }
+
 @keyframes inputHighlighter {
-    from { background:#5264AE; }
-    to 	{ width:0; background:transparent; }
+    from {
+        background: #5264AE;
+    }
+    to {
+        width: 0;
+        background: transparent;
+    }
 }
-.myinput{
+
+.myinput {
     width: 100%;
 }
-.material-item{
+
+.material-item {
     color: white;
     border: none;
     background-color: #03a9f4;
@@ -371,25 +398,25 @@ input:focus ~ .highlight {
 
 }
 
-
-.footer-section{
+.footer-section {
     padding-top: 32px;
     padding-bottom: 32px;
     color: white;
     background-color: #03a9f4;
 }
 
-
-.strip{
+.strip {
     padding-bottom: 16px;
     padding-top: 16px;
     list-style: none;
-    margin-right:40px;
+    margin-right: 40px;
     border-bottom: 1px solid #e6e6e6;
 }
-.selengkapnya{
-    float:right;
+
+.selengkapnya {
+    float: right;
 }
-pre{
-text-align:start;
+
+pre {
+    text-align: start;
 }
