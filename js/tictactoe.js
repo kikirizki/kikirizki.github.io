@@ -46,7 +46,7 @@ function CreateCanvas(){
     var ticdiv = document.getElementById('tictac')
 
     cvs = document.createElement('canvas');
-    cvs.style.position = 'absolute';
+    cvs.style.position = 'relative';
     cvs.style.top = cvs.style.left = cvs.style.bottom = cvs.style.right = 0;
 
     ctx = cvs.getContext('2d');
