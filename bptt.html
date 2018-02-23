@@ -95,15 +95,21 @@ text-align:justify;
                 <hr>
                 <div>
                     <p>
-                        Ada perbedaan antara <i>backpropagation</i> pada <i>recurrent neural network</i> dengan <i>backpropagation</i>
-                        pada <i>multi layer perceptron</i> karena pada RNN terdapat koneksi siklis
-                        seperti yang ditampilkan pada gambar
+                        Jaringan saraf tiruan seperti MLP dan CNN dapat menyelesaikan berbagai permasalahan
+                        seperti klasifikasi gambar dengan baik. Tetapi kedua jenis jaringan saraf tersebut sulit
+                        digunakan untuk menyelesaikan permasalahan <i>time series</i> dimana input data bergantung pada
+                        data sebelumnya. Contoh nyatanya adalah memprediksi kata
+                        pada kalimat berdasarkan pada kata sebelumnya, misalnya kita ingin memprediksi kata apa yang
+                        muncul setelah potongan kalimat berikut ini "hallo apa ... ". Kata selanjutnya (yang ingin diprediksi) dipengaruhi oleh kata sebelumnya yaitu "halo" dan
+                        "apa", permasalahn ini dapat diselesaikan menggunakan <i>recurrent neural network</i> (RNN). Karena  perbedaan
+                        topologi maka terdapat perbedaan antara <i>backpropagation</i> pada <i>recurrent neural network</i> dengan <i>backpropagation</i>
+                        pada <i>multi layer perceptron</i>. Arsitektur RNN dapat dilihat pada gambar berikut ini.
 
-                        <img src="https://kikirizki.github.io/images/rnnrolled.png" alt="peceptron" width="140"
-                             height="138"/>
+                        <p style="align-content: center"><img src="https://kikirizki.github.io/images/rnnrolled.png" alt="peceptron" width="180"
+                                height="auto"/></p>
                       </p>
                     <p><img src="http://neuralnetworksanddeeplearning.com/images/tikz9.png" alt="peceptron" width="280"
-                            height="138"/></p>
+                            height="180"/></p>
                     <p><img/> 
                         Kita dapat dapat membayangkan perceptron sebagai fungsi yang memetakan vektor berdimensi-$n$ ke skalar. 
                         Pada gambar diatas vektor input adalah vektor $\textbf{x}$ dengan elemen $x_1,x_2,x_3$ , Rossenbalt memperkenalkan
