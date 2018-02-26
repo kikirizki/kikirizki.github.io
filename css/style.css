@@ -7,6 +7,9 @@ canvas {
 }
 
 /*navigationbar style begin*/
+li{
+    margin:12px;
+}
 #nav {
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
