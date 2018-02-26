@@ -155,6 +155,61 @@ script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')-->
                         akibatnya untuk menghitung $\frac{\partial E_t}{\partial \boldsymbol{U}}$ dan $\frac{\partial E_t}{\partial \boldsymbol{V}}$ kita harus
                         menghitungnya secara rekursif
                     </p>
+                    <p>
+                    <h4>Turunan parsial fungsi error terhadap $\boldsymbol{V}$</h4>
+                        Untuk menghitung turunan $L$ terhadap $W_{ij}$ kita akan menghitung $\frac{\partial E_t}{\partial \boldsymbol{V}_{ij}}$ terlebih dahulu
+
+                        $$\frac{\partial E_t}{\partial V_{ij}}=\frac{\partial E_t}{\partial \hat{y}^t_k}\frac{\partial  \hat{y}^t_k}{\partial q^t_{l}}\frac{\partial q^t_{l}}{\partial V_{ij}}$$
+                        $$\frac{\partial E_t}{\partial \hat{y}^t_k}=-\frac{y^t_k}{\hat{y}^t_k}$$
+
+                        untuk $\frac{\partial \hat{y}^t_k}{\partial q^{t}_l}$
+                        kita dapat bagi permasalah menjadi dua yaitu untuk $k \neq l$ dan $k=l$
+                        \\
+                        $k\neq l$
+                        \\
+
+                        \begin{equation}
+                        \begin{aligned}
+                        \frac{\partial \hat{y}^t_k}{\partial q^t_l} &=\frac{0-\exp{(q^t_k)}\exp{(q^t_l)}}{({\sum_i \exp{(q^t_i}))}^2}\\
+                        &=-\hat{y}^t_k\hat{y}^t_l
+                        \end{aligned}
+                        \end{equation}
+                        \\
+                        \\
+                        for the case $k=l$
+                        \begin{equation}
+                        \begin{aligned}
+                        \frac{\partial\hat{y}^t_k}{\partial q^{t}_l}&=\frac{\partial\hat{y}^t_l}{\partial q^{t}_l}\\
+                        &=\frac{\exp{(q^t_l)}\sum_i\exp{(q^t_i)}-{(\exp{(q^t_l)})}^2}{{(\sum_i \exp{(q^t_i)})}^2}\\
+                        &={(\hat{y}^t_l-{(\hat{y}^t_l)}^2)}\\
+                        &={(1-\hat{y}^t_l)}\hat{y}^t_l\\
+                        \frac{\partial\hat{y}^t_k}{\partial q^{t}_l}&=\begin{cases}
+                        -\hat{y}^t_k\hat{y}^t_l & k\neq l\\
+                        {(1-\hat{y}^t_l)}\hat{y}^t_l & k = l
+                        \end{cases}
+                        \end{aligned}
+                        \end{equation}
+                        $$q^t_l=V_{lm}s^t_m$$
+
+
+                        \begin{equation}
+                        \begin{aligned}
+                        \frac{\partial q^t_l}{\partial V_{ij}}&=\frac{\partial V_{lm}s^t_m}{\partial V_{ij}}\\
+                        &=\delta_{jm}\delta_{il}s_m^t\\
+                        &=\delta_{il}s_j^t\\
+                        \frac{\partial E_t}{\partial q^t_l}&=\frac{\partial E_t}{\partial\hat{y}^t_k}\\
+                        &=-\frac{y^t_l}{\hat{y}^t_l}(1-\hat{y}^t_l)\hat{y}^t_l+\sum_{k \neq l} \frac{y^t_k}{\hat{y}^t_k}\hat{y}^t_k\hat{y}^t_l\\
+                        &=y^t_l\hat{y}^t_l-y^t_l+\hat{y}^t_l\sum_{k \neq l}y^t_k\\
+                        &=\hat{y}^t_l\sum_k y^t_k-y^t_l\\
+                        &=(\hat{y}^t_l-y^t_l) since \sum_{k} y^t_k=1.0\\
+                        \end{aligned}
+                        \end{equation}
+                        \\
+                        $$\frac{\partial E_t}{\partial V_{ij}}=(\hat{y}^t_l-y^t_l)\delta_{il}s^t_j$$
+                        $$=(\hat{y}^t_i-y^t_i)s^t_j$$
+                        $$\frac{\partial E_t}{\partial \boldsymbol{ V}}=(\boldsymbol{\hat{y}}^t-\boldsymbol{y}^t)\otimes \boldsymbol{s}^t$$
+
+                    </p>
 
 
                 </div>
