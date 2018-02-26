@@ -11,6 +11,7 @@
     <script type="text/x-mathjax-config">MathJax.Hub.Config({
 tex2jax: {inlineMath: [['$','$'], ['\\\\(','\\)']]}
 });
+
     </script><!-- Bootstrap-->
     <!--<base href="https://kikirizki.github.io">-->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -21,39 +22,44 @@ tex2jax: {inlineMath: [['$','$'], ['\\\\(','\\)']]}
 script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')-->
     <link rel="stylesheet" href="css/style.css">
     <script>window.console = window.console || function (t) {
-};
+    };
     </script><!-- if lte IE 10link(rel='stylesheet', type='text/css', href='flippingcircle/css/fallback.css')--><!--if lte IE 8style.
 .main{display:none;} .support-note .note-ie{display:block;}-->
     <style>#Container {
-    width: 500px;
-    height: 600px;
-    position: relative
-}
-#TheElement {
-    width: 500px;
-    height: 100px;
-    background-color: #000000;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-}
+        width: 500px;
+        height: 600px;
+        position: relative
+    }
 
-.nav > li > a {
-    color: white;
-}
-a{
-color:#03a9f4;
-}
-nav{
-    background-color:#03a9f4;
-}
-p{
-text-align:justify;
-}
-.navbar-raised {
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-    background-color:#03a9f4;
-}
+    #TheElement {
+        width: 500px;
+        height: 100px;
+        background-color: #000000;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+
+    .nav > li > a {
+        color: white;
+    }
+
+    a {
+        color: #03a9f4;
+    }
+
+    nav {
+        background-color: #03a9f4;
+    }
+
+    p {
+        text-align: justify;
+    }
+
+    .navbar-raised {
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+        background-color: #03a9f4;
+    }
 
     </style>
 </head>
@@ -97,74 +103,50 @@ text-align:justify;
                     <p>
                         Jaringan saraf tiruan seperti MLP dan CNN dapat menyelesaikan berbagai permasalahan
                         seperti klasifikasi gambar dengan baik. Tetapi kedua jenis jaringan saraf tersebut sulit
-                        digunakan untuk menyelesaikan permasalahan <i>time series</i> dimana input data bergantung pada
+                        digunakan untuk menyelesaikan permasalahan runtun waktu (<i>time series</i>) dimana input data
+                        bergantung pada
                         data sebelumnya. Contoh nyatanya adalah memprediksi kata
                         pada kalimat berdasarkan pada kata sebelumnya, misalnya kita ingin memprediksi kata apa yang
-                        muncul setelah potongan kalimat berikut ini "hallo apa ... ". Kata selanjutnya (yang ingin diprediksi) dipengaruhi oleh kata sebelumnya yaitu "halo" dan
-                        "apa", permasalahn ini dapat diselesaikan menggunakan <i>recurrent neural network</i> (RNN). Karena  perbedaan
-                        topologi maka terdapat perbedaan antara <i>backpropagation</i> pada <i>recurrent neural network</i> dengan <i>backpropagation</i>
-                        pada <i>multi layer perceptron</i>. Arsitektur RNN dapat dilihat pada gambar berikut ini.
+                        muncul setelah potongan kalimat berikut ini "hallo apa ... ". Kata selanjutnya (yang ingin
+                        diprediksi) dipengaruhi oleh kata sebelumnya yaitu "halo" dan
+                        "apa", permasalahn ini dapat diselesaikan menggunakan <i>recurrent neural network</i> (RNN).
 
-                        <p style="align-content: center"><img src="https://kikirizki.github.io/images/rnnrolled.png" alt="peceptron" width="180"
-                                height="auto"/></p>
-                      </p>
-                    <p><img src="http://neuralnetworksanddeeplearning.com/images/tikz9.png" alt="peceptron" width="280"
-                            height="180"/></p>
-                    <p><img/> 
-                        Kita dapat dapat membayangkan perceptron sebagai fungsi yang memetakan vektor berdimensi-$n$ ke skalar. 
-                        Pada gambar diatas vektor input adalah vektor $\textbf{x}$ dengan elemen $x_1,x_2,x_3$ , Rossenbalt memperkenalkan
-                        aturan sederhana untuk menghitung output, dia memeperkenalkan istilah "bobot", bobot adalah
-                        bilangan real yang menunjukan pengaruh input tertentu terhadap output perhatikan gambar berikut.
-                        Output dari perceptron dihitung sebagai berikut $output = g(\sum^{3}_{i=1}x_iw_i+w_0)$ dimana $g(.)$ adalah sebuah fungsi
-                        yang biasa disebut fungsi aktifasi.
+                    <p style="align-content: center">
+                        <img src="https://kikirizki.github.io/images/rnnrolled.png" alt="peceptron" width="180"
+                             height="auto"/>
                     </p>
-                    <p><img src="https://blog.dbrgn.ch/images/2013/3/26/perceptron.png" alt="perceptron with weight"
-                            width="397" height="262"/></p>
-                
-
-                     <p>Untuk memberikan intuisi bagaimana <em>perceptron</em> bekerja marilah kita simak ilustrasi berikut. Misalkan dalam kontes pencarian bakat,
-                        juri menentukan kriteria kelulusan kontestan berdasarkan pada tiga kriteria yaitu penampilan, vokal dan penjiwaan misalnya nilai
-                        penampilan, vokal dan penjiwaan beruturut-turut ditulis sebagai $x_1,x_2,x_3$ karena kontes yang dilombakan adalah tarik suara,  
-                        juri memutuskan untuk tidak terlalu memprioritaskan penampilan sehingga bobot untuk penampilan $w_1$ memiliki nilai yang rendah
-                        misalnya $0.25$, kemudian bobot untuk vokal misalnya $0.75$ dan penjiwaan $0.5$. Misalkan seorang kontestan A memiliki nilai penampilan $0.75$ (skala dari 0 sampai 1, 1 artinya nilai sempurna), vokal $0.5$ dan penjiwaan $0.6$ apakah kontestan A akan lulus berdasarkan sistem penilaian juri. Juri harus memutuskan batas nilai untuk mencapai kelulusan misalnya dalam
-                        contoh ini batas kelulusannya adalah <em>0.75</em> jadi jika total skor bernilai lebih dari <em>0.75</em> maka kontestan lulus. Mari kita hitung $\sum^{3}_{i=1}x_iw_i+w_0=x_1w_1+x_2w_2+x_3w_3=0.75\times0.25+0.5\times0.75+0.6\times0.5+0=0.8625$ karena $0.8625\ge0.75$ maka kontestan lulus. Tunggu dulu dimana fungsi $g(.)$ ?. Dalam contoh ini fungsi $g(.)$ adalah <a href="http://epubs.siam.org/doi/abs/10.1137/1.9780898718539.ch3">fungsi threshold</a>
-yaitu fungsi memberikan output 1 jika nilai input lebih besar dari <b>0.75</b> dan 0 jika nilai input lebih kecil dari <b>0.75</b>, atau secara matematis ditulis.
-<br>
-<br>
-
-                       $  g(z) =
-  \begin{cases}
-                                   1 & \text{jika $z \ge 0.75$} \\
-                                   0 & \text{lainnya} \\
- 
-  \end{cases}$ 
-<br>
-<br>
-nilai <b>1</b> berarti kontestan lulus dan nilai <b>0</b> artinya kontestan tidak lulus. Perhatikan bahwa nilai <b>bobot</b> menentukan <b>pengaruh</b> kriteria terhadap hasil keputusan misalkan 
-penampilan miliki bobot yang rendah yaitu $w_1=0.0001$ misalkan ada dua orang (kontestan A dan B) dengan nilai vokal dan penjiwaan yang sama yaitu nilai vokal 0.6 dan nilai penjiwaan 0.7
-tetapi kontestan A memiliki penampilan sempurna yaitu 1 sementara kontestan B memiliki penampilan biasa saja yaitu 0.5. Mari kita hitung total nilai untuk kontestan A  adalah
-<br>
-<br>
-
- $\sum^{3}_{i=1}x_iw_i+w_0=x_1w_1+x_2w_2+x_3w_3=1\times0.0001+0.6\times0.75+0.7\times0.5+0=0.8000999999999999$.
-<br>
-<br>
- Sementara total nilai kontestan B 
-<br>
-<br>
-$\sum^{3}_{i=1}x_iw_i+w_0=x_1w_1+x_2w_2+x_3w_3=0.5\times0.0001+0.6\times0.75+0.7\times0.5+0=0.8000499999999999$.
-<br>
-<br>
-
-Perhatikan bahwa karena bobot kriteria penampilan sangat kecil ($w_1=0.0001$) total nilai dari kontestan A dan B memiliki selisih yang sedikit walaupun perbedaan penampilan 
-antara kontestan A dan B sangat besar. Artinya jika bobot kriteria penampilan kecil maka pengaruh penampilan terhadap total penilaian juga kecil atau dengan kata lain penampilan <b>tidak
-terlalu</b> menjadi "bahan pertimbangan". Dalam <i>deep learning</i> kriteria yang dibahas dalam contoh ini biasa disebut <i>feature</i>.   
-                     </p>
-
-                    <p>berikut ini ada beberapa sumber yang berkaitan dengan jaringan saraf tiruan</p>
-                    <p><a href="neuralnetworkanddeeplearning.com">neuralnetworkanddeeplearning.com</a>, <a
-                            href="http://www.deeplearningbook.org/">http://www.deeplearningbook.org</a>, </p>
-                    <p></p></div>
+                    </p>
+                    <p>
+                        Pada RNN $\boldsymbol{X}$ dapat berupa vektor atau deret dari vektor. Dalam permasalahan
+                        diatas potongan kalimat "halo apa ..." dapat direpresentasikan menjadi dua buah vektor
+                        kolom $\boldsymbol{x}^{(1)}$ dan $\boldsymbol{x}^{(2)}$, <i>superscript</i> $(1)$ dan $(2)$
+                        biasa disebut <i>time-step</i>. Pada praktiknya banyak cara untuk merepresentasikan
+                        kata menjadi vektor, pertama kita peringkat kata berdasarkan frekuensi kemunculannya, misalnya
+                        kata "apa" berada pada urutan ke-$5$ maka $\boldsymbol{x}^{(1)}$ (merepresentasikan kata "apa")
+                        adalah
+                        vector dimana $x^{(1)}_i=0 \forall i \neq 5$ dan $x^{(1)}_i=1$ untuk $i=5$.
+                        Pada diagram diatas $\boldsymbol{S}$ biasa disebut <i>hidden state</i>, $s$ bekerja seperti
+                        <i>memory</i> pada otak manusia. Diagram rnn diatas dapat diuraikan
+                        berdasarkan <i>time-step</i>
+                    </p>
+                    <p>
+                        <img src="https://kikirizki.github.io/images/unrolledrnn.png" alt="peceptron" width="180"
+                             height="auto"/>
+                    </p>
+                    <p>Karena perbedaan
+                        topologi maka terdapat perbedaan antara <i>backpropagation</i> pada <i>recurrent neural
+                            network</i> dengan <i>backpropagation</i>
+                        pada <i>multi layer perceptron</i>
+                        $$\begin{equation}
+                        \begin{aligned}
+                        \boldsymbol{s}^{(t)}&=\tanh{(\boldsymbol{U}\boldsymbol{x}^{(t)}+\boldsymbol{W}\boldsymbol{s}^{(t-1)})}\\
+                        \hat{\boldsymbol{y}}^{(t)}&=softmax(\boldsymbol{V}\boldsymbol{s}^{(t)})\\
+                        L(\boldsymbol{\hat{Y}},\boldsymbol{Y})&=\sum_t E_t\\
+                        E_t&=-\boldsymbol{y}^{t}\bullet\log\boldsymbol{\hat{y}}^{t}\\
+                        \end{aligned}
+                        \end{equation}$$
+                    </p>
+                </div>
             </div>
         </div>
     </div>
@@ -194,12 +176,12 @@ terlalu</b> menjadi "bahan pertimbangan". Dalam <i>deep learning</i> kriteria ya
 </script>
 <script src="js/scroll.js"></script>
 <script>$('.card-button').click(function () {
-$(this).parent().toggleClass('expand');
+    $(this).parent().toggleClass('expand');
 });
 //# sourceURL=pen.js
 </script>
 <script>if (document.location.search.match(/type=embed/gi)) {
-window.parent.postMessage("resize", "*");
+    window.parent.postMessage("resize", "*");
 }
 </script>
 </body>
