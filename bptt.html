@@ -100,6 +100,7 @@ script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')-->
             <div class="page-header"><h2>Backpropagation Through Time</h2>
                 <hr>
                 <div>
+                    <h3><i>Recurrent Neural Network</i></h3>
                     <p>
                         Jaringan saraf tiruan seperti MLP dan CNN dapat menyelesaikan berbagai permasalahan
                         seperti klasifikasi gambar dengan baik. Tetapi kedua jenis jaringan saraf tersebut sulit
@@ -130,22 +131,32 @@ script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')-->
                         berdasarkan <i>time-step</i>
                     </p>
                     <p>
-                        <img src="https://kikirizki.github.io/images/unrolledrnn.png" alt="peceptron" width="180"
+                        <img src="https://kikirizki.github.io/images/unrolledrnn.png" alt="peceptron" width="50%"
                              height="auto"/>
                     </p>
-                    <p>Karena perbedaan
-                        topologi maka terdapat perbedaan antara <i>backpropagation</i> pada <i>recurrent neural
-                            network</i> dengan <i>backpropagation</i>
-                        pada <i>multi layer perceptron</i>
+                    <p>
+                        Pada gambar diatas $\dots , \boldsymbol{x}^{(t-1)},\boldsymbol{x}^{(t)},\boldsymbol{x}^{(t+1)},\dots$
+                        dapat berupa vector atau matriks
                         $$\begin{equation}
                         \begin{aligned}
                         \boldsymbol{s}^{(t)}&=\tanh{(\boldsymbol{U}\boldsymbol{x}^{(t)}+\boldsymbol{W}\boldsymbol{s}^{(t-1)})}\\
                         \hat{\boldsymbol{y}}^{(t)}&=softmax(\boldsymbol{V}\boldsymbol{s}^{(t)})\\
-                        L(\boldsymbol{\hat{Y}},\boldsymbol{Y})&=\sum_t E_t\\
+                        L(\boldsymbol{\hat{Y}},\boldsymbol{Y})&=\sum_t E_t \\
                         E_t&=-\boldsymbol{y}^{t}\bullet\log\boldsymbol{\hat{y}}^{t}\\
-                        \end{aligned}
+                        \end{aligned}\label{a}\tag{1}
                         \end{equation}$$
                     </p>
+                    <p> <h3><i>Backpropagation Through Time</i></h3>
+                        Karena perbedaan
+                        topologi maka terdapat perbedaan antara <i>backpropagation</i> pada <i>recurrent neural
+                        network</i> dengan <i>backpropagation</i>
+                    pada <i>multi layer perceptron</i>. <i>Backpropagation</i> untuk RNN biasa disebut dengan istilah berbeda
+                    yaitu <i>backpropagation through time</i>. Perbedaannya adalah pada persamaan  $ \ref{a}$ $\boldsymbol{s}^{(t)}=f(\boldsymbol{s}^{(t-1)})$
+                        akibatnya untuk menghitung $\frac{\partial E_t}{\partial \boldsymbol{U}}$ dan $\frac{\partial E_t}{\partial \boldsymbol{V}}$ kita harus
+                        menghitungnya secara rekursif
+                    </p>
+
+
                 </div>
             </div>
         </div>
