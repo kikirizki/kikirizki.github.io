@@ -12,6 +12,7 @@
 tex2jax: {inlineMath: [['$','$'], ['\\\\(','\\)']]}
 });
 
+
     </script><!-- Bootstrap-->
     <!--<base href="https://kikirizki.github.io">-->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -135,7 +136,8 @@ script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')-->
                              height="auto"/>
                     </p>
                     <p>
-                        Pada gambar diatas $\dots , \boldsymbol{x}^{(t-1)},\boldsymbol{x}^{(t)},\boldsymbol{x}^{(t+1)},\dots$
+                        Pada gambar diatas $\dots ,
+                        \boldsymbol{x}^{(t-1)},\boldsymbol{x}^{(t)},\boldsymbol{x}^{(t+1)},\dots$
                         dapat berupa vector atau matriks
                         $$\begin{equation}
                         \begin{aligned}
@@ -146,71 +148,122 @@ script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')-->
                         \end{aligned}\label{a}\tag{1}
                         \end{equation}$$
                     </p>
-                    <p> <h3><i>Backpropagation Through Time</i></h3>
-                        Karena perbedaan
-                        topologi maka terdapat perbedaan antara <i>backpropagation</i> pada <i>recurrent neural
-                        network</i> dengan <i>backpropagation</i>
-                    pada <i>multi layer perceptron</i>. <i>Backpropagation</i> untuk RNN biasa disebut dengan istilah berbeda
-                    yaitu <i>backpropagation through time</i>. Perbedaannya adalah pada persamaan  $ \ref{a}$ $\boldsymbol{s}^{(t)}=f(\boldsymbol{s}^{(t-1)})$
-                        akibatnya untuk menghitung $\frac{\partial E_t}{\partial \boldsymbol{U}}$ dan $\frac{\partial E_t}{\partial \boldsymbol{V}}$ kita harus
-                        menghitungnya secara rekursif
+                    <p>
+                    <h3><i>Backpropagation Through Time</i></h3>
+                    Karena perbedaan
+                    topologi maka terdapat perbedaan antara <i>backpropagation</i> pada <i>recurrent neural
+                    network</i> dengan <i>backpropagation</i>
+                    pada <i>multi layer perceptron</i>. <i>Backpropagation</i> untuk RNN biasa disebut dengan istilah
+                    berbeda
+                    yaitu <i>backpropagation through time</i>. Perbedaannya adalah pada persamaan $ \ref{a}$
+                    $\boldsymbol{s}^{(t)}=f(\boldsymbol{s}^{(t-1)})$
+                    akibatnya untuk menghitung $\frac{\partial E_t}{\partial \boldsymbol{U}}$ dan $\frac{\partial
+                    E_t}{\partial \boldsymbol{V}}$ kita harus
+                    menghitungnya secara rekursif
                     </p>
                     <p>
                     <h4>Turunan parsial fungsi error terhadap $\boldsymbol{V}$</h4>
-                        Untuk menghitung turunan $L$ terhadap $W_{ij}$ kita akan menghitung $\frac{\partial E_t}{\partial \boldsymbol{V}_{ij}}$ terlebih dahulu
+                    Untuk menghitung turunan $L$ terhadap $W_{ij}$ kita akan menghitung $\frac{\partial E_t}{\partial
+                    \boldsymbol{V}_{ij}}$ terlebih dahulu
 
-                        $$\frac{\partial E_t}{\partial V_{ij}}=\frac{\partial E_t}{\partial \hat{y}^t_k}\frac{\partial  \hat{y}^t_k}{\partial q^t_{l}}\frac{\partial q^t_{l}}{\partial V_{ij}}$$
-                        $$\frac{\partial E_t}{\partial \hat{y}^t_k}=-\frac{y^t_k}{\hat{y}^t_k}$$
+                    $$\frac{\partial E_t}{\partial V_{ij}}=\frac{\partial E_t}{\partial \hat{y}^t_k}\frac{\partial
+                    \hat{y}^t_k}{\partial q^t_{l}}\frac{\partial q^t_{l}}{\partial V_{ij}}$$
+                    $$\frac{\partial E_t}{\partial \hat{y}^t_k}=-\frac{y^t_k}{\hat{y}^t_k}$$
 
-                        untuk $\frac{\partial \hat{y}^t_k}{\partial q^{t}_l}$
-                        kita dapat bagi permasalah menjadi dua yaitu untuk $k \neq l$ dan $k=l$
-                        \\
-                        $k\neq l$
-                        \\
+                    untuk $\frac{\partial \hat{y}^t_k}{\partial q^{t}_l}$
+                    kita dapat bagi permasalah menjadi dua yaitu untuk $k \neq l$ dan $k=l$
+                    <br>
+                    <b>Untuk kasus $k\neq l$</b>
+                    <br>
 
-                        \begin{equation}
-                        \begin{aligned}
-                        \frac{\partial \hat{y}^t_k}{\partial q^t_l} &=\frac{0-\exp{(q^t_k)}\exp{(q^t_l)}}{({\sum_i \exp{(q^t_i}))}^2}\\
-                        &=-\hat{y}^t_k\hat{y}^t_l
-                        \end{aligned}
-                        \end{equation}
-                        \\
-                        \\
-                        for the case $k=l$
-                        \begin{equation}
-                        \begin{aligned}
-                        \frac{\partial\hat{y}^t_k}{\partial q^{t}_l}&=\frac{\partial\hat{y}^t_l}{\partial q^{t}_l}\\
-                        &=\frac{\exp{(q^t_l)}\sum_i\exp{(q^t_i)}-{(\exp{(q^t_l)})}^2}{{(\sum_i \exp{(q^t_i)})}^2}\\
-                        &={(\hat{y}^t_l-{(\hat{y}^t_l)}^2)}\\
-                        &={(1-\hat{y}^t_l)}\hat{y}^t_l\\
-                        \frac{\partial\hat{y}^t_k}{\partial q^{t}_l}&=\begin{cases}
-                        -\hat{y}^t_k\hat{y}^t_l & k\neq l\\
-                        {(1-\hat{y}^t_l)}\hat{y}^t_l & k = l
-                        \end{cases}
-                        \end{aligned}
-                        \end{equation}
-                        $$q^t_l=V_{lm}s^t_m$$
+                    \begin{equation}
+                    \begin{aligned}
+                    \frac{\partial \hat{y}^t_k}{\partial q^t_l} &=\frac{0-\exp{(q^t_k)}\exp{(q^t_l)}}{({\sum_i
+                    \exp{(q^t_i}))}^2}\\
+                    &=-\hat{y}^t_k\hat{y}^t_l
+                    \end{aligned}
+                    \end{equation}
+                    <br>
+                    <b>Untuk kasus $k=l$</b>
+                    <br>
+                    \begin{equation}
+                    \begin{aligned}
+                    \frac{\partial\hat{y}^t_k}{\partial q^{t}_l}&=\frac{\partial\hat{y}^t_l}{\partial q^{t}_l}\\
+                    &=\frac{\exp{(q^t_l)}\sum_i\exp{(q^t_i)}-{(\exp{(q^t_l)})}^2}{{(\sum_i \exp{(q^t_i)})}^2}\\
+                    &={(\hat{y}^t_l-{(\hat{y}^t_l)}^2)}\\
+                    &={(1-\hat{y}^t_l)}\hat{y}^t_l\\
+                    \frac{\partial\hat{y}^t_k}{\partial q^{t}_l}&=\begin{cases}
+                    -\hat{y}^t_k\hat{y}^t_l & k\neq l\\
+                    {(1-\hat{y}^t_l)}\hat{y}^t_l & k = l
+                    \end{cases}
+                    \end{aligned}
+                    \end{equation}
+                    $$q^t_l=V_{lm}s^t_m$$
 
 
-                        \begin{equation}
-                        \begin{aligned}
-                        \frac{\partial q^t_l}{\partial V_{ij}}&=\frac{\partial V_{lm}s^t_m}{\partial V_{ij}}\\
-                        &=\delta_{jm}\delta_{il}s_m^t\\
-                        &=\delta_{il}s_j^t\\
-                        \frac{\partial E_t}{\partial q^t_l}&=\frac{\partial E_t}{\partial\hat{y}^t_k}\\
-                        &=-\frac{y^t_l}{\hat{y}^t_l}(1-\hat{y}^t_l)\hat{y}^t_l+\sum_{k \neq l} \frac{y^t_k}{\hat{y}^t_k}\hat{y}^t_k\hat{y}^t_l\\
-                        &=y^t_l\hat{y}^t_l-y^t_l+\hat{y}^t_l\sum_{k \neq l}y^t_k\\
-                        &=\hat{y}^t_l\sum_k y^t_k-y^t_l\\
-                        &=(\hat{y}^t_l-y^t_l) since \sum_{k} y^t_k=1.0\\
-                        \end{aligned}
-                        \end{equation}
-                        \\
-                        $$\frac{\partial E_t}{\partial V_{ij}}=(\hat{y}^t_l-y^t_l)\delta_{il}s^t_j$$
-                        $$=(\hat{y}^t_i-y^t_i)s^t_j$$
-                        $$\frac{\partial E_t}{\partial \boldsymbol{ V}}=(\boldsymbol{\hat{y}}^t-\boldsymbol{y}^t)\otimes \boldsymbol{s}^t$$
+                    \begin{equation}
+                    \begin{aligned}
+                    \frac{\partial q^t_l}{\partial V_{ij}}&=\frac{\partial V_{lm}s^t_m}{\partial V_{ij}}\\
+                    &=\delta_{jm}\delta_{il}s_m^t\\
+                    &=\delta_{il}s_j^t\\
+                    \frac{\partial E_t}{\partial q^t_l}&=\frac{\partial E_t}{\partial\hat{y}^t_k}\\
+                    &=-\frac{y^t_l}{\hat{y}^t_l}(1-\hat{y}^t_l)\hat{y}^t_l+\sum_{k \neq l}
+                    \frac{y^t_k}{\hat{y}^t_k}\hat{y}^t_k\hat{y}^t_l\\
+                    &=y^t_l\hat{y}^t_l-y^t_l+\hat{y}^t_l\sum_{k \neq l}y^t_k\\
+                    &=\hat{y}^t_l\sum_k y^t_k-y^t_l\\
+                    &=(\hat{y}^t_l-y^t_l) since \sum_{k} y^t_k=1.0\\
+                    \end{aligned}
+                    \end{equation}
+                    \\
+                    $$\frac{\partial E_t}{\partial V_{ij}}=(\hat{y}^t_l-y^t_l)\delta_{il}s^t_j$$
+                    $$=(\hat{y}^t_i-y^t_i)s^t_j$$
+                    $$\frac{\partial E_t}{\partial \boldsymbol{ V}}=(\boldsymbol{\hat{y}}^t-\boldsymbol{y}^t)\otimes
+                    \boldsymbol{s}^t$$
 
                     </p>
+                    <h4>Turunan parsial fungsi error terhadap $\boldsymbol{W}$</h4>
 
+                    <p>
+                        Misal $z^t=\boldsymbol{U}x^{t}+Ws^{t-1}$ kita dapat tulis
+                        \begin{equation}
+                        \begin{aligned}
+                        \frac{\partial E^t}{\partial z^{t}_{i}}&=\frac{\partial E^t}{\partial q^t_k}\frac{\partial q^t_k}{\partial s^t_l}\frac{\partial s^t_l}{\partial z^{t}_i}\\
+                        &=(\hat{y}^t_k-y^t_k)\frac{\partial q^t_k}{\partial s^t_l}\frac{\partial s^{t}_l}{\partial z_i^{t}}\\
+                        \end{aligned}
+                        \end{equation}
+                        dan
+                        \begin{equation}
+                        \begin{aligned}
+                        \frac{\partial q^t_k}{\partial s^t_l}&=\frac{\partial V_{kn}s^t_n}{\partial s^t_l}\\
+                        &=V_{kn}\delta_{nl}\\
+                        &=V_{kl}
+                        \end{aligned}
+                        \end{equation}
+                        maka
+                        \begin{equation}
+                        \begin{aligned}
+                        \frac{\partial E^t}{\partial z^t_i}&=(\hat{y}^t_k-y^t_k)\frac{\partial q^t_k}{\partial s^t_l}\frac{\partial s^t_l}{\partial z^{t}_i}\\
+                        &=V_{kl}(\hat{y}^t_k-y^t_k)\frac{\partial s^t_l}{\partial z^t_i}\\
+                        &=V_{kl}(\hat{y}^t_k-y^t_k)\frac{\partial {\tanh}^2{(z^t_l)}}{\partial z^t_i}\\
+                        &=V_{kl}(\hat{y}^t_k-y^t_k)(1-{\tanh}^2{(z^t_i)})\\
+                        &=V_{kl}(\hat{y}^t_k-y^t_k)(1-(s^t_i)^2)
+                        \end{aligned}
+                        \end{equation}
+                        $$\frac{\partial E^t}{\partial W_{ij}}=\frac{\partial E^t}{\partial z^t_p}\frac{\partial z^t_p}{\partial W_{ij}}$$
+                        dan
+                        \begin{equation}
+                        \begin{aligned}
+                        \frac{\partial z^t_p}{\partial W_{ij}}&=\frac{\partial U^t_{pq}x^t_q+W^t_{pq}s^{(t-1)}_q}{\partial W_{ij}}\\
+                        &=s^{(t-1)}_q\delta_{pi}\delta_{qj}\\
+                        &=s^{(t-1)}_j\delta_{pi}\\
+                        \frac{\partial E^t}{\partial W_{ij}}&=\frac{\partial E^t}{\partial z^t_p}\frac{\partial z^t_p}{\partial W_{ij}}\\
+                        &=V_{kl}(\hat{y}^t_k-y^t_k)(1-(s^t_p)^2)\frac{\partial z^t_p}{\partial W_{ij}}\\
+                        &=V_{kl}(\hat{y}^t_k-y^t_k)(1-(s^t_p)^2)s^{(t-1)}_j\delta_{pi}\\
+                        &=V_{kl}(\hat{y}^t_k-y^t_k)(1-(s^t_i)^2)s^{(t-1)}_j\\
+                        \frac{\partial E^t}{\partial\boldsymbol{W}}&=\boldsymbol{V}^{\mathsf{T}}(\hat{\boldsymbol{y}}^t-\boldsymbol{y}^t)\bullet(\boldsymbol{1}-(\boldsymbol{s}^t)^2)\otimes \boldsymbol{s}^{(t-1)}\\
+                        \end{aligned}
+                        \end{equation}
+                    </p>
 
                 </div>
             </div>
