@@ -16,8 +16,8 @@ tex2jax: {inlineMath: [['$','$'], ['\\\(','\\)']]}
 
 
 
+
     </script><!-- Bootstrap-->
-    <script src="js/tictactoe.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400, 700" rel="stylesheet" type="text/css">
@@ -29,7 +29,8 @@ script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')-->
     <link rel="stylesheet" href="css/robot.css">
     <link rel="stylesheet" href="css/tesseract.css">
     <script>window.console = window.console || function (t) {
-    };</script>
+    };
+    </script>
     <!--if lte IE 10link(rel='stylesheet', type='text/css', href='flippingcircle/css/fallback.css')--><!--if lte IE 8style.
   .main{display:none;} .support-note .note-ie{display:block;}-->
     <style>#Container {
@@ -46,6 +47,7 @@ script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')-->
         bottom: 0;
         left: 0;
     }
+
     </style>
 
 </head>
@@ -75,8 +77,10 @@ script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')-->
                         class="fa fa-google-plus fa-2x"></i></a></li>
             </ul>
         </div><!-- /.navbar-collapse--></div><!-- /.container-fluid--></nav>
-<!--<div id="bigimage" style=" height:100vh;"></div>-->
-<div id="tictac" style="position: static"></div>
+<canvas id="c"></canvas>
+
+<div id="bigimage" style=" height:100vh;"></div>
+
 
 <div id="ml" class="dark-section container-fluid">
     <div class="container">
@@ -225,35 +229,116 @@ script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')-->
         <div class="row">
             <div class="col-md-6 col-sm-12">
 
-                <div class="block">
-                    <div class="shape">
-                        <div class="cube outer">
-                            <div class="side left"></div>
-                            <div class="side right"></div>
-                            <div class="side top"></div>
-                            <div class="side bottom"></div>
-                            <div class="side front"></div>
-                            <div class="side back"></div>
+                <svg class="waveform" style="fill:none;stroke-width: .75" xmlns="http://www.w3.org/2000/svg" viewBox="0 -2 64 34"
+                     preserveAspectRatio="none">
 
+                    <path class="blue" style="stroke:rgba(255,255,255,1.0)">
+                        <animate
+                                class="animate"
+                                attributeName="d"
+                                values="
+        M0 16
+        C0 16 0 16 0 16
+        C0 16 0 16 0 16
+        C6 16 8 8 16 8
+        C24 8 24 32 32 32
+        C40 32 40 8 48 8
+        C56 8 58 16 64 16
+        ;
+        M0 16
+        C0 16 0 16 0 16
+        C6 16 8 24 16 24
+        C24 24 24 0 32 0
+        C40 0 40 24 48 24
+        C56 24 58 16 64 16
+        C64 16 64 16 64 16
+        ;
+        M0 16
+        C6 16 8 8 16 8
+        C24 8 24 32 32 32
+        C40 32 40 8 48 8
+        C56 8 58 16 64 16
+        C64 16 64 16 64 16
+        C64 16 64 16 64 16
+        "
+                                dur="2s"
+                                repeatCount="indefinite"/>
+                    </path>
 
-                            <div class="cube">
-                                <div class="side left"></div>
-                                <div class="side right"></div>
-                                <div class="side top"></div>
-                                <div class="side bottom"></div>
-                                <div class="side front"></div>
-                                <div class="side back"></div>
-                            </div>
+                    <path class="red" style="stroke:#fb8c00">
+                        <animate
+                                class="animate"
+                                attributeName="d"
+                                values="
+        M0 16
+        C6 16 8 8 16 8
+        C24 8 24 32 32 32
+        C40 32 40 8 48 8
+        C56 8 58 16 64 16
+        C64 16 64 16 64 16
+        C64 16 64 16 64 16
+        ;
+        M0 16
+        C0 16 0 16 0 16
+        C6 16 8 24 16 24
+        C24 24 24 0 32 0
+        C40 0 40 24 48 24
+        C56 24 58 16 64 16
+        C64 16 64 16 64 16
+        ;
+        M0 16
+        C0 16 0 16 0 16
+        C0 16 0 16 0 16
+        C6 16 8 8 16 8
+        C24 8 24 32 32 32
+        C40 32 40 8 48 8
+        C56 8 58 16 64 16
+        "
+                                dur="3s"
+                                repeatCount="indefinite"/>
+                    </path>
 
-                        </div>
-                    </div>
-                </div>
+                    <path class="green" style="stroke:#fffbb5">
+                        <animate
+                                class="animate"
+                                attributeName="d"
+                                values="
+        M0 16
+        C0 16 0 16 0 16
+        C0 16 0 16 0 16
+        C6 16 8 8 16 8
+        C24 8 24 32 32 32
+        C40 32 40 8 48 8
+        C56 8 58 16 64 16
+        ;
+        M0 16
+        C0 16 0 16 0 16
+        C6 16 8 24 16 24
+        C24 24 24 0 32 0
+        C40 0 40 24 48 24
+        C56 24 58 16 64 16
+        C64 16 64 16 64 16
+        ;
+        M0 16
+        C6 16 8 8 16 8
+        C24 8 24 32 32 32
+        C40 32 40 8 48 8
+        C56 8 58 16 64 16
+        C64 16 64 16 64 16
+        C64 16 64 16 64 16
+        "
+                                dur="8s"
+                                repeatCount="indefinite"/>
+                    </path>
+
+                </svg>
+
 
             </div>
             <div class="col-md-6 col-sm-12 text-center">
                 <div class="page-header"><h1>Matematika</h1></div>
                 <li><a class="white-text judul-artikel" href="https://kikirizki.github.io/ortomatriks.html">
-                    Inverse  Matriks Orthogonal
+                    Inverse Matriks Orthogonal
                 </a></li>
                 <li><a class="white-text judul-artikel" href="https://kikirizki.github.io/menggambar_box.html">
                     #
@@ -262,41 +347,7 @@ script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')-->
         </div>
     </div>
 </div>
-<div id="clang" class="dark-section container-fluid">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-sm-12"><img src="images/cprogramming.svg" class="category-image img-responsive">
-            </div>
-            <div class="col-md-6 col-sm-12 text-center">
-                <div class="page-header"><h1>Pemrograman C</h1></div>
-                <li><a class="white-text judul-artikel" href="https://kikirizki.github.io/konvolusi_c.html">
-                    #
-                </a></li>
-                <li><a class="white-text judul-artikel" href="https://kikirizki.github.io/menggambar_box.html">
-                    #
-                </a></li>
-            </div>
-        </div>
-    </div>
-</div>
-<div id="python" class="dark-section container-fluid">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-sm-12"><img style="width:50%;" src="images/pythonprogramming.svg"
-                                                 class="category-image img-responsive">
-            </div>
-            <div class="col-md-6 col-sm-12 text-center">
-                <div class="page-header"><h1>Pemrograman Python</h1></div>
-                <li><a class="white-text judul-artikel" href="https://kikirizki.github.io/konvolusi_c.html">
-                    #
-                </a></li>
-                <li><a class="white-text judul-artikel" href="https://kikirizki.github.io/menggambar_box.html">
-                    #
-                </a></li>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <div class="footer-section container-fluid">
     <div class="container">
@@ -320,12 +371,15 @@ script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.js"></script>
 
-
 <script src="js/network.js"></script>
-<script src="js/tesseract.js"></script>
+<!--<script src="js/graph.js"></script>-->
+
+
+<!--<script src="js/tesseract.js"></script>-->
 <!--<script src="js/graph.js"></script>-->
 <script>var big = document.getElementById("bigimage");
 //    big.style.height="3000px";-->
+
 
 
 </script>
@@ -336,10 +390,12 @@ script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')-->
 //# sourceURL=pen.js
 
 
+
 </script>
 <script>if (document.location.search.match(/type=embed/gi)) {
     window.parent.postMessage("resize", "*");
 }
+
 
 
 </script>
