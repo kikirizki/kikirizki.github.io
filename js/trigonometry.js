@@ -4,8 +4,8 @@ var myArc = {
   angle:0,
 
   parameters: {
-    originX:200,
-    originY:100,
+    originX:104,
+    originY:4,
     radius:100,
     largeArc:false,
     sweep:false,
@@ -33,8 +33,8 @@ var myArc = {
     $("#line-sin").attr("d","M200 350 L" + p.arcToX + " 350");
     $("#line-cos").attr("d","M350 200 L 350 " + p.arcToY);
 
-    $("#triangle-1").attr("d","M200 200 L" + p.arcToX + " " + p.arcToY + " L" + p.arcToX + " 200 L200 200");
-    $("#triangle-2").attr("d","M" + p.arcToX + " " + p.arcToY + " L200 " + p.arcToY + " L200 200");
+    $("#triangle-1").attr("d","M104 104 L" + p.arcToX + " " + p.arcToY + " L" + p.arcToX + " 104 L104 104");
+    $("#triangle-2").attr("d","M" + p.arcToX + " " + p.arcToY + " L104 " + p.arcToY + " L104 104");
   },
 
   toRad:function(deg){
