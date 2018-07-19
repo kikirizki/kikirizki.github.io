@@ -17,6 +17,9 @@ tex2jax: {inlineMath: [['$','$'], ['\\\(','\\)']]}
 
 
 
+
+
+
     </script><!-- Bootstrap-->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -30,6 +33,9 @@ script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')-->
     <link rel="stylesheet" href="css/tesseract.css">
     <script>window.console = window.console || function (t) {
     };
+
+
+
     </script>
     <!--if lte IE 10link(rel='stylesheet', type='text/css', href='flippingcircle/css/fallback.css')--><!--if lte IE 8style.
   .main{display:none;} .support-note .note-ie{display:block;}-->
@@ -47,6 +53,9 @@ script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')-->
         bottom: 0;
         left: 0;
     }
+
+
+
 
     </style>
 
@@ -77,7 +86,7 @@ script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')-->
                         class="fa fa-google-plus fa-2x"></i></a></li>
             </ul>
         </div><!-- /.navbar-collapse--></div><!-- /.container-fluid--></nav>
-<canvas id="c"></canvas>
+<canvas id="icbg-animation"></canvas>
 
 <div id="bigimage" style=" height:100vh;"></div>
 
@@ -104,115 +113,46 @@ script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')-->
 <div id="cv" class="dark-section container-fluid">
     <div class="container">
         <div class="row">
-            <div class="col-md-6 col-sm-12">
-                <svg id="robot" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 -10 960 570">
+            <div class="col-md-6 col-sm-12 text-center">
+                <svg width="210" height="210" id="jarvis-like">
+                    <defs>
+                        <filter id="light-circle">
+                            <feGaussianBlur result="blurred" in="SourceGraphic" stdDeviation="1"></feGaussianBlur>
+                        </filter>
+                        <!-- <filter id="light-triangle">
+                          <feGaussianBlur stdDeviation="2" in="SourceGraphic" result="blur2" />
+                          <feComposite in="SourceAlpha" in2="offOut" operator="arithmetic" k1="1" k2="1" k3="1" k4="0" />
+                        </filter> -->
+                    </defs>
+                    <!-- circle outer -->
+                    <circle cx="105" cy="105" r="100"
+                            style="fill: transparent;stroke: #fff;stroke-width: 2; stroke-dasharray: 50, 5"></circle>
+                    <circle cx="105" cy="105" r="95" style="fill: transparent;stroke: #fff;stroke-width: 1.5;"></circle>
+                    <!-- circle dash cool :D -->
+                    <circle cx="105" cy="105" r="80"
+                            style="fill: #20091200; stroke: #fefefe; stroke-width: 18; stroke-dasharray: 2,2.29;">
+                        <animateTransform attributeName="transform" attributtype="XML" type="rotate" from="0 105 105"
+                                          to="360 105 105" dur="10s" repeatCount="indefinite"></animateTransform>
+                    </circle>
+                    <circle cx="105" cy="105" r="61" transform="rotate(0 105 105)"
+                            style="fill: transparent; stroke: #ffffff; stroke-width: 2; stroke-dasharray: 50, 25">
+                        <animateTransform attributeName="transform" attributtype="XML" type="rotate" from="0 105 105"
+                                          to="-360 105 105" dur="10s" repeatCount="indefinite"></animateTransform>
 
-                    <g class="head">
-                        <g class="levitate">
-                            <!-- Top of Head -->
-                            <path fill="rgb(220,220,210)"
-                                  d="M480.5,9.545C436.011,9.545,400,45.61,400,90.1V166h161V90.1C561,45.61,524.989,9.545,480.5,9.545z"/>
-                            <path fill="#FFFFFF"
-                                  d="M480,10h9.04c-2.807-0.296-5.654-0.455-8.54-0.455C436.011,9.545,400,45.61,400,90.1V166h80V10z"/>
-                        </g>
-                    </g>
+                    </circle>
+                    <!-- circle inner -->
+                    <circle cx="105" cy="105" r="50"
+                            style="fill: transparent; stroke: #fffffc; stroke-width: 15;filter: url(#light-circle);"></circle>
+                    <circle cx="105" cy="105" r="40"
+                            style="fill: transparent; stroke: #FFC67E; stroke-width: 15px;"></circle>
 
-                    <!-- Background Smoke -->
-                    <g class="smoke-group">
-                        <circle class="smoke delay-2" fill="#FAC784" cx="441" cy="484.667" r="22.167"/>
-                        <circle class="smoke delay-3" fill="#FFD97F" cx="455" cy="510" r="42.5"/>
-                        <circle class="smoke delay-4" fill="#FAC784" cx="508.258" cy="486.763" r="25.263"/>
-                    </g>
-
-                    <g class="lean">
-                        <g class="levitate">
-                            <!-- Jet Stream -->
-                            <rect x="455" y="348" fill="#FFFBB5" width="54" height="163"/>
-                            <polygon class="flame" fill="#FFD97F" points="469.333,328 493.667,328 481.63,460.667 "/>
-
-                            <!-- Jet Pack -->
-                            <g>
-                                <rect x="442" y="276" fill="#CCCCCC" width="39" height="65"/>
-                                <circle fill="#CCCCCC" cx="461.001" cy="277.087" r="19.427"/>
-                                <rect x="481" y="276" fill="#CCCCCC" width="38" height="65"/>
-                                <circle fill="#CCCCCC" cx="500.307" cy="277.087" r="19.427"/>
-                                <polygon fill="#CCCCCC" points="508.885,348 454.731,348 468.616,335 494.998,335 	"/>
-                            </g>
-
-                            <!-- Arms -->
-                            <path class="arm" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="square"
-                                  stroke-linejoin="round" stroke-miterlimit="10" d="
-          M434.833,320.333c0,0,0.143-8.807-0.911-32.76"/>
-                            <path class="arm delay-4" fill="none" stroke="#ffffff" stroke-width="5"
-                                  stroke-linecap="square"
-                                  stroke-linejoin="round" stroke-miterlimit="10" d="
-          M527.28,287.573c-1.054,23.953-0.911,32.76-0.911,32.76"/>
-
-                            <!-- Shoulders -->
-                            <circle fill="#FFFFFF" cx="515.25" cy="279" r="17.75"/>
-                            <circle fill="#FFFFFF" cx="447.25" cy="279" r="17.75"/>
-
-                            <!-- Body -->
-                            <rect x="447" y="241" fill="#fb8c00" width="67" height="65"/>
-
-                            <!-- Right Leg -->
-                            <g class="leg">
-                                <path fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="square"
-                                      stroke-linejoin="round"
-                                      stroke-miterlimit="10" d="
-          M463.833,359.333c0,0,0.143-8.807-0.911-32.76"/>
-
-                                <!-- Foot -->
-                                <path fill="#fb8c00" d="M479.311,361.396c-8.956-6.462-21.476-4.682-28.235,4.143c-6.759,8.823-5.219,21.372,3.351,28.339
-              L479.311,361.396z"/>
-                            </g>
-
-                            <!-- Left Leg -->
-                            <g class="leg delay-6">
-                                <path fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="square"
-                                      stroke-linejoin="round"
-                                      stroke-miterlimit="10" d="
-          M499.28,326.573c-1.054,23.953-0.911,32.76-0.911,32.76"/>
-
-                                <!-- Foot -->
-                                <path fill="#fb8c00" d="M510.386,393.843c8.519-7.028,9.965-19.592,3.139-28.363c-6.827-8.773-19.359-10.458-28.266-3.93
-            L510.386,393.843z"/>
-                            </g>
-
-                            <!-- Body -->
-                            <circle fill="#fb8c00" cx="480.5" cy="305.5" r="33.5"/>
-                        </g>
-                    </g>
-
-                    <!-- Smoke -->
-                    <g class="smoke-group">
-                        <circle class="smoke delay-8" fill="#FFD97F" cx="419" cy="517.193" r="22.193"/>
-                        <circle class="smoke delay-6" fill="#FAC784" cx="555" cy="517.193" r="22.193"/>
-                        <circle class="smoke delay-7" fill="#FFD97F" cx="527.28" cy="505.667" r="33.72"/>
-                        <circle class="smoke delay-5" fill="#FFD97F" cx="485.251" cy="514.063" r="36.877"/>
-                    </g>
-
-                    <g class="head">
-                        <g class="levitate">
-                            <!-- Lower Jaw -->
-                            <g>
-                                <path fill="#FFFFFF" d="M370.065,176c-0.001,0-0.004-0.065-0.004,0.028c0,48.908,44.819,88.43,100.106,88.43
-            c55.286,0,100.105-39.46,100.105-88.368c0-0.093-0.004-0.09-0.004-0.09H370.065z"/>
-                            </g>
-
-                            <!-- Eyes -->
-                            <circle fill="#fb8c00" stroke="#06C194" stroke-width="5" stroke-miterlimit="10" cx="480.235"
-                                    cy="141.86"
-                                    r="14.015"/>
-                            <circle fill="#fb8c00" stroke="#06C194" stroke-width="5" stroke-miterlimit="10" cx="444.377"
-                                    cy="141.86"
-                                    r="14.015"/>
-                        </g>
-                    </g>
+                    <circle cx="105" cy="105" r="30" style="fill: #fb8c00; stroke: #fb8c00; stroke-width: 2"></circle>
+                    <!-- triangle primary -->
                 </svg>
+
             </div>
             <div class="col-md-6 col-sm-12 text-center">
-                <div class="page-header"><h1>Implementasi DL</h1></div>
+                <div class="page-header"><h1>Computer Vision</h1></div>
                 <li><a class="white-text judul-artikel" href="https://kikirizki.github.io/konvolusi_c.html">
                     Implementasi Konvolusi Menggunakan bahasa C
                 </a></li>
@@ -227,113 +167,38 @@ script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')-->
 <div id="math" class="dark-section container-fluid">
     <div class="container">
         <div class="row">
-            <div class="col-md-6 col-sm-12">
+            <div class="col-md-6 col-sm-12 text-center">
+            <svg width="400" height="400" style="stroke-width: 4;">
+                    <rect x="100" y="100" width="200" height="200" stroke="#5577aa" fill="transparent" style="stroke: white;"></rect>
+                    <path d="M200 100 L200 300 M100 200 L300 200" stroke="#5577aa" fill="transparent" style="stroke: white;stroke-width: 1;"></path>
+                    <text x="200" y="90" font-family="sans-serif" font-size="15" text-anchor="middle" fill="white">0º
+                    </text>
+                    <text x="310" y="205" font-family="sans-serif" font-size="15" fill="white">90º</text>
+                    <text x="200" y="320" font-family="sans-serif" font-size="15" text-anchor="middle" fill="white">
+                        180º
+                    </text>
+                    <text x="90" y="205" font-family="sans-serif" font-size="15" text-anchor="end" fill="white">360º
+                    </text>
 
-                <svg class="waveform" style="fill:none;stroke-width: .75" xmlns="http://www.w3.org/2000/svg" viewBox="0 -2 64 34"
-                     preserveAspectRatio="none">
+                    <!-- Arc -->
+                    <path d="M200 100 A 100 100, 0, 0, 1, 245.39904997395467 289.1006524188368" fill="transparent" stroke="white" id="my-arc-01"></path>
 
-                    <path class="blue" style="stroke:rgba(255,255,255,1.0)">
-                        <animate
-                                class="animate"
-                                attributeName="d"
-                                values="
-        M0 16
-        C0 16 0 16 0 16
-        C0 16 0 16 0 16
-        C6 16 8 8 16 8
-        C24 8 24 32 32 32
-        C40 32 40 8 48 8
-        C56 8 58 16 64 16
-        ;
-        M0 16
-        C0 16 0 16 0 16
-        C6 16 8 24 16 24
-        C24 24 24 0 32 0
-        C40 0 40 24 48 24
-        C56 24 58 16 64 16
-        C64 16 64 16 64 16
-        ;
-        M0 16
-        C6 16 8 8 16 8
-        C24 8 24 32 32 32
-        C40 32 40 8 48 8
-        C56 8 58 16 64 16
-        C64 16 64 16 64 16
-        C64 16 64 16 64 16
-        "
-                                dur="2s"
-                                repeatCount="indefinite"/>
-                    </path>
+                    <!-- Sin -->
+                    <path d="M100 350 L300 350" stroke="#5577aa" fill="transparent" style="stroke: white;"></path>
+                    <path d="M200 350 L245.39904997395467 350" stroke="white" id="line-sin" fill="transparent" style="stroke: #fb8c00;"></path>
+                    <text x="200" y="370" font-family="sans-serif" font-size="15" text-anchor="middle" fill="white">
+                        Sin
+                    </text>
+                    <text x="310" y="355" font-family="sans-serif" font-size="15" fill="white">1</text>
+                    <text x="90" y="355" font-family="sans-serif" font-size="15" text-anchor="end" fill="white">-1
+                    </text>
 
-                    <path class="red" style="stroke:#fb8c00">
-                        <animate
-                                class="animate"
-                                attributeName="d"
-                                values="
-        M0 16
-        C6 16 8 8 16 8
-        C24 8 24 32 32 32
-        C40 32 40 8 48 8
-        C56 8 58 16 64 16
-        C64 16 64 16 64 16
-        C64 16 64 16 64 16
-        ;
-        M0 16
-        C0 16 0 16 0 16
-        C6 16 8 24 16 24
-        C24 24 24 0 32 0
-        C40 0 40 24 48 24
-        C56 24 58 16 64 16
-        C64 16 64 16 64 16
-        ;
-        M0 16
-        C0 16 0 16 0 16
-        C0 16 0 16 0 16
-        C6 16 8 8 16 8
-        C24 8 24 32 32 32
-        C40 32 40 8 48 8
-        C56 8 58 16 64 16
-        "
-                                dur="3s"
-                                repeatCount="indefinite"/>
-                    </path>
 
-                    <path class="green" style="stroke:#fffbb5">
-                        <animate
-                                class="animate"
-                                attributeName="d"
-                                values="
-        M0 16
-        C0 16 0 16 0 16
-        C0 16 0 16 0 16
-        C6 16 8 8 16 8
-        C24 8 24 32 32 32
-        C40 32 40 8 48 8
-        C56 8 58 16 64 16
-        ;
-        M0 16
-        C0 16 0 16 0 16
-        C6 16 8 24 16 24
-        C24 24 24 0 32 0
-        C40 0 40 24 48 24
-        C56 24 58 16 64 16
-        C64 16 64 16 64 16
-        ;
-        M0 16
-        C6 16 8 8 16 8
-        C24 8 24 32 32 32
-        C40 32 40 8 48 8
-        C56 8 58 16 64 16
-        C64 16 64 16 64 16
-        C64 16 64 16 64 16
-        "
-                                dur="8s"
-                                repeatCount="indefinite"/>
-                    </path>
 
+                    <!-- Triangle -->
+                    <path d="M200 200 L245.39904997395467 289.1006524188368 L245.39904997395467 200 L200 200" stroke="#6688cc" stroke-width="2" id="triangle-1" fill="transparent" style="stroke: #fb8c00;fill: #fb8c00;"></path>
+                    <path d="M245.39904997395467 289.1006524188368 L200 289.1006524188368 L200 200" stroke="#6688cc" stroke-width="2" id="triangle-2" fill="transparent" style="stroke: #fb8c00;/*! fill: white; */"></path>
                 </svg>
-
-
             </div>
             <div class="col-md-6 col-sm-12 text-center">
                 <div class="page-header"><h1>Matematika</h1></div>
@@ -372,13 +237,16 @@ script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.js"></script>
 
 <script src="js/network.js"></script>
-<!--<script src="js/graph.js"></script>-->
+<script src="js/trigonometry.js"></script>
 
 
 <!--<script src="js/tesseract.js"></script>-->
 <!--<script src="js/graph.js"></script>-->
 <script>var big = document.getElementById("bigimage");
 //    big.style.height="3000px";-->
+
+
+
 
 
 
@@ -391,10 +259,16 @@ script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')-->
 
 
 
+
+
+
 </script>
 <script>if (document.location.search.match(/type=embed/gi)) {
     window.parent.postMessage("resize", "*");
 }
+
+
+
 
 
 
