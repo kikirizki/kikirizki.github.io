@@ -12,14 +12,6 @@
 tex2jax: {inlineMath: [['$','$'], ['\\\(','\\)']]}
 });
 
-
-
-
-
-
-
-
-
     </script><!-- Bootstrap-->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -35,29 +27,10 @@ script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')-->
     };
 
 
-
     </script>
     <!--if lte IE 10link(rel='stylesheet', type='text/css', href='flippingcircle/css/fallback.css')--><!--if lte IE 8style.
   .main{display:none;} .support-note .note-ie{display:block;}-->
-    <style>#Container {
-        width: 500px;
-        height: 600px;
-        position: relative
-    }
 
-    #TheElement {
-        width: 500px;
-        height: 100px;
-        background-color: #000000;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-    }
-
-
-
-
-    </style>
 
 </head>
 <body>
@@ -77,7 +50,7 @@ script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')-->
                 </li>
                 <li><a href="#cv" class="white-when-scroll">Computer Vision</a></li>
                 <li><a href="#math" class="white-when-scroll">Matematika</a></li>
-               
+
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="https://github.com/kikirizki"><i class="fa fa-github fa-2x"></i></a></li>
@@ -86,7 +59,7 @@ script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')-->
             </ul>
         </div><!-- /.navbar-collapse--></div><!-- /.container-fluid--></nav>
 
-<div id="bigimage" style="background:white;height:86px" >
+<div id="bigimage" style="background:white;height:86px">
 
 </div>
 
@@ -119,15 +92,12 @@ script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')-->
                         <filter id="light-circle">
                             <feGaussianBlur result="blurred" in="SourceGraphic" stdDeviation="1"></feGaussianBlur>
                         </filter>
-                        <!-- <filter id="light-triangle">
-                          <feGaussianBlur stdDeviation="2" in="SourceGraphic" result="blur2" />
-                          <feComposite in="SourceAlpha" in2="offOut" operator="arithmetic" k1="1" k2="1" k3="1" k4="0" />
-                        </filter> -->
+
                     </defs>
                     <!-- circle outer -->
                     <circle cx="105" cy="105" r="100"
                             style="fill: transparent;stroke: #fff;stroke-width: 2; stroke-dasharray: 50, 5"></circle>
-                    <circle cx="105" cy="105" r="95" style="fill: transparent;stroke: #fff;stroke-width: 1.5;"></circle>
+                    <circle cx="105" cy="105" r="95" style="fill: transparent;stroke: #fff;stroke-width:1.5;"></circle>
                     <!-- circle dash cool :D -->
                     <circle cx="105" cy="105" r="80"
                             style="fill: #20091200; stroke: #fefefe; stroke-width: 18; stroke-dasharray: 2,2.29;">
@@ -168,36 +138,21 @@ script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')-->
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-sm-12 text-center">
-      <svg style="stroke-width: 4;" width="210" height="210">
-                    <rect stroke="#5577aa" fill="transparent" style="stroke: white;" x="4" y="4" width="200" height="200"></rect>
-                    <path stroke="#5577aa" fill="transparent" style="stroke: white;stroke-width: 1;" d="M104 4 L104 200 M4 104 L200 104"></path>
-                    <!--<text x="200" y="90" font-family="sans-serif" font-size="15" text-anchor="middle" fill="white">0º-->
-                    <!--</text>-->
-                    <!--<text x="310" y="205" font-family="sans-serif" font-size="15" fill="white">90º</text>-->
-                    <!--<text x="200" y="320" font-family="sans-serif" font-size="15" text-anchor="middle" fill="white">-->
-                        <!--180º-->
-                    <!--</text>-->
-                    <!--<text x="90" y="205" font-family="sans-serif" font-size="15" text-anchor="end" fill="white">360º-->
-                    <!--</text>-->
+                <svg style="stroke-width: 4;" width="210" height="210">
+                    <rect stroke="#5577aa" fill="transparent" style="stroke: white;" x="4" y="4" width="200"
+                          height="200"></rect>
+                    <path stroke="#5577aa" fill="transparent" style="stroke: white;stroke-width: 1;"
+                          d="M104 4 L104 200 M4 104 L200 104"></path>
 
-                    <!-- Arc -->
-                    <path fill="transparent" stroke="white" id="my-arc-01" d="M104 100 A 100 100, 0, 0, 1, 200 175"></path>
-
-                    <!-- Sin -->
-                    <!--<path d="M100 350 L300 350" stroke="#5577aa" fill="transparent" style="stroke: white;"></path>-->
-                    <!--<path d="M200 350 L245.39904997395467 350" stroke="white" id="line-sin" fill="transparent" style="stroke: #fb8c00;"></path>-->
-                    <!--<text x="200" y="370" font-family="sans-serif" font-size="15" text-anchor="middle" fill="white">-->
-                        <!--Sin-->
-                    <!--</text>-->
-                    <!--<text x="310" y="355" font-family="sans-serif" font-size="15" fill="white">1</text>-->
-                    <!--<text x="90" y="355" font-family="sans-serif" font-size="15" text-anchor="end" fill="white">-1-->
-                    <!--</text>-->
-
-
-
+                    <path fill="transparent" stroke="white" id="my-arc-01"
+                          d="M104 100 A 100 100, 0, 0, 1, 200 175"></path>
                     <!-- Triangle -->
-                    <path d="M200 200 L296.5925826289068 174.11809548974793 L296.5925826289068 200 L200 200" stroke="#6688cc" stroke-width="2" id="triangle-1" fill="transparent" style="stroke: #fb8c00;fill: #fb8c00;"></path>
-                    <path d="M296.5925826289068 174.11809548974793 L200 174.11809548974793 L200 200" stroke="#6688cc" stroke-width="2" id="triangle-2" fill="transparent" style="stroke: #fb8c00;/*! fill: white; */"></path>
+                    <path d="M200 200 L296.5925826289068 174.11809548974793 L296.5925826289068 200 L200 200"
+                          stroke="#6688cc" stroke-width="2" id="triangle-1" fill="transparent"
+                          style="stroke: #fb8c00;fill: #fb8c00;"></path>
+                    <path d="M296.5925826289068 174.11809548974793 L200 174.11809548974793 L200 200" stroke="#6688cc"
+                          stroke-width="2" id="triangle-2" fill="transparent"
+                          style="stroke: #fb8c00;/*! fill: white; */"></path>
                 </svg>
             </div>
             <div class="col-md-6 col-sm-12 text-center">
@@ -240,16 +195,8 @@ script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')-->
 <script src="js/trigonometry.js"></script>
 
 
-<!--<script src="js/tesseract.js"></script>-->
-<!--<script src="js/graph.js"></script>-->
 <script>var big = document.getElementById("bigimage");
 //    big.style.height="3000px";-->
-
-
-
-
-
-
 </script>
 <script src="js/scroll.js"></script>
 <script>$('.card-button').click(function () {
@@ -258,20 +205,10 @@ script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')-->
 //# sourceURL=pen.js
 
 
-
-
-
-
 </script>
 <script>if (document.location.search.match(/type=embed/gi)) {
     window.parent.postMessage("resize", "*");
 }
-
-
-
-
-
-
 </script>
 
 
