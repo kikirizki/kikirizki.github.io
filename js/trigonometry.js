@@ -27,12 +27,7 @@ var myArc = {
     var p = this.parameters;
     var move = "M" + p.originX + " " + p.originY;
     var arc = "A " + p.radius + " " + p.radius + ", 0, " + (+ p.largeArc) + ", 1, " + p.arcToX + " " + p.arcToY;
-
     this.scope.attr("d", move + " " + arc);
-
-    $("#line-sin").attr("d","M200 350 L" + p.arcToX + " 350");
-    $("#line-cos").attr("d","M350 200 L 350 " + p.arcToY);
-
     $("#triangle-1").attr("d","M104 104 L" + p.arcToX + " " + p.arcToY + " L" + p.arcToX + " 104 L104 104");
     $("#triangle-2").attr("d","M" + p.arcToX + " " + p.arcToY + " L104 " + p.arcToY + " L104 104");
   },
