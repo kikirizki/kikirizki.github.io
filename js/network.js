@@ -19,10 +19,10 @@ function setup() {
     var d3 = new Neuron(150, 25);
     var d4 = new Neuron(150, 75);
 
-    nn.connect(a1, b1,1);
-    nn.connect(a1, b2,0.5);
-    nn.connect(a1, b3,1);
-    nn.connect(a1, b4,1);
+    nn.connect(a1, b1,0.43);
+    nn.connect(a1, b2,0.21);
+    nn.connect(a1, b3,0.78);
+    nn.connect(a1, b4,0.67);
 
     nn.connect(b1, c1,random(1));
     nn.connect(b1, c2,random(1));
@@ -90,7 +90,7 @@ function setup() {
 }
 
 function draw() {
-    background("#03a9f4");
+    background("#efeeee");
     // edge("#ffffff");
     nn.updatenet();
     nn.display();
@@ -101,13 +101,37 @@ function draw() {
 
 function Connection(from, to,w) {
 
+
     this.a = from;
     this.b = to;
     this.weight = w;
     this.sending = false;
     this.sender = null;
     this.output = 0;
+    this.display = function() {
+        
+        stroke(255);
+        strokeWeight(this.weight*3);
+        line(this.a.position.x, this.a.position.y, this.b.position.x, this.b.position.y);
 
+        if (this.sending) {
+        var m =  (this.b.position.y-this.a.position.y)/(this.b.position.x-this.a.position.x);
+        var c = this.a.position.y-(m*this.a.position.x);
+        stroke(255,0,0);
+        strokeWeight(this.weight*2);
+             var start_x = this.sender.x-(30*w);
+             var start_y = (m*start_x)+c;
+             var end_x = this.sender.x;
+             var end_y = (m*end_x)+c;
+             
+             line(start_x, start_y, end_x,end_y );
+
+            //fill("#d71419");
+           // strokeWeight(0);
+            //ellipse(this.sender.x, this.sender.y, w, w);
+        }
+    }
+   
 
     this.feedforward = function(val) {
         this.output = val*this.weight;
@@ -126,19 +150,9 @@ function Connection(from, to,w) {
             }
         }
     }
+ 
 
-    this.display = function() {
-        stroke(255);
-
-        strokeWeight(this.weight*4);
-        line(this.a.position.x, this.a.position.y, this.b.position.x, this.b.position.y);
-
-        if (this.sending) {
-            fill("#fb8c00");
-            strokeWeight(1);
-            ellipse(this.sender.x, this.sender.y, 16, 16);
-        }
-    }
+  
 }
 
 function Network(x, y) {
@@ -211,7 +225,7 @@ function Neuron(x, y) {
 
     this.display = function() {
         stroke(255);
-        strokeWeight(1);
+        strokeWeight(0);
         var b = map(this.sum,0,1,255,175);
         fill(b);
         ellipse(this.position.x, this.position.y, this.r, this.r);
@@ -219,3 +233,4 @@ function Neuron(x, y) {
         this.r = lerp(this.r,32,0.1);
     }
 }
+

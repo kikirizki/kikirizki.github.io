@@ -28,8 +28,9 @@ var myArc = {
     var move = "M" + p.originX + " " + p.originY;
     var arc = "A " + p.radius + " " + p.radius + ", 0, " + (+ p.largeArc) + ", 1, " + p.arcToX + " " + p.arcToY;
     this.scope.attr("d", move + " " + arc);
-    $("#triangle-1").attr("d","M104 104 L" + p.arcToX + " " + p.arcToY + " L" + p.arcToX + " 104 L104 104");
-    $("#triangle-2").attr("d","M" + p.arcToX + " " + p.arcToY + " L104 " + p.arcToY + " L104 104");
+	  $("#degtext").text(floor(myArc.angle)+" degree");
+    $("#triangle-1").attr("d","M104 104 L" + p.arcToX + " " + p.arcToY );
+ // $("#triangle-2").attr("d","M" + p.arcToX + " " + p.arcToY + " L104 " + p.arcToY + " L104 104");
   },
 
   toRad:function(deg){
