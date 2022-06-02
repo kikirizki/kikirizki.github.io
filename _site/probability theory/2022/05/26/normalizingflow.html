@@ -123,17 +123,18 @@ $
     </p>
     <h2>General Coupling Layer</h2>
     <p>The function $f_i$ map  $\boldsymbol{y}_{i-1}$ to $\boldsymbol{y}_i$. Coupling layer is one choice of $f_i$ that was proposed in paper NICE<dt-cite
-      key="https://doi.org/10.48550/arxiv.1410.8516"></dt-cite> the idea is to design $f_i$ such that Jacobians are easy to compute. Before going further for simplicity let just think about the first layer and drop the subscript from $\boldsymbol{y}_i$ to $\boldsymbol{y}$. The idea begin by splitting $\boldsymbol{x}$ into two partitions $\boldsymbol{x}_{1:d}\in \mathbb{R}^{d} $ and $\boldsymbol{x}_{d+1:D}\in \mathbb{R}^{D-d}$. then  apply the following mapping</p>
-    <p>$$\begin{aligned}\boldsymbol{y}_{1:d}&= \boldsymbol{x}_{1:d}\\
-      \boldsymbol{y}_{d+1:D}&= g(\boldsymbol{x}_{d+1:D};m(\boldsymbol{x}_{1:d}))\end{aligned}$$</p>
+      key="https://doi.org/10.48550/arxiv.1410.8516"></dt-cite> the idea is to design $f_i$ such that Jacobians are easy to compute. Before going further for simplicity let just think about the first layer and drop the subscript from $\boldsymbol{y}_i$ to $\boldsymbol{y}$. The idea begin by splitting $\boldsymbol{x}$ into two partitions $\boldsymbol{x}_{A}\in \mathbb{R}^{d} $ and $\boldsymbol{x}_{B}\in \mathbb{R}^{D-d}$. then  apply the following mapping</p>
+    <p>$$\begin{aligned}\boldsymbol{y}_{A}&= \boldsymbol{x}_{A}\\
+      \boldsymbol{y}_{B}&= g(\boldsymbol{x}_{B};m(\boldsymbol{x}_{A}))\end{aligned}$$</p>
     <p>Above mapping is called coupling layer with arbitrary function $m$. The choice of $m$ can be anything such as artificial neural network. </p>
     
-    <p>Now consider the jacobian of coupling layer mapping</p>
-    <p>$$\frac{\partial \boldsymbol{y}}{\partial \boldsymbol{x}} = \begin{bmatrix}\boldsymbol{I}_d & \boldsymbol{0}_d \\ \frac{\partial{\boldsymbol{y}_{d+1:D}}}{\partial \boldsymbol{x}_{1:d}} & \frac{\partial \boldsymbol{y}_{d+1:D}}{\partial \boldsymbol{x}_{d+1:D}}\end{bmatrix}$$</p>
+    <p>It is easy to show that</p>
+    <p>$$\frac{\partial \boldsymbol{y}}{\partial \boldsymbol{x}} = \begin{bmatrix}\boldsymbol{I}_d & \boldsymbol{0}_{d\times D-d} \\ \frac{\partial{\boldsymbol{y}_{B}}}{\partial \boldsymbol{x}_{A}} & \frac{\partial \boldsymbol{y}_{B}}{\partial \boldsymbol{x}_{B}}\end{bmatrix}$$</p>
     <h2>Additive Coupling Layer</h2>
     <p>Additive coupling layer is the coupling layer with</p>
-    <p>$$g(\boldsymbol{x}_{d+1:D};m(\boldsymbol{x}_{1:d})) = \boldsymbol{x}_{d+1:D}+ m(\boldsymbol{x}_{1:d})$$</p>
-    <p>$$\frac{\partial \boldsymbol{y}}{\partial \boldsymbol{x}}= \begin{bmatrix}I_d & \boldsymbol{0}_{d\times{D-d}} \\ \frac{\partial{y{d+1:D}}}{\partial x_{1:d}} & I_{D-d} \end{bmatrix}$$</p>
+    <p>$$g(\boldsymbol{x}_{B};m(\boldsymbol{x}_{A})) = \boldsymbol{x}_{B}+ m(\boldsymbol{x}_{A})$$</p>
+    <p>since $\frac{\partial \boldsymbol{y}_{B}}{\partial \boldsymbol{x}_{B}}=\frac{\partial g(\boldsymbol{x}_{B};m(\boldsymbol{x}_{A}))}{\partial \boldsymbol{x}_B}$ hence the jacobian become</p>
+    <p>$$\frac{\partial \boldsymbol{y}}{\partial \boldsymbol{x}}= \begin{bmatrix}I_d & \boldsymbol{0}_{d\times{D-d}} \\ \frac{\partial{\boldsymbol{y}_{B}}}{\partial \boldsymbol{x}_{A}} & I_{D-d} \end{bmatrix}$$</p>
     <p>Which is a lower triangular matrix, now we can easily compute jacobian $J=\left| \text{det}\frac{\partial \boldsymbol{y}}{\partial \boldsymbol{x}} \right|$ . Remember from linear algebra determinant of lower triangular matrix are the product of it’s diagonal entries (if you forget it please read your linear algebra book) and since our all diagonal entries equals to $1$ so $J=1$. It is easy to see recursively that $p_X(\boldsymbol{x}) = p_{Y_{n}}(\boldsymbol{y}_n)$.  </p>
     <p>Since one part of coupling layer input partition is left unchanged (mapped to identity function), when composing coupling layers we should change the role  between those two input partitions. To add more expressiveness to the model on the top of layer, multiply  $\boldsymbol{y}_n$ with learnable diagonal matrix $\boldsymbol{S}\in \mathbb{R}^{DxD}$  , this way it allow to control relative importance for each elements of $\boldsymbol{y}_n$ so the final layer become $\begin{aligned}\boldsymbol{z}&=\boldsymbol{S}\boldsymbol{y}_n \end{aligned}$ . From vector calculus it is easy to show that $\frac{\partial \boldsymbol{z}}{\partial \boldsymbol{y}_n}=\boldsymbol{S}$. This also cause $\frac{\partial \boldsymbol{z}}{\partial \boldsymbol{x}}=\frac{\partial \boldsymbol{z}}{\partial \boldsymbol{y}_n}\frac{\partial \boldsymbol{y}_n}{\partial \boldsymbol{x}}=\boldsymbol{S}\boldsymbol{I}_D=\boldsymbol{S}$ so we get final equation as follow
 
