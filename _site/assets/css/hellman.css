@@ -1,0 +1,5 @@
+/* #dh { max-width: 620px; text-align: center; font: 0.98em "PT Mono", monospace; line-height: 1.9; margin: 0 auto; color: #222; } */
+header { padding: 1em 0; }
+.sides > * { float: left; width: 20%;  padding: 1em 0; }
+.sides > :first-child, .sides > :last-child { background: #efefef; border-radius: 5px; width: 39.8%; }
+footer { clear: both; padding: 2em 0 1em; margin: 0 auto; max-width: 80%; font-size: 80%; }

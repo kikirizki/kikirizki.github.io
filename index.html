@@ -1,0 +1,156 @@
+---
+# this is an empty front matter
+---
+<!DOCTYPE html>
+<html lang="en">
+
+{% include index-head.html %}
+
+<body>
+    {% include navbar.html %}
+
+
+    <div id="ml" class="container-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <!--<img src="images/deeplearning.svg" class="category-image img-responsive">-->
+                    <div id="nn"></div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="page-header">
+                        <h1 class="text-center"><b>Deep Learning</b></h1>
+                    </div>
+                    <div>
+                        <ol class="content-list">
+                            {% for post in site.categories["deeplearning"] %}
+                            <li class="content-item"><span class="article-number">{{ post.number }}</span>
+                                <p class="article-title"><a href="{{ post.url }}"><b>{{ post.title }}</b></a>, {{
+                                    post.description }}</p>
+                            </li>
+                            {% endfor %}
+                        </ol>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="crypt" class="container-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-12 text-center">
+                    <div id="dh">
+                        
+                        <header>
+                        $g$ = <span class="TKAdjustableNumber" data-var="g"></span> <small>&larr; prime number</small>, $p$ = <span class="TKAdjustableNumber" data-var="p"></span> <small>&larr; prime number</small><br>
+                            <small>($g$, $p$ are not secret)</small>
+                        </header>
+                        <div class="sides">
+                            <section >
+                                <strong>Patrick</strong><br>
+                                $a$ = <span class="TKAdjustableNumber" data-var="a"></span> <small>&larr; integer</small><br><br>
+                                <span style="background-color:#ffc107">$A$</span> $= g^a \mod{p}=$ <span data-var="A"></span><br><br>
+                                $K =$ <span style="background-color:#00bcd4">$B^a$</span> $\mod{p} =$ <span data-var="K_A"></span>
+                            </section>
+                            <section class="mid"  id="mid">
+   
+                                
+                            </section>
+                            <section>
+                                <strong>Spongebob</strong><br>
+                                $b$ = <span class="TKAdjustableNumber" data-var="b"></span> <small>&larr; integer</small><br><br>
+                                $K =$ <span style="background-color:#ffc107">$A^b$</span> $\mod{p} =$ <span data-var="K_B"></span><br><br>
+                                <span style="background-color:#00bcd4">$B$</span> $= g^b \mod{p} =$ <span data-var="B"></span><br>
+                            </section>
+                        </div>
+                        <footer>
+                            $K$ is the secret key<br><br>
+                            
+                            (in practice, very large numbers are used. then it is almost impossible to calculate $K$ given $g, p, A$ and $B$))
+                        </footer>
+                    </div>
+
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="page-header">
+                        <h1 class="text-center"><b>Cryptography</b></h1>
+                    </div>
+                    <div>
+                        <ol class="content-list">
+                            {% for post in site.categories["cryptography"] %}
+                            <li class="content-item"><span class="article-number">{{ post.number }}</span>
+                                <p class="article-title"><a href="{{ post.url }}"><b>{{ post.title }}</b></a>, {{
+                                    post.description }}</p>
+                            </li>
+                            {% endfor %}
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="math" class="container-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-12 text-center">
+
+                    <div id="prob"></div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="page-header">
+                        <h1 class="text-center"><b>Probability Theory</b></h1>
+                    </div>
+                    <div>
+                        <ol class="content-list">
+                            {% for post in site.categories["probability theory"] %}
+                            <li class="content-item"><span class="article-number">{{ post.number }}</span>
+                                <p class="article-title"><a href="{{ post.url }}"><b>{{ post.title }}</b></a>, {{
+                                    post.description }}</p>
+                            </li>
+                            {% endfor %}
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="footer-section container-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 text-center">
+                    <small>©Copyright 2022</small>
+
+                </div>
+            </div>
+            <hr>
+        </div>
+    </div><!-- jQuery (necessary for Bootstrap's JavaScript plugins)-->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstat/1.7.0/jstat.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.9.1/d3.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.js"></script>
+
+  <script src='https://cdn.rawgit.com/worrydream/Tangle/ba35e8d3a4949b4c7ea81190b16c6cf1dbfd8c68/Tangle.js'></script>
+  <script src='https://cdn.rawgit.com/worrydream/Tangle/ba35e8d3a4949b4c7ea81190b16c6cf1dbfd8c68/TangleKit/mootools.js'></script>
+  <script src='https://cdn.rawgit.com/worrydream/Tangle/ba35e8d3a4949b4c7ea81190b16c6cf1dbfd8c68/TangleKit/sprintf.js'></script>
+  <script src='https://cdn.rawgit.com/worrydream/Tangle/ba35e8d3a4949b4c7ea81190b16c6cf1dbfd8c68/TangleKit/BVTouchable.js'></script>
+  <script src='https://cdn.rawgit.com/worrydream/Tangle/ba35e8d3a4949b4c7ea81190b16c6cf1dbfd8c68/TangleKit/TangleKit.js'></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="/assets/js/hellman.js"></script>
+    <script src="/assets/js/diffie.js"></script>
+    <script src="/assets/js/kde.js"></script>
+    <script src="/assets/js/network.js"></script>
+    <script src="/assets/js/scroll.js"></script>
+</body>
+
+</html>

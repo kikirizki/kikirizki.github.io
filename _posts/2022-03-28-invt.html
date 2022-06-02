@@ -1,0 +1,52 @@
+---
+title: Inverse Transform Method
+description: proof of inverse transform theorem 
+category : "probability theory"
+number : "01"
+cite : kiki2022invtransform
+---
+<!DOCTYPE html>
+<html lang="en">
+{% include head-blog.html %}
+
+<body>
+  {% include navbar.html %}
+  {% include front-matter.html %}
+
+
+  <dt-article class="centered article-bg">
+
+    <h1>{{ page.title }}</h1>
+    <h2>{{ page.description }}</h2>
+    <dt-byline></dt-byline>
+    <p>This time I will explain a beautiful theorem in probability theory is used in
+      several application from making a library that generate pseudo random number with specifict distribution to
+      advanced deep learning concept. Also in this article I will write a code
+      for sampling from random particular distribution using inverse transform theorem </p>
+
+    <p><b>Theorem 1</b>.<i> Suppose that we have a uniformlly distributed random variable over zero to one $U \sim \mathcal{U}(0,1)$ and another random variable $Y = CDF^{-1}_{X}{(U)}$ then $CDF_X$ is CDF for $Y$</i></p>
+    <p><b>Proof :</b></p>
+
+    <p>Since $U \sim \mathcal{U}(0,1)$ then</p>
+    <p>$$\begin{equation}CDF_{U}(u)=\mathbb{P}(U\leq u)=u\end{equation}$$</p>
+    <p>Then by equation(1) we get $$\begin{aligned}CDF_{Y}(y)&=\mathbb{P}(Y \leq y)\\&=\mathbb{P}(CDF^{-1}_{X}(U)\leq y)\\&=\mathbb{P}(U \leq CDF_X(y))\\ &=CDF_X(y)\end{aligned}$$</p>
+    <p>Q.E.D</p>
+    <p>Theorem 1 tell us that we can sample any random variable by sampling random uniform first then then feed the
+      value to its inverse of target CDF we want to sample, later I will write a code to sample from Gaussian
+      distribution by using this theorem</p>
+
+
+  </dt-article>
+
+  <!-- Appendix -->
+  
+    {% include appendix.html %}
+
+ 
+<script type="text/bibliography">
+
+</script>
+  {% include footer.html %}
+</body>
+
+</html>

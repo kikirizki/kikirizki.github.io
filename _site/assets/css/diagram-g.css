@@ -1,0 +1,59 @@
+#generator {
+   align-content: flex-start;
+  
+    overflow-x: scroll;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+
+  .node {
+    fill: white;
+
+    stroke-width: 2;
+    -webkit-filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.12))
+    drop-shadow(0 3px 1px rgba(0, 0, 0, 0.14))
+    drop-shadow(0 1px 5px rgba(0, 0, 0, 0.12))
+    drop-shadow(0 -1px 2px rgba(0, 0, 0, 0.1));
+    filter:drop-shadow(0 2px 2px rgba(0, 0, 0, 0.12))
+    drop-shadow(0 3px 1px rgba(0, 0, 0, 0.14))
+    drop-shadow(0 1px 5px rgba(0, 0, 0, 0.12))
+    drop-shadow(0 -1px 2px rgba(0, 0, 0, 0.1));
+  }
+
+
+
+  .flowline {
+    fill: none;
+    stroke: #ffc107;
+    opacity: 1.0;
+    stroke-width: 3;
+    stroke-dasharray: 12, 2;
+  }
+
+  .flowline-blue {
+    fill: none;
+    stroke: #00bcd4;
+    opacity: 1.0;
+    stroke-width: 3;
+    stroke-dasharray: 12, 2;
+  }
+
+
+  .flowline-green {
+    fill: none;
+    
+    stroke: #f44336;
+    opacity: 1.0;
+    stroke-width: 3;
+    stroke-dasharray: 12, 2;
+  }
+
+  .line {
+    fill: none;
+    stroke:#747474;
+    opacity: 1.0;
+    stroke-width: 3;
+
+  }
+  pre{
+    background-color: white;
+  }

@@ -1,0 +1,974 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-05-30T20:35:26+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Kiki’s Blog</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Transforming Simple Distribution with Normalizing Flow</title><link href="http://localhost:4000/probability%20theory/2022/05/26/normalizingflow.html" rel="alternate" type="text/html" title="Transforming Simple Distribution with Normalizing Flow" /><published>2022-05-26T00:00:00+07:00</published><updated>2022-05-26T00:00:00+07:00</updated><id>http://localhost:4000/probability%20theory/2022/05/26/normalizingflow</id><content type="html" xml:base="http://localhost:4000/probability%20theory/2022/05/26/normalizingflow.html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+    &lt;!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags--&gt;
+   &lt;!-- Begin Jekyll SEO tag v2.8.0 --&gt;
+&lt;title&gt;Transforming Simple Distribution with Normalizing Flow | Kiki’s Blog&lt;/title&gt;
+&lt;meta name=&quot;generator&quot; content=&quot;Jekyll v3.9.2&quot; /&gt;
+&lt;meta property=&quot;og:title&quot; content=&quot;Transforming Simple Distribution with Normalizing Flow&quot; /&gt;
+&lt;meta property=&quot;og:locale&quot; content=&quot;en_US&quot; /&gt;
+&lt;meta name=&quot;description&quot; content=&quot;build up theoritical understanding of normalizing flow model&quot; /&gt;
+&lt;meta property=&quot;og:description&quot; content=&quot;build up theoritical understanding of normalizing flow model&quot; /&gt;
+&lt;link rel=&quot;canonical&quot; href=&quot;http://localhost:4000/probability%20theory/2022/05/26/normalizingflow.html&quot; /&gt;
+&lt;meta property=&quot;og:url&quot; content=&quot;http://localhost:4000/probability%20theory/2022/05/26/normalizingflow.html&quot; /&gt;
+&lt;meta property=&quot;og:site_name&quot; content=&quot;Kiki’s Blog&quot; /&gt;
+&lt;meta property=&quot;og:type&quot; content=&quot;article&quot; /&gt;
+&lt;meta property=&quot;article:published_time&quot; content=&quot;2022-05-26T00:00:00+07:00&quot; /&gt;
+&lt;meta name=&quot;twitter:card&quot; content=&quot;summary&quot; /&gt;
+&lt;meta property=&quot;twitter:title&quot; content=&quot;Transforming Simple Distribution with Normalizing Flow&quot; /&gt;
+&lt;script type=&quot;application/ld+json&quot;&gt;
+{&quot;@context&quot;:&quot;https://schema.org&quot;,&quot;@type&quot;:&quot;BlogPosting&quot;,&quot;dateModified&quot;:&quot;2022-05-26T00:00:00+07:00&quot;,&quot;datePublished&quot;:&quot;2022-05-26T00:00:00+07:00&quot;,&quot;description&quot;:&quot;build up theoritical understanding of normalizing flow model&quot;,&quot;headline&quot;:&quot;Transforming Simple Distribution with Normalizing Flow&quot;,&quot;mainEntityOfPage&quot;:{&quot;@type&quot;:&quot;WebPage&quot;,&quot;@id&quot;:&quot;http://localhost:4000/probability%20theory/2022/05/26/normalizingflow.html&quot;},&quot;url&quot;:&quot;http://localhost:4000/probability%20theory/2022/05/26/normalizingflow.html&quot;}&lt;/script&gt;
+&lt;!-- End Jekyll SEO tag --&gt;
+ 
+
+
+    &lt;!-- Bootstrap--&gt;
+    &lt;link href=&quot;/assets/css/bootstrap.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+    &lt;!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries--&gt;
+    &lt;!-- WARNING: Respond.js doesn't work if you view the page via file://--&gt;
+    &lt;!--if lt IE 9script(src='https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js')
+script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')--&gt;
+    &lt;!-- &lt;link href=&quot;css/font-awesome.min.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;&gt; --&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;/assets/css/fontawesome.min.css&quot;&gt;
+
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;/assets/css/style.css&quot;&gt;
+
+    &lt;script&gt;window.console = window.console || function (t) {
+        };
+
+
+    &lt;/script&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css&quot; /&gt;
+
+    &lt;!-- Katex --&gt;
+    &lt;script defer src=&quot;https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script defer src=&quot;https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/auto-render.min.js&quot; onload=&quot;renderMathInElement(document.body,{
+    delimiters: [
+      { left: '$$',  right: '$$',  display: true  },
+      { left: '$',   right: '$',   display: false },
+      { left: '\\[', right: '\\]', display: true  },
+      { left: '\\(', right: '\\)', display: false }
+  ]});&quot;&gt;&lt;/script&gt;
+    
+    &lt;script src=&quot;/assets/js/template.v1.js&quot;&gt;&lt;/script&gt;
+
+    &lt;script src=&quot;/assets/js/d3.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;nav id=&quot;nav&quot; class=&quot;navbar navbar-fixed-top&quot;&gt;
+        &lt;!-- Brand and toggle get grouped for better mobile display --&gt;
+        &lt;div class=&quot;navbar-header&quot;&gt;
+            &lt;button type=&quot;button&quot; data-toggle=&quot;collapse&quot; data-target=&quot;#bs-example-navbar-collapse-1&quot;
+                aria-expanded=&quot;false&quot; class=&quot;navbar-toggle collapsed&quot;&gt;&lt;span class=&quot;sr-only&quot;&gt;Toggle
+                    navigation&lt;/span&gt;&lt;span class=&quot;glyphicon glyphicon glyphicon-menu-hamburger&quot;&gt;&lt;/span&gt;&lt;/button&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Collect the nav links, forms, and other content for toggling --&gt;
+        &lt;div id=&quot;bs-example-navbar-collapse-1&quot; class=&quot;collapse navbar-collapse navbar-ex1-collapse&quot;&gt;
+
+            &lt;ul class=&quot;nav navbar-nav&quot;&gt;
+                &lt;li class=&quot;active&quot;&gt;&lt;a href=&quot;#ml&quot; class=&quot;white-when-scroll&quot;&gt;Deep Learning&lt;span
+                            class=&quot;sr-only&quot;&gt;(current)&lt;/span&gt;&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;https://kikirizki.github.io/index.html#crypt&quot; class=&quot;white-when-scroll&quot;&gt;Cryptography&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;https://kikirizki.github.io/index.html#math&quot; class=&quot;white-when-scroll&quot;&gt;Probability
+                        Theory&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;https://kikirizki.github.io/index.html#about&quot; class=&quot;white-when-scroll&quot;&gt;About
+                        Me&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;https://github.com/kikirizki&quot;&gt;&lt;i class=&quot;fa-brands fa-github&quot;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;https://medium.com/@kkrzkrk&quot;&gt;&lt;i class=&quot;fa-brands fa-medium&quot;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;&lt;!-- /.navbar-collapse --&gt;
+    &lt;/nav&gt;
+
+  &lt;script type=&quot;text/front-matter&quot;&gt;
+    title: Transforming Simple Distribution with Normalizing Flow
+    description: build up theoritical understanding of normalizing flow model
+    authors:
+    - Kiki Rizki Arpiandi: https://github.com/kikirizki
+    
+    affiliations:
+    - My Medium articles: https://medium.com/@kkrzkrk
+&lt;/script&gt;
+
+
+  &lt;dt-article class=&quot;centered article-bg&quot;&gt;
+
+    &lt;h1&gt;Transforming Simple Distribution with Normalizing Flow&lt;/h1&gt;
+    &lt;h2&gt;build up theoritical understanding of normalizing flow model&lt;/h2&gt;
+    &lt;dt-byline&gt;&lt;/dt-byline&gt;
+    &lt;h2&gt;Overview&lt;/h2&gt;
+    &lt;p&gt;Modeling a probability distribution has broad application in image generation, video interpolation, file compression an so on. In this article we will talk about one of interesting method to model a probability distribution called normalizing flow. In a nutshell, normalizing flow is a method to model a probability distribution by deforming a random variable to a simple predefined independent prior distribution, such as Gaussian to a more complex one. Given a random variable $\boldsymbol{X}\in \mathbb{R}^D$  from unknown complex distribution, normalizing flow model the distribution by train an  invertible parametric transformation  $f$ that map $\boldsymbol{X}$to $\boldsymbol{Z}$. During inference to get sample $\boldymbol{x}$, simply sample $\boldsymbol{z}$ then transform it by  $f^{-1}$. To more precise, let $\boldsymbol{x}, \boldsymbol{z}$ are samples from $\boldsymbol{X}$ and $\boldsymbol{Y}$  by change variable theorem : &lt;/p&gt;
+    &lt;p&gt;
+      $p_X(\boldsymbol{x}) = p_Z(f(\boldsymbol{x}))|\text{det}\frac{\partial f(\boldsymbol{x})}{\partial \boldsymbol{x}}|
+$
+    &lt;/p&gt;
+   
+    &lt;p&gt;
+      This way it is easy to sample $\boldsymbol{x}$, by use this following step:
+      
+       $\begin{aligned}\boldsymbol{z}&amp;\sim  p_Z(\boldsymbol{z})\\ \boldsymbol{x}&amp;=f^{-1}(\boldsymbol{z})\end{aligned}$
+      
+      To add expressiveness of the model,  $f$ is designed to be a composition of invertible functions
+      
+      $f=f_S\circ f_n\circ f_{n-1}\circ f_{n-2},\dots, f_1$ and let $\boldsymbol{y}_0=\boldsymbol{x},  \boldsymbol{y}_i=f_i(\boldsymbol{y}_{i-1})$. $f_S$ will be special layer that give relative importance the the output, we will talk more about this in next section. By the change variable rule we have
+    &lt;/p&gt;
+    &lt;p&gt;
+      $$p_X(\boldsymbol{x}) = p_{Y_n}(\boldsymbol{y}_n)\left|\text{det}\frac{\partial \boldsymbol{y}_n}{\partial \boldsymbol{x}}\right|=p_{Y_n}(\boldsymbol{y}_n)\Pi_{i=1}^{n}\left|\text{det}\frac{\partial \boldsymbol{y}_i}{\partial\boldsymbol{y_{i-1}}}\right|$$
+    &lt;/p&gt;
+    &lt;h2&gt;General Coupling Layer&lt;/h2&gt;
+    &lt;p&gt;The function $f_i$ map  $\boldsymbol{y}_{i-1}$ to $\boldsymbol{y}_i$. Coupling layer is one choice of $f_i$ that was proposed in paper NICE&lt;dt-cite
+      key=&quot;https://doi.org/10.48550/arxiv.1410.8516&quot;&gt;&lt;/dt-cite&gt; the idea is to design $f_i$ such that Jacobians are easy to compute. Before going further for simplicity let just think about the first layer and drop the subscript from $\boldsymbol{y}_i$ to $\boldsymbol{y}$. The idea begin by splitting $\boldsymbol{x}$ into two partitions $\boldsymbol{x}_{1:d}\in \mathbb{R}^{d} $ and $\boldsymbol{x}_{d+1:D}\in \mathbb{R}^{D-d}$. then  apply the following mapping&lt;/p&gt;
+    &lt;p&gt;$$\begin{aligned}\boldsymbol{y}_{1:d}&amp;= \boldsymbol{x}_{1:d}\\
+      \boldsymbol{y}_{d+1:D}&amp;= g(\boldsymbol{x}_{d+1:D};m(\boldsymbol{x}_{1:d}))\end{aligned}$$&lt;/p&gt;
+    &lt;p&gt;Above mapping is called coupling layer with arbitrary function $m$. The choice of $m$ can be anything such as artificial neural network. &lt;/p&gt;
+    
+    &lt;p&gt;Now consider the jacobian of coupling layer mapping&lt;/p&gt;
+    &lt;p&gt;$$\frac{\partial \boldsymbol{y}}{\partial \boldsymbol{x}} = \begin{bmatrix}\boldsymbol{I}_d &amp; \boldsymbol{0}_d \\ \frac{\partial{\boldsymbol{y}_{d+1:D}}}{\partial \boldsymbol{x}_{1:d}} &amp; \frac{\partial \boldsymbol{y}_{d+1:D}}{\partial \boldsymbol{x}_{d+1:D}}\end{bmatrix}$$&lt;/p&gt;
+    &lt;h2&gt;Additive Coupling Layer&lt;/h2&gt;
+    &lt;p&gt;Additive coupling layer is the coupling layer with&lt;/p&gt;
+    &lt;p&gt;$$g(\boldsymbol{x}_{d+1:D};m(\boldsymbol{x}_{1:d})) = \boldsymbol{x}_{d+1:D}+ m(\boldsymbol{x}_{1:d})$$&lt;/p&gt;
+    &lt;p&gt;$$\frac{\partial \boldsymbol{y}}{\partial \boldsymbol{x}}= \begin{bmatrix}I_d &amp; \boldsymbol{0}_{d\times{D-d}} \\ \frac{\partial{y{d+1:D}}}{\partial x_{1:d}} &amp; I_{D-d} \end{bmatrix}$$&lt;/p&gt;
+    &lt;p&gt;Which is a lower triangular matrix, now we can easily compute jacobian $J=\left| \text{det}\frac{\partial \boldsymbol{y}}{\partial \boldsymbol{x}} \right|$ . Remember from linear algebra determinant of lower triangular matrix are the product of it’s diagonal entries (if you forget it please read your linear algebra book) and since our all diagonal entries equals to $1$ so $J=1$. It is easy to see recursively that $p_X(\boldsymbol{x}) = p_{Y_{n}}(\boldsymbol{y}_n)$.  &lt;/p&gt;
+    &lt;p&gt;Since one part of coupling layer input partition is left unchanged (mapped to identity function), when composing coupling layers we should change the role  between those two input partitions. To add more expressiveness to the model on the top of layer, multiply  $\boldsymbol{y}_n$ with learnable diagonal matrix $\boldsymbol{S}\in \mathbb{R}^{DxD}$  , this way it allow to control relative importance for each elements of $\boldsymbol{y}_n$ so the final layer become $\begin{aligned}\boldsymbol{z}&amp;=\boldsymbol{S}\boldsymbol{y}_n \end{aligned}$ . From vector calculus it is easy to show that $\frac{\partial \boldsymbol{z}}{\partial \boldsymbol{y}_n}=\boldsymbol{S}$. This also cause $\frac{\partial \boldsymbol{z}}{\partial \boldsymbol{x}}=\frac{\partial \boldsymbol{z}}{\partial \boldsymbol{y}_n}\frac{\partial \boldsymbol{y}_n}{\partial \boldsymbol{x}}=\boldsymbol{S}\boldsymbol{I}_D=\boldsymbol{S}$ so we get final equation as follow
+
+      $$p_X(\boldsymbol{x}) = p_{Z}(\boldsymbol{z})\left|\text{det}\frac{\partial  \boldsymbol{z}}{\partial \boldsymbol{x}}\right|=p_{Z}(\boldsymbol{z})\left|\text{det}\boldsymbol{S}\right|$$&lt;/p&gt;
+    &lt;h2&gt;Loss Function&lt;/h2&gt;
+    &lt;p&gt;The loss function is simply a log likelihood of our unknown distribution that generate our dataset$\text{log} (p_X(\boldsymbol{x}))$ and since prior distribution $p_Z(\boldsymbol{z})$ is independent then the loss function can be factorized into:&lt;/p&gt;
+    &lt;p&gt;$$\begin{aligned}\text{log} (p_X(\boldsymbol{x}))&amp;= \text{log}(p_Z(\boldsymbol{z}))+\text{log}\left|\text{det}\boldsymbol{S}\right|\\&amp;=\sum_{i=1}^{D}\text{log}(p_{Z_i}(\boldsymbol{z}))+\sum_{i=1}^{D}\text{log}\left|S_{ii}\right|\\&amp;=\sum_{i=1}^{D}\left[ \text{log}(p_{Z_i}(\boldsymbol{z}))+\text{log}\left|S_{ii}\right|\right]
+
+      \end{aligned}$$&lt;/p&gt;  
+  &lt;/dt-article&gt;
+
+  &lt;!-- Appendix --&gt;
+  
+    &lt;dt-appendix class=&quot;centered&quot;&gt;
+&lt;h3 id=&quot;citation&quot;&gt;Errors and Correction&lt;/h3&gt;
+&lt;p&gt;Please email me at kkrzkrk@gmail.com&lt;/p&gt;
+&lt;h3 id=&quot;citation&quot;&gt;Citations and Reuse&lt;/h3&gt;
+&lt;p&gt;Diagrams and text are licensed under Creative Commons Attribution &lt;a
+        href=&quot;https://creativecommons.org/licenses/by/2.0/&quot;&gt;CC-BY 2.0&lt;/a&gt;. The figures that have been reused
+    from other sources don't fall under this license and can be recognized by a note in their caption: “Figure
+    from …”.&lt;/p&gt;
+&lt;p&gt;For attribution in academic contexts, please cite this work as&lt;/p&gt;
+&lt;pre class=&quot;citation short&quot;&gt;Arpiandi, Kiki Rizki, &quot;Transforming Simple Distribution with Normalizing Flow&quot;, 2022.&lt;/pre&gt;
+
+&lt;p&gt;BibTeX citation&lt;/p&gt;
+
+&lt;pre class=&quot;citation long&quot;&gt;@article
+{ 
+  kiki2022flow,
+  author = {Arpiandi, Kiki Rizki},
+  title = { Transforming Simple Distribution with Normalizing Flow },
+  year = {2022},
+  url = {https://kikirizki.github.io/gan.html}
+}&lt;/pre&gt;
+&lt;/dt-appendix&gt;
+
+ 
+&lt;script type=&quot;text/bibliography&quot;&gt;
+  @misc{https://doi.org/10.48550/arxiv.1410.8516,
+    doi = {10.48550/ARXIV.1410.8516},
+    
+    url = {https://arxiv.org/abs/1410.8516},
+    
+    author = {Dinh, Laurent and Krueger, David and Bengio, Yoshua},
+    
+    keywords = {Machine Learning (cs.LG), FOS: Computer and information sciences, FOS: Computer and information sciences},
+    
+    title = {NICE: Non-linear Independent Components Estimation},
+    
+    publisher = {arXiv},
+    
+    year = {2014},
+    
+    copyright = {arXiv.org perpetual, non-exclusive license}
+  }
+&lt;/script&gt;
+     &lt;!-- jQuery (necessary for Bootstrap's JavaScript plugins)--&gt;
+    &lt;script src=&quot;https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js&quot;&gt;&lt;/script&gt;
+    &lt;!-- Include all compiled plugins (below), or include individual files as needed--&gt;
+    &lt;script src=&quot;/assets/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;/assets/js/scroll.js&quot;&gt;&lt;/script&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;</content><author><name></name></author><category term="probability theory" /><summary type="html">Transforming Simple Distribution with Normalizing Flow | Kiki’s Blog</summary></entry><entry><title type="html">Generative Adversarial Network with Bells and Whistle</title><link href="http://localhost:4000/deeplearning/2022/03/28/gan.html" rel="alternate" type="text/html" title="Generative Adversarial Network with Bells and Whistle" /><published>2022-03-28T00:00:00+07:00</published><updated>2022-03-28T00:00:00+07:00</updated><id>http://localhost:4000/deeplearning/2022/03/28/gan</id><content type="html" xml:base="http://localhost:4000/deeplearning/2022/03/28/gan.html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+    &lt;!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags--&gt;
+   &lt;!-- Begin Jekyll SEO tag v2.8.0 --&gt;
+&lt;title&gt;Generative Adversarial Network with Bells and Whistle | Kiki’s Blog&lt;/title&gt;
+&lt;meta name=&quot;generator&quot; content=&quot;Jekyll v3.9.2&quot; /&gt;
+&lt;meta property=&quot;og:title&quot; content=&quot;Generative Adversarial Network with Bells and Whistle&quot; /&gt;
+&lt;meta property=&quot;og:locale&quot; content=&quot;en_US&quot; /&gt;
+&lt;meta name=&quot;description&quot; content=&quot;Dissecting GAN paper and it’s implementation&quot; /&gt;
+&lt;meta property=&quot;og:description&quot; content=&quot;Dissecting GAN paper and it’s implementation&quot; /&gt;
+&lt;link rel=&quot;canonical&quot; href=&quot;http://localhost:4000/deeplearning/2022/03/28/gan.html&quot; /&gt;
+&lt;meta property=&quot;og:url&quot; content=&quot;http://localhost:4000/deeplearning/2022/03/28/gan.html&quot; /&gt;
+&lt;meta property=&quot;og:site_name&quot; content=&quot;Kiki’s Blog&quot; /&gt;
+&lt;meta property=&quot;og:type&quot; content=&quot;article&quot; /&gt;
+&lt;meta property=&quot;article:published_time&quot; content=&quot;2022-03-28T00:00:00+07:00&quot; /&gt;
+&lt;meta name=&quot;twitter:card&quot; content=&quot;summary&quot; /&gt;
+&lt;meta property=&quot;twitter:title&quot; content=&quot;Generative Adversarial Network with Bells and Whistle&quot; /&gt;
+&lt;script type=&quot;application/ld+json&quot;&gt;
+{&quot;@context&quot;:&quot;https://schema.org&quot;,&quot;@type&quot;:&quot;BlogPosting&quot;,&quot;dateModified&quot;:&quot;2022-03-28T00:00:00+07:00&quot;,&quot;datePublished&quot;:&quot;2022-03-28T00:00:00+07:00&quot;,&quot;description&quot;:&quot;Dissecting GAN paper and it’s implementation&quot;,&quot;headline&quot;:&quot;Generative Adversarial Network with Bells and Whistle&quot;,&quot;mainEntityOfPage&quot;:{&quot;@type&quot;:&quot;WebPage&quot;,&quot;@id&quot;:&quot;http://localhost:4000/deeplearning/2022/03/28/gan.html&quot;},&quot;url&quot;:&quot;http://localhost:4000/deeplearning/2022/03/28/gan.html&quot;}&lt;/script&gt;
+&lt;!-- End Jekyll SEO tag --&gt;
+ 
+
+
+    &lt;!-- Bootstrap--&gt;
+    &lt;link href=&quot;/assets/css/bootstrap.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+    &lt;!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries--&gt;
+    &lt;!-- WARNING: Respond.js doesn't work if you view the page via file://--&gt;
+    &lt;!--if lt IE 9script(src='https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js')
+script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')--&gt;
+    &lt;!-- &lt;link href=&quot;css/font-awesome.min.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;&gt; --&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;/assets/css/fontawesome.min.css&quot;&gt;
+
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;/assets/css/style.css&quot;&gt;
+
+    &lt;script&gt;window.console = window.console || function (t) {
+        };
+
+
+    &lt;/script&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css&quot; /&gt;
+
+    &lt;!-- Katex --&gt;
+    &lt;script defer src=&quot;https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script defer src=&quot;https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/auto-render.min.js&quot; onload=&quot;renderMathInElement(document.body,{
+    delimiters: [
+      { left: '$$',  right: '$$',  display: true  },
+      { left: '$',   right: '$',   display: false },
+      { left: '\\[', right: '\\]', display: true  },
+      { left: '\\(', right: '\\)', display: false }
+  ]});&quot;&gt;&lt;/script&gt;
+    
+    &lt;script src=&quot;/assets/js/template.v1.js&quot;&gt;&lt;/script&gt;
+
+    &lt;script src=&quot;/assets/js/d3.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/assets/css/diagram.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/assets/css/diagram-g.css&quot;&gt;
+&lt;body&gt;
+  &lt;nav id=&quot;nav&quot; class=&quot;navbar navbar-fixed-top&quot;&gt;
+        &lt;!-- Brand and toggle get grouped for better mobile display --&gt;
+        &lt;div class=&quot;navbar-header&quot;&gt;
+            &lt;button type=&quot;button&quot; data-toggle=&quot;collapse&quot; data-target=&quot;#bs-example-navbar-collapse-1&quot;
+                aria-expanded=&quot;false&quot; class=&quot;navbar-toggle collapsed&quot;&gt;&lt;span class=&quot;sr-only&quot;&gt;Toggle
+                    navigation&lt;/span&gt;&lt;span class=&quot;glyphicon glyphicon glyphicon-menu-hamburger&quot;&gt;&lt;/span&gt;&lt;/button&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Collect the nav links, forms, and other content for toggling --&gt;
+        &lt;div id=&quot;bs-example-navbar-collapse-1&quot; class=&quot;collapse navbar-collapse navbar-ex1-collapse&quot;&gt;
+
+            &lt;ul class=&quot;nav navbar-nav&quot;&gt;
+                &lt;li class=&quot;active&quot;&gt;&lt;a href=&quot;#ml&quot; class=&quot;white-when-scroll&quot;&gt;Deep Learning&lt;span
+                            class=&quot;sr-only&quot;&gt;(current)&lt;/span&gt;&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;https://kikirizki.github.io/index.html#crypt&quot; class=&quot;white-when-scroll&quot;&gt;Cryptography&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;https://kikirizki.github.io/index.html#math&quot; class=&quot;white-when-scroll&quot;&gt;Probability
+                        Theory&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;https://kikirizki.github.io/index.html#about&quot; class=&quot;white-when-scroll&quot;&gt;About
+                        Me&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;https://github.com/kikirizki&quot;&gt;&lt;i class=&quot;fa-brands fa-github&quot;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;https://medium.com/@kkrzkrk&quot;&gt;&lt;i class=&quot;fa-brands fa-medium&quot;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;&lt;!-- /.navbar-collapse --&gt;
+    &lt;/nav&gt;
+
+  &lt;script type=&quot;text/front-matter&quot;&gt;
+    title: Generative Adversarial Network with Bells and Whistle
+    description: Dissecting GAN paper and it's implementation
+    authors:
+    - Kiki Rizki Arpiandi: https://github.com/kikirizki
+    
+    affiliations:
+    - My Medium articles: https://medium.com/@kkrzkrk
+&lt;/script&gt;
+
+  &lt;dt-article class=&quot;centered article-bg&quot;&gt;
+    &lt;h1&gt;Generative Adversarial Network with Bells and Whistle&lt;/h1&gt;
+    &lt;h2&gt;Dissecting GAN paper and it's implementation&lt;/h2&gt;
+    &lt;dt-byline&gt;&lt;/dt-byline&gt;
+    &lt;h2&gt;Overview&lt;/h2&gt;
+    &lt;p&gt;This section will explain the general idea about GAN (Generative Adverserial Network)&lt;dt-cite
+        key=&quot;goodfellow2014generative&quot;&gt;&lt;/dt-cite&gt;. Broadly speaking from probabilistic perspective there are two kind of mathematical models;
+      generative model and discriminative model, GAN as it's name suggest falls into the first cathegory, so here
+      we will focus on generative model. To make things easier to understand let's make an analogy,
+      let say I have data in the form of images for specific the data is a collection of some of Pablo Picasso
+      paintings, the generative model is a model that approximate the probability distribution that generate the
+      paintings, such that
+      the model able generate a new paintings that look like Pablo Picasso painting, but have not seen
+      before. Each pixel data (normalized so that the values are between 0 and 1) in the paintings can be
+      represented as vector of probabilities that is generated by $\mathbb{P}_{data}$ which is an unknown
+      probability distribution
+      and we wish to approximate it.
+    &lt;/p&gt;
+
+
+    &lt;p&gt;
+      We will approximate $\mathbb{P}_{data}$ with a parametric function $G(z,\theta_g)$
+      which is a function of random variable $Z \sim \mathbb{P}_z$ and has distribution $\mathbb{P}_{g}$. The authors of GAN call $G(z,\theta_g)$ as generator and the
+      function is in the form of artificial neural network.
+      There are many ways to make generator generates sample as close as possible to samples that are generated by
+      $\mathbb{P}_{data}$ for instance we can set a loss function between our generator's samples and
+      real
+      data then minimize the loss function with somekind of optimization algortihm, this is kind of method is a
+      direct
+      approach to the problem, instead of using direct approach GAN framework is inspired by min-max game from
+      game
+      theory,
+      by introducing a new function called discriminator $D(x)$ with distribution $\mathbb{P}_{\text{is real}}$. Discriminator inputs are samples
+      from $\mathbb{P}_{data}$ and $\mathbb{P}_{g}$ and return the probability of input
+      was generated by $\mathbb{P}_{data}$, so the perfect discrimiator will return 1.0 if the input
+      comes from real data and return 0.0 if input comes from generator, we can also consider discriminator as an
+      &quot;ordinary binary classifier&quot; which classify wheter a data is real or fake. On the other hand generator tries
+      to generate
+      samples to look as close as possible to real data in order to outsmart the discriminator or in other word it
+      try to make
+      discriminator to classify an input as real whenever the input is fake (generated by generator). More
+      formally
+      discriminator and generator aims are as follow:
+    &lt;p&gt;
+      &lt;b&gt;Discriminator Task&lt;/b&gt;:
+    &lt;ul&gt;
+      &lt;li&gt; Maximize the value of $\mathbb{P}_\text{is real}(x_1,x_2,\dots,x_n)$ where $x_1,x_2,\dots,x_n$ are samples
+        from real dataset &lt;/li&gt;
+      &lt;li&gt; Minimize the value of $\mathbb{P}_\text{is real}(G(z_1),G(z_2),\dots,G(z_n))$ where $G(z_1),G(z_2),\dots,G(z_n)$ are
+        samples generated by generator&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+      &lt;b&gt;Generator Task&lt;/b&gt;:
+    &lt;ul&gt;
+      &lt;li&gt; Maximize the value of $\mathbb{P}_\text{is real}(G(z_1),G(z_2),\dots,G(z_n))$ &lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+      From the list above we can see that generator and discriminator competing to each other, this raise some
+      important questions, for instance how come this form
+      of competing model achieve our main goal a.k.a make a model that can generate samples that look like real
+      data. When we suppose to stop the training ?. To answer those questions
+      we will start by defining how our criterion should look like.
+    &lt;/p&gt;
+    &lt;h2&gt;Setting up the Criterion&lt;/h2&gt;
+    &lt;p&gt;
+      Let's begin with the first task of discriminator, Suppose that $x_1,x_2,\dots,x_n$ is our real
+      samples we wish to maximize $\mathbb{P}_\text{is real}(x_1,x_2,\dots,x_n)=\prod_{1}^{n}\mathbb{P}_\text{is real}(x_i)=\prod_{1}^{n} D(x_i)$, but from computation point of view choosing this
+      value as criterion is a bad
+      decision since it saturate small probability value to zero, here is a code snippet that illustrate the
+      phenomena
+    &lt;/p&gt;
+    &lt;dt-code block language=&quot;python&quot;&gt;
+      import numpy as np
+
+      r1 = np.random.random_sample((100,)) * 0.00001
+      r2 = r1*0.1
+      r3 = r2*0.1
+      l1 = [np.log(x) for x in r1]
+      l2 = [np.log(x) for x in r2]
+      l3 = [np.log(x) for x in r3]
+      print(f&quot;Product of probability : {np.product(r1)}&quot;)
+      print(f&quot;Product of probability : {np.product(r2)}&quot;)
+      print(f&quot;Product of probability : {np.product(r3)}&quot;)
+      print(f&quot;Sum of probability : {np.sum(l1)}&quot;)
+      print(f&quot;Sum of probability : {np.sum(l2)}&quot;)
+      print(f&quot;Sum of probability : {np.sum(l3)}&quot;)
+
+      # Output :
+      # Product of probability : 0.0
+      # Product of probability : 0.0
+      # Product of probability : 0.0
+      # Sum of probability : -1248.714287675051
+      # Sum of probability : -1478.9727969744558
+      # Sum of probability : -1709.2313062738604
+
+    &lt;/dt-code&gt;
+    &lt;p&gt;
+      From the output of the code above, we can see that small values equal to zero after multipication, which is
+      obviously not the exact value, this is caused by the decimal rounding computer does,
+      and since we multiply many smalls values that are rounded down the result become extremely small as the
+      result it close to zero then computer round it to zero, as an alternative
+      since logarithm function is strictly increasing function hence $\log\left[\prod_{1}^{n} D(x_i)\right]=\sum_{1}^{n} \log D(x_i)$ will serve
+      the same purpose, since it is only the scaled version of $\prod_{1}^{n} D(x_i)$. In statistics it is
+      usually called log-likelihood, and since the dataset can be considered as generated by empirical
+      distribution, we can express the log-likelihood
+      in term of expectation,
+    &lt;/p&gt;
+
+    $$\begin{aligned}\sum_{1}^{n} \log D(x_i)&amp;=n\sum_{1}^{n}\frac{1}{n} \log D(x_i) \\ &amp;= n\sum_{1}^{n} \mathbb{P}_{data}(x_i) \log D(x_i) \\ &amp;=n\mathbb{E}_{x\sim \mathbb{P}_{data}}\left[log(D(x))\right] \end{aligned}$$
+    &lt;p&gt;
+      With the same line of reasoning for the second task of discriminator we want to maximize the value of $n\mathbb{E}_{z\sim \mathbb{P}_g}\left[1-log(D(G(z)))\right]$, note here we turn minimizing task into maximizing task, so to do
+      both task we with to maximize
+    &lt;/p&gt;
+    $$\begin{aligned}V^{\prime}(D,G)=n\mathbb{E}_{x\sim \mathbb{P}_{data}}\left[log(D(x))\right]+n\mathbb{E}_{z\sim \mathbb{P}_z}\left[\log(1-D(G(z)))\right]\end{aligned}$$
+    &lt;p&gt;Since $n$ is only a scaler we can drop $n$ such that we want to maximize
+    &lt;/p&gt;
+    $$\begin{aligned}V(D,G)=\mathbb{E}_{x\sim \mathbb{P}_{data}}\left[log(D(x))\right]+\mathbb{E}_{z\sim \mathbb{P}_z}\left[\log(1-D(G(z)))\right]\end{aligned}$$
+
+    &lt;p&gt;Now move to the goal of generator, if we denote optimal discriminator as $D^* = \text{argmax}_D V(G,D)$ then
+      the goal of generator is to minimize&lt;/p&gt;
+      $$\begin{aligned}V(D^{*},G)=\mathbb{E}_{x\sim \mathbb{P}_{data}}\left[\text{log}(D^{*}(x))\right]+\mathbb{E}_{z\sim \mathbb{P}_z}\left[\log(1-D^{*}(G(z)))\right]\end{aligned}$$
+
+    &lt;h2&gt;Optimal Discriminator&lt;/h2&gt;
+    &lt;p&gt;In this section we aim to find $D^{*}(x)= \text{argmax}_{D}V(D,G)$. By the Law of Unconcious Statistician&lt;dt-cite
+        key=&quot;lotus-proof&quot;&gt;&lt;/dt-cite&gt; we get this equation &lt;/p&gt;
+    $$\mathbb{E}_{z\sim \mathbb{P}_z}\left[\log (1-D(G(z)))\right]=\mathbb{E}_{x\sim \mathbb{P}_g}\left[\log (1-D(x))\right]$$
+    &lt;p&gt;hence&lt;/p&gt;
+    $$\begin{aligned} V(D,G)&amp;=\mathbb{E}_{x\sim \mathbb{P}_{data}}\left[\log D(x)\right]+\mathbb{E}_{z\sim \mathbb{P}_z}\left[\log  (1-D(G(z)))\right] \\ &amp;=\mathbb{E}_{x\sim \mathbb{P}_{data}}\left[\log D(x)\right]+\mathbb{E}_{x\sim \mathbb{P}_g}\left[\log (1- D(x))\right] \\ &amp;= \int_{x}\log D(x)\mathbb{P}_{data}(x)dx+\int_{x}\log (1-D(x))\mathbb{P}_g(x)dx \\ &amp;=\int_{x}\log D(x)\mathbb{P}_{data}(x) + \log (1-D(x))\mathbb{P}_g(x)dx \end{aligned}$$
+    &lt;p&gt;Now we want to find the value of that maximize the integran by using elementary calculus,i.e setup the
+      derivation to zero, as follow:&lt;/p&gt;
+    $$\Longleftrightarrow \frac{d\log D(x)\mathbb{P}_{data}(x) + \log (1-D(x))\mathbb{P}_g(x)}{d D(x)}=\frac{\mathbb{P}_{data}(x)}{D(x)}-\frac{\mathbb{P}_g(x)}{1-D(x)}=0 \\ \Longleftrightarrow \mathbb{P}_{data}(x)=D(x)\mathbb{P}_g(x)+D(x)\mathbb{P}_{data}(x) \\ \Longleftrightarrow D(x)=\frac{\mathbb{P}_{data}(x)}{\mathbb{P}_g(x)+\mathbb{P}_{data}(x)}$$
+    &lt;p&gt;So we get the optimal value for discriminator i.e $D^{*}(x)=\frac{\mathbb{P}_{data}(x)}{\mathbb{P}_g(x)+\mathbb{P}_{data}(x)}$&lt;/p&gt;
+    &lt;h2&gt;Optimal Generator&lt;/h2&gt;
+    &lt;p&gt;Now we have an optimal discriminator, next we want to find $G^* = \text{argmax}_G V(G,D^{*})$ but let's first expand
+      $V(G,D^{*})$ :
+    &lt;/p&gt;
+    $$\begin{aligned}V(G,D^{*})&amp;=\int_{x}\log\left[\frac{\mathbb{P}_{data}(x)}{\mathbb{P}_g(x)+\mathbb{P}_{data}(x)}\right]\mathbb{P}_{data}(x)+\log\left[1-\frac{\mathbb{P}_{data}(x)}{\mathbb{P}_g(x)+\mathbb{P}_{data}(x)}\right]\mathbb{P}_g(x) dx \\ &amp;=\int_{x}\log\left[\frac{2\mathbb{P}_{data}(x)}{2(\mathbb{P}_g(x)+\mathbb{P}_{data}(x))}\right]\mathbb{P}_{data}(x)dx+\int_{x}\log\left[\frac{2\mathbb{P}_g(x)}{2(\mathbb{P}_g(x)+\mathbb{P}_{data}(x))}\right]\mathbb{P}_g(x)dx \\ &amp;= -\log 2 + \int_{x}\log\left[\frac{2\mathbb{P}_{data}(x)}{(\mathbb{P}_g(x)+\mathbb{P}_{data}(x))}\right]\mathbb{P}_{data}(x)dx-\log 2 + \int_{x}\log\left[\frac{2\mathbb{P}_g(x)}{(\mathbb{P}_g(x)+\mathbb{P}_{data}(x))}\right]\mathbb{P}_g(x)dx \\ &amp;= -\log 4+2\mathbf{D}_{\text{Jensen-Shanon}}(P_g||P_{data})\end{aligned}$$
+    &lt;p&gt; So here we have nice interpretation because it is easy to find the minimium now, the minimum value of
+      Jensen-Shanon divergence is atained when $\mathbb{P}_{data}(x)=\mathbb{P}_g(x)$ which cause $D^{*}(x)=\frac{\mathbb{P}_{data}(x)}{\mathbb{P}_g(x)+\mathbb{P}_{data}(x)}=\frac{1}{2}$ in other words when the min-max game equilibrium between generator and
+      discriminator achieved, discriminator always return 0.5 for both fake and real data, which mean the
+      discriminator is confused and cannot tell the difference between real and fake data. So theoritically
+      the best time to stop the training is when discriminator return 50% confidence for both samples that
+      generated by generator or real data, but this is only half of the story, we cannot guarantee that our neural
+      network model or our optimization algortihm can achieve that condition.&lt;/p&gt;
+    &lt;h2&gt;Training GAN&lt;/h2&gt;
+    &lt;p&gt;Training GAN is somekind of art as it is not as straight forward as training &quot;conventional&quot; neural network
+      architecture. The original paper of GAN itself does not provide detail about training procedure but more
+      like general framework and the detail is left to us. Since
+      GAN is very popular many researchers and engineers working on it, there is some nice article out there the
+      provide technique to train GAN effectively
+      such as ganhack ganhack&lt;dt-cite key=&quot;ganhack&quot;&gt;&lt;/dt-cite&gt;, although ganhack is quite outdated but we will use
+      some tips from them
+      to train our GAN implementation here.&lt;/p&gt;
+    &lt;h3&gt;Training Discriminator&lt;/h3&gt;
+    &lt;p&gt; Remember that our discriminator goal is to maximize $\mathbb{E}_{x\sim \mathbb{P}_{data}}\left[\log(D(x))\right]+\mathbb{E}_{z\sim \mathbb{P}_z}\left[\log(1-D(G(z)))\right]$ notice that we can turn
+      is maximizing problem into minimizing binary cross entropy loss and the
+      sthocastic version (sum over batch) will look like this $L_{\text{BCE}}=-\sum^{n}_{i=1}y_i\log{\hat{y}_i}+(1-y_i)\log(1-\hat{y}_i)$ 
+      according
+      to ganhack tips it is better to split the batch between real batch and fake batch. Feed forward
+      the fake-only batch compute the loss, feed forward the real-only batch compute the loss, sum up both loss
+      from real-only and fake-only batch
+      then compute the gradient, finally update weight. As for illustration below is diagram of discrimiator
+      forward and backward propagation. The &lt;b&gt;&lt;span style=&quot;color:#00bcd4;&quot;&gt;blue&lt;/span&gt;&lt;/b&gt; line is the flow of
+      forward propagation from real data to summing operator, and the &lt;b&gt;&lt;span style=&quot;color:#ffc107&quot;&gt;yellow&lt;/span&gt;&lt;/b&gt;
+      is from fake data,
+      the &lt;b&gt;&lt;span style=&quot;color:#f44336&quot;&gt;red&lt;/span&gt;&lt;/b&gt; line is the flow of gradients from summed loss to
+      discriminator.
+    &lt;/p&gt;
+    &lt;div id=&quot;discriminator&quot;&gt; &lt;/div&gt;
+    &lt;h3&gt;Training Generator&lt;/h3&gt;
+    &lt;p&gt;Training generator is straight forward since we will only feed noise. The quirk is only we will not minimize
+      $\mathbb{E}_{z\sim \mathbb{P}_z}\left[\log(1-D(G(z)))\right]$ rather than maximize $\mathbb{E}_{x\sim \mathbb{P}_{data}}\left[\log(D(G(z)))\right]$ hence we should assign
+      1.0 as label (true label) for generator output &lt;b&gt;during training the generator&lt;/b&gt;
+    &lt;/p&gt;
+    &lt;div id=&quot;generator&quot;&gt; &lt;/div&gt;
+    &lt;h2&gt;GAN inference&lt;/h2&gt;
+    &lt;p&gt;The inference is very straigh forward, just ignore the discrimiator part, generate noise and feed it to
+      generator&lt;/p&gt;
+    &lt;h2&gt;Implementation&lt;/h2&gt;
+    &lt;p&gt;The code implementation is in python &lt;i class=&quot;fa-brands fa-python&quot;&gt;&lt;/i&gt; I have tried to make the code as
+      readable as possible by minimizing the boilerplates,
+      we will use pytorch framework to help with the automatic differentiation part for backpropagation which is
+      not essential in this article, also the neural network model for
+      discrimiator and generator are mlp with super simple architecture, and the BCE loss is written explicitly to
+      enhance understanding, but
+      in practice I really recommend to use &lt;dt-code&gt;nn.BCELoss()&lt;/dt-code&gt; from PyTorch since it is well optimized and
+      battle
+      tested.
+
+    &lt;/p&gt;
+    &lt;p&gt;Import needed library, and use manual seed so we will get the same result if we run it several times
+      &lt;dt-code block language=&quot;python&quot;&gt;
+        from __future__ import print_function
+        #%matplotlib inline
+        import torch
+        import torch.nn as nn
+        import torch.optim as optim
+        from torchvision import transforms
+        from torchvision.datasets import MNIST
+        from torch.utils.data import DataLoader
+        import imageio
+        import random
+        import matplotlib.pyplot as plt
+        import numpy as np
+        # Set random seed for reproducibility
+        manualSeed = 999
+        random.seed(manualSeed)
+        torch.manual_seed(manualSeed)
+      &lt;/dt-code&gt;
+
+    &lt;/p&gt;
+    &lt;p&gt;
+      We will use MNIST dataset, for ease of use let use the one provided by pytorch
+      &lt;dt-code block language=&quot;python&quot;&gt;
+        transform = transforms.Compose([
+                        transforms.ToTensor(),
+                        transforms.Normalize((0.5,),(0.5,))
+                        ])
+        to_image = transforms.ToPILImage()
+        trainset = MNIST(root='./data/', train=True, download=True, transform=transform)
+        trainloader = DataLoader(trainset, batch_size=100, shuffle=True)
+        
+        device = 'cuda'
+                    &lt;/dt-code&gt;
+        
+
+    &lt;/p&gt;
+    &lt;p&gt;
+      Now define our simple generator and discrimiator architecture
+      &lt;dt-code block language=&quot;python&quot;&gt;
+class Generator(nn.Module):
+    def __init__(self):
+        super(Generator, self).__init__()
+        self.n_features = 128
+        self.n_out = 784
+        self.mlp = nn.Sequential(
+                   nn.Linear(self.n_features, 256),
+                   nn.LeakyReLU(0.2),
+                   nn.Linear(256, 512),
+                   nn.LeakyReLU(0.2),
+                   nn.Linear(512, 1024),
+                   nn.LeakyReLU(0.2),
+                   nn.Linear(1024, self.n_out),
+                   nn.Tanh())
+    def forward(self, x):
+        x = self.mlp(x)
+        x = x.view(-1, 1, 28, 28)
+        return x
+    
+class Discriminator(nn.Module):
+    def __init__(self):
+        super(Discriminator, self).__init__()
+        self.n_in = 784
+        self.n_out = 1
+        self.mlp = nn.Sequential(
+                     nn.Linear(self.n_in, 1024),
+                     nn.LeakyReLU(0.2),
+                     nn.Dropout(0.3),
+                     nn.Linear(1024, 512),
+                     nn.LeakyReLU(0.2),
+                     nn.Dropout(0.3),
+                     nn.Linear(512, 256),
+                     nn.LeakyReLU(0.2),
+                     nn.Dropout(0.3),
+                     nn.Linear(256, self.n_out),
+                     nn.Sigmoid())
+    
+    
+    def forward(self, x):
+        x = x.view(-1, 784)
+        x = self.mlp(x)
+        return x
+      &lt;/dt-code&gt;
+    &lt;/p&gt;
+    &lt;p&gt;Define our hyperparameter
+      &lt;dt-code block language=&quot;python&quot;&gt;
+        num_epochs = 50
+        lr = 0.0002
+        beta1 = 0.5
+        ngpu = 1
+        latent_variable_dim =128
+      &lt;/dt-code&gt;
+    &lt;/p&gt;
+    &lt;p&gt;Define loss function and optimizer, here in practice it is possible that discrimiator return zero and log at zero
+      is undefined, to fix this we will add very small number &lt;dt-code&gt;epsilon = 1e-10 &lt;/dt-code&gt;, to the output of
+      discriminator
+      &lt;dt-code block language=&quot;python&quot;&gt;
+        def binary_cross_entropy(pred, y):
+            epsilon =  1e-10 
+            return -((pred+epsilon).log()*y + (1-y)*(1-pred+epsilon).log()).mean()
+
+        generator_model = Generator().to(device)
+        discriminator_model = Discriminator().to(device)
+
+        # Establish convention for real and fake labels during training
+        real_label = 1.
+        fake_label = 0.
+
+        discriminator_optimizer = optim.Adam(discriminator_model.parameters(), lr=lr, betas=(beta1, 0.999))
+        generator_optimizer = optim.Adam(generator_model.parameters(), lr=lr, betas=(beta1, 0.999))
+
+      &lt;/dt-code&gt;
+
+    &lt;/p&gt;
+    &lt;p&gt;
+      Write function for viewing the generated results
+      &lt;dt-code block language=&quot;python&quot;&gt;
+        def view_result(generator_net, batch = 8):
+            # Create batch of latent vectors that we will use to visualize
+            noise = torch.randn((batch,128), device=device)
+            with torch.no_grad():
+                output = generator_net(noise)
+            #re-arange [NxCxHxW] to [NxHxW] since channel is 1 we will squeeze it
+            output = output.permute(1,0,2,3).squeeze()
+            output_np = output.cpu().detach().numpy()
+            output_np = np.hstack(output_np)
+            print(output_np.shape)
+            plt.imshow(output_np)
+
+      &lt;/dt-code&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+      Train our GAN and wait for some minutes
+      &lt;dt-code block language=&quot;python&quot;&gt;
+          img_list = []
+          G_losses = []
+          D_losses = []
+          iters = 0
+          
+          print(&quot;Starting Training Loop...&quot;)
+          # For each epoch
+          for epoch in range(num_epochs):
+              # For each batch in the dataloader
+              for i, data in enumerate(trainloader, 0):
+          
+                  # ------------------------------------------------------------------#
+                  # Update Discriminator model: maximize log(D(x)) + log(1 - D(G(z))) #
+                  # ------------------------------------------------------------------#
+                 
+                  # Train with batch from real data
+                  discriminator_model.zero_grad()
+                  real_cpu = data[0].to(device)
+                  b_size = real_cpu.size(0)
+                  label = torch.full((b_size,), real_label, dtype=torch.float, device=device)
+                  # Forward real data batch through D
+                  output = discriminator_model(real_cpu).view(-1)
+                  # Calculate loss binary cross entropy for real batch
+                  errD_real = binary_cross_entropy(output, label)
+                  # Calculate discriminator gradient
+                  errD_real.backward()
+                  D_x = output.mean().item()
+          
+                  ## Train with samples generated by generator
+                  # Generate batch of latent vectors
+                  noise = torch.randn((b_size,128), device=device)
+                  # Generate batch of fake images using generator 
+                  fake = generator_model(noise)
+               
+                  label.fill_(fake_label)
+                  # Classify all fake images batch with discriminator
+                  output = discriminator_model(fake.detach()).view(-1)
+                  # Calculate D's loss on the all fake images batch
+                 
+                  errD_fake = binary_cross_entropy(output, label)
+                  # Calculate the gradients for this batch, accumulated (summed) with previous gradients
+                  errD_fake.backward()
+                  D_G_z1 = output.mean().item()
+                  # Compute discriminator error (loss) as sum over the fake and the real batches
+                  errD = errD_real + errD_fake
+                  # Update discriminator
+                  discriminator_optimizer.step()
+          
+                  #------------------------------------------------#
+                  # Update Generator model : maximize log(D(G(z))) #
+                  #------------------------------------------------#
+                  generator_model.zero_grad()
+                  label.fill_(real_label)  # fake labels are real for generator cost
+                  # Since we just updated discriminator, perform another forward pass of all-fake batch through D
+                  output = discriminator_model(fake).view(-1)
+                  # Calculate Generator's loss based on this output
+                  errG = binary_cross_entropy(output, label)
+                  # Calculate generator gradients 
+                  errG.backward()
+                  D_G_z2 = output.mean().item()
+                  # Update generator
+                  generator_optimizer.step()
+          
+                  # Print training loss, D(x) and D(G(z))
+                  if i % 50 == 0:
+                      print(f&quot;Epoch :{epoch+1}/{num_epochs} Loss_D {errD.item():.2f} Loss_G {errG.item():.2f} D(x): {D_x:.2f} D(G(z)): {D_G_z1:.2f}/{D_G_z2:.2f}&quot;)
+                    
+                # Save Losses for plotting later
+              G_losses.append(errG.item())
+              D_losses.append(errD.item())&lt;/dt-code&gt;
+  &lt;/p&gt;
+    &lt;p&gt;
+      View the result, if you run the code correctly after the training is finished then we can see the loss plot and
+      some generated result by running the code snippet bellow
+      &lt;dt-code block language=&quot;python&quot;&gt;
+        plt.figure(figsize=(10,5))
+        plt.title(&quot;Generator and Discriminator Loss During Training&quot;)
+        plt.plot(G_losses,label=&quot;G&quot;)
+        plt.plot(D_losses,label=&quot;D&quot;)
+        plt.xlabel(&quot;epochs&quot;)
+        plt.ylabel(&quot;Loss&quot;)
+        plt.legend()
+        plt.show()
+        view_result(generator_model,batch=8)
+      &lt;/dt-code&gt;
+      the plot and generated image should look like This
+
+
+    &lt;/p&gt;
+    &lt;p style=&quot;align-content: center&quot;&gt;
+    &lt;figure class=&quot;grid&quot; style=&quot;grid-template-columns: 3fr 1fr;&quot;&gt;
+      &lt;img src=&quot;/assets/images/gan_training_graph.png&quot; style=&quot;max-width: 400px&quot;&gt;
+      &lt;figcaption&gt;Plot of discrimiator and generator loss function, the loss/error of discriminator increased due to
+        generator is getting better
+      &lt;/figcaption&gt;
+    &lt;/figure&gt;
+    &lt;figure class=&quot;grid&quot; style=&quot;grid-template-columns: 3fr 1fr;&quot;&gt;
+      &lt;img src=&quot;/assets/images/gan_result.png&quot; style=&quot;max-width: 400px&quot;&gt;
+      &lt;figcaption&gt;Generated samples from generator
+      &lt;/figcaption&gt;
+    &lt;/figure&gt;
+    &lt;/p&gt;
+
+
+
+
+  &lt;/dt-article&gt;
+
+  &lt;!-- Appendix --&gt;
+  
+    &lt;dt-appendix class=&quot;centered&quot;&gt;
+&lt;h3 id=&quot;citation&quot;&gt;Errors and Correction&lt;/h3&gt;
+&lt;p&gt;Please email me at kkrzkrk@gmail.com&lt;/p&gt;
+&lt;h3 id=&quot;citation&quot;&gt;Citations and Reuse&lt;/h3&gt;
+&lt;p&gt;Diagrams and text are licensed under Creative Commons Attribution &lt;a
+        href=&quot;https://creativecommons.org/licenses/by/2.0/&quot;&gt;CC-BY 2.0&lt;/a&gt;. The figures that have been reused
+    from other sources don't fall under this license and can be recognized by a note in their caption: “Figure
+    from …”.&lt;/p&gt;
+&lt;p&gt;For attribution in academic contexts, please cite this work as&lt;/p&gt;
+&lt;pre class=&quot;citation short&quot;&gt;Arpiandi, Kiki Rizki, &quot;Generative Adversarial Network with Bells and Whistle&quot;, 2022.&lt;/pre&gt;
+
+&lt;p&gt;BibTeX citation&lt;/p&gt;
+
+&lt;pre class=&quot;citation long&quot;&gt;@article
+{ 
+  kiki2022gan,
+  author = {Arpiandi, Kiki Rizki},
+  title = { Generative Adversarial Network with Bells and Whistle },
+  year = {2022},
+  url = {https://kikirizki.github.io/gan.html}
+}&lt;/pre&gt;
+&lt;/dt-appendix&gt;
+
+  &lt;script type=&quot;text/bibliography&quot;&gt;
+  @article{DBLP:journals/corr/abs-1912-05911,
+  author    = {Robin M. Schmidt},
+  title     = {Recurrent Neural Networks (RNNs): {A} gentle Introduction and Overview},
+  journal   = {CoRR},
+  volume    = {abs/1912.05911},
+  year      = {2019},
+  url       = {http://arxiv.org/abs/1912.05911},
+  eprinttype = {arXiv},
+  eprint    = {1912.05911},
+  timestamp = {Thu, 02 Jan 2020 18:08:18 +0100},
+  biburl    = {https://dblp.org/rec/journals/corr/abs-1912-05911.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+@article{kiki-inverse-transform,
+    author    = {Kiki Rizki Arpiandi},
+    title     = {Inverse Transform Method in Python},
+    year      = {2022},
+    url       = {https://kikirizki.github.io/inverse-transform.html}
+  }
+  @article{lotus-proof,
+    author = {Joram Soch}, 
+    title = {The Book of Statistical Proofs}, 
+    author = {Thomas J. Faulkenberry and Kenneth Petrykowski and Carsten Allefeld},
+    year = {2020},
+    eprint= {StatProofBook/StatProofBook.github.io: StatProofBook 2020 (Version 2020)},
+    doi =  {10.5281/zenodo.4305950},
+    url = {https://statproofbook.github.io/P/mean-lotus.html}
+
+}
+@misc{goodfellow2014generative,
+    title={Generative Adversarial Networks}, 
+    author={Ian J. Goodfellow and Jean Pouget-Abadie and Mehdi Mirza and Bing Xu and David Warde-Farley and Sherjil Ozair and Aaron Courville and Yoshua Bengio},
+    year={2014},
+    eprint={1406.2661},
+    archivePrefix={arXiv},
+    primaryClass={stat.ML},
+    url={https://arxiv.org/abs/1406.2661}
+}
+@misc{ganhack,
+    title={How to Train a GAN? Tips and tricks to make GANs work},
+    url={https://github.com/soumith/ganhacks},
+    author={Soumith Chintala and Emily Denton and Martin Arjovsky and Michael Mathieu}
+}
+&lt;/script&gt;
+&lt;script src=&quot;/assets/js/diagram.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/assets/js/diagram-g.js&quot;&gt;&lt;/script&gt;
+     &lt;!-- jQuery (necessary for Bootstrap's JavaScript plugins)--&gt;
+    &lt;script src=&quot;https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js&quot;&gt;&lt;/script&gt;
+    &lt;!-- Include all compiled plugins (below), or include individual files as needed--&gt;
+    &lt;script src=&quot;/assets/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;/assets/js/scroll.js&quot;&gt;&lt;/script&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;</content><author><name></name></author><category term="deeplearning" /><summary type="html">Generative Adversarial Network with Bells and Whistle | Kiki’s Blog Toggle navigation Deep Learning(current) Cryptography Probability Theory About Me</summary></entry><entry><title type="html">Inverse Transform Method</title><link href="http://localhost:4000/probability%20theory/2022/03/28/invt.html" rel="alternate" type="text/html" title="Inverse Transform Method" /><published>2022-03-28T00:00:00+07:00</published><updated>2022-03-28T00:00:00+07:00</updated><id>http://localhost:4000/probability%20theory/2022/03/28/invt</id><content type="html" xml:base="http://localhost:4000/probability%20theory/2022/03/28/invt.html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+    &lt;!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags--&gt;
+   &lt;!-- Begin Jekyll SEO tag v2.8.0 --&gt;
+&lt;title&gt;Inverse Transform Method | Kiki’s Blog&lt;/title&gt;
+&lt;meta name=&quot;generator&quot; content=&quot;Jekyll v3.9.2&quot; /&gt;
+&lt;meta property=&quot;og:title&quot; content=&quot;Inverse Transform Method&quot; /&gt;
+&lt;meta property=&quot;og:locale&quot; content=&quot;en_US&quot; /&gt;
+&lt;meta name=&quot;description&quot; content=&quot;proof of inverse transform theorem&quot; /&gt;
+&lt;meta property=&quot;og:description&quot; content=&quot;proof of inverse transform theorem&quot; /&gt;
+&lt;link rel=&quot;canonical&quot; href=&quot;http://localhost:4000/probability%20theory/2022/03/28/invt.html&quot; /&gt;
+&lt;meta property=&quot;og:url&quot; content=&quot;http://localhost:4000/probability%20theory/2022/03/28/invt.html&quot; /&gt;
+&lt;meta property=&quot;og:site_name&quot; content=&quot;Kiki’s Blog&quot; /&gt;
+&lt;meta property=&quot;og:type&quot; content=&quot;article&quot; /&gt;
+&lt;meta property=&quot;article:published_time&quot; content=&quot;2022-03-28T00:00:00+07:00&quot; /&gt;
+&lt;meta name=&quot;twitter:card&quot; content=&quot;summary&quot; /&gt;
+&lt;meta property=&quot;twitter:title&quot; content=&quot;Inverse Transform Method&quot; /&gt;
+&lt;script type=&quot;application/ld+json&quot;&gt;
+{&quot;@context&quot;:&quot;https://schema.org&quot;,&quot;@type&quot;:&quot;BlogPosting&quot;,&quot;dateModified&quot;:&quot;2022-03-28T00:00:00+07:00&quot;,&quot;datePublished&quot;:&quot;2022-03-28T00:00:00+07:00&quot;,&quot;description&quot;:&quot;proof of inverse transform theorem&quot;,&quot;headline&quot;:&quot;Inverse Transform Method&quot;,&quot;mainEntityOfPage&quot;:{&quot;@type&quot;:&quot;WebPage&quot;,&quot;@id&quot;:&quot;http://localhost:4000/probability%20theory/2022/03/28/invt.html&quot;},&quot;url&quot;:&quot;http://localhost:4000/probability%20theory/2022/03/28/invt.html&quot;}&lt;/script&gt;
+&lt;!-- End Jekyll SEO tag --&gt;
+ 
+
+
+    &lt;!-- Bootstrap--&gt;
+    &lt;link href=&quot;/assets/css/bootstrap.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+    &lt;!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries--&gt;
+    &lt;!-- WARNING: Respond.js doesn't work if you view the page via file://--&gt;
+    &lt;!--if lt IE 9script(src='https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js')
+script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')--&gt;
+    &lt;!-- &lt;link href=&quot;css/font-awesome.min.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;&gt; --&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;/assets/css/fontawesome.min.css&quot;&gt;
+
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;/assets/css/style.css&quot;&gt;
+
+    &lt;script&gt;window.console = window.console || function (t) {
+        };
+
+
+    &lt;/script&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css&quot; /&gt;
+
+    &lt;!-- Katex --&gt;
+    &lt;script defer src=&quot;https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script defer src=&quot;https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/auto-render.min.js&quot; onload=&quot;renderMathInElement(document.body,{
+    delimiters: [
+      { left: '$$',  right: '$$',  display: true  },
+      { left: '$',   right: '$',   display: false },
+      { left: '\\[', right: '\\]', display: true  },
+      { left: '\\(', right: '\\)', display: false }
+  ]});&quot;&gt;&lt;/script&gt;
+    
+    &lt;script src=&quot;/assets/js/template.v1.js&quot;&gt;&lt;/script&gt;
+
+    &lt;script src=&quot;/assets/js/d3.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;nav id=&quot;nav&quot; class=&quot;navbar navbar-fixed-top&quot;&gt;
+        &lt;!-- Brand and toggle get grouped for better mobile display --&gt;
+        &lt;div class=&quot;navbar-header&quot;&gt;
+            &lt;button type=&quot;button&quot; data-toggle=&quot;collapse&quot; data-target=&quot;#bs-example-navbar-collapse-1&quot;
+                aria-expanded=&quot;false&quot; class=&quot;navbar-toggle collapsed&quot;&gt;&lt;span class=&quot;sr-only&quot;&gt;Toggle
+                    navigation&lt;/span&gt;&lt;span class=&quot;glyphicon glyphicon glyphicon-menu-hamburger&quot;&gt;&lt;/span&gt;&lt;/button&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Collect the nav links, forms, and other content for toggling --&gt;
+        &lt;div id=&quot;bs-example-navbar-collapse-1&quot; class=&quot;collapse navbar-collapse navbar-ex1-collapse&quot;&gt;
+
+            &lt;ul class=&quot;nav navbar-nav&quot;&gt;
+                &lt;li class=&quot;active&quot;&gt;&lt;a href=&quot;#ml&quot; class=&quot;white-when-scroll&quot;&gt;Deep Learning&lt;span
+                            class=&quot;sr-only&quot;&gt;(current)&lt;/span&gt;&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;https://kikirizki.github.io/index.html#crypt&quot; class=&quot;white-when-scroll&quot;&gt;Cryptography&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;https://kikirizki.github.io/index.html#math&quot; class=&quot;white-when-scroll&quot;&gt;Probability
+                        Theory&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;https://kikirizki.github.io/index.html#about&quot; class=&quot;white-when-scroll&quot;&gt;About
+                        Me&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;https://github.com/kikirizki&quot;&gt;&lt;i class=&quot;fa-brands fa-github&quot;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;https://medium.com/@kkrzkrk&quot;&gt;&lt;i class=&quot;fa-brands fa-medium&quot;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;&lt;!-- /.navbar-collapse --&gt;
+    &lt;/nav&gt;
+
+  &lt;script type=&quot;text/front-matter&quot;&gt;
+    title: Inverse Transform Method
+    description: proof of inverse transform theorem
+    authors:
+    - Kiki Rizki Arpiandi: https://github.com/kikirizki
+    
+    affiliations:
+    - My Medium articles: https://medium.com/@kkrzkrk
+&lt;/script&gt;
+
+
+  &lt;dt-article class=&quot;centered article-bg&quot;&gt;
+
+    &lt;h1&gt;Inverse Transform Method&lt;/h1&gt;
+    &lt;h2&gt;proof of inverse transform theorem&lt;/h2&gt;
+    &lt;dt-byline&gt;&lt;/dt-byline&gt;
+    &lt;p&gt;This time I will explain a beautiful theorem in probability theory is used in
+      several application from making a library that generate pseudo random number with specifict distribution to
+      advanced deep learning concept. Also in this article I will write a code
+      for sampling from random particular distribution using inverse transform theorem &lt;/p&gt;
+
+    &lt;p&gt;&lt;b&gt;Theorem 1&lt;/b&gt;.&lt;i&gt; Suppose that we have a uniformlly distributed random variable over zero to one $U \sim \mathcal{U}(0,1)$ and another random variable $Y = CDF^{-1}_{X}{(U)}$ then $CDF_X$ is CDF for $Y$&lt;/i&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;b&gt;Proof :&lt;/b&gt;&lt;/p&gt;
+
+    &lt;p&gt;Since $U \sim \mathcal{U}(0,1)$ then&lt;/p&gt;
+    &lt;p&gt;$$\begin{equation}CDF_{U}(u)=\mathbb{P}(U\leq u)=u\end{equation}$$&lt;/p&gt;
+    &lt;p&gt;Then by equation(1) we get $$\begin{aligned}CDF_{Y}(y)&amp;=\mathbb{P}(Y \leq y)\\&amp;=\mathbb{P}(CDF^{-1}_{X}(U)\leq y)\\&amp;=\mathbb{P}(U \leq CDF_X(y))\\ &amp;=CDF_X(y)\end{aligned}$$&lt;/p&gt;
+    &lt;p&gt;Q.E.D&lt;/p&gt;
+    &lt;p&gt;Theorem 1 tell us that we can sample any random variable by sampling random uniform first then then feed the
+      value to its inverse of target CDF we want to sample, later I will write a code to sample from Gaussian
+      distribution by using this theorem&lt;/p&gt;
+
+
+  &lt;/dt-article&gt;
+
+  &lt;!-- Appendix --&gt;
+  
+    &lt;dt-appendix class=&quot;centered&quot;&gt;
+&lt;h3 id=&quot;citation&quot;&gt;Errors and Correction&lt;/h3&gt;
+&lt;p&gt;Please email me at kkrzkrk@gmail.com&lt;/p&gt;
+&lt;h3 id=&quot;citation&quot;&gt;Citations and Reuse&lt;/h3&gt;
+&lt;p&gt;Diagrams and text are licensed under Creative Commons Attribution &lt;a
+        href=&quot;https://creativecommons.org/licenses/by/2.0/&quot;&gt;CC-BY 2.0&lt;/a&gt;. The figures that have been reused
+    from other sources don't fall under this license and can be recognized by a note in their caption: “Figure
+    from …”.&lt;/p&gt;
+&lt;p&gt;For attribution in academic contexts, please cite this work as&lt;/p&gt;
+&lt;pre class=&quot;citation short&quot;&gt;Arpiandi, Kiki Rizki, &quot;Inverse Transform Method&quot;, 2022.&lt;/pre&gt;
+
+&lt;p&gt;BibTeX citation&lt;/p&gt;
+
+&lt;pre class=&quot;citation long&quot;&gt;@article
+{ 
+  kiki2022invtransform,
+  author = {Arpiandi, Kiki Rizki},
+  title = { Inverse Transform Method },
+  year = {2022},
+  url = {https://kikirizki.github.io/gan.html}
+}&lt;/pre&gt;
+&lt;/dt-appendix&gt;
+
+ 
+&lt;script type=&quot;text/bibliography&quot;&gt;
+
+&lt;/script&gt;
+     &lt;!-- jQuery (necessary for Bootstrap's JavaScript plugins)--&gt;
+    &lt;script src=&quot;https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js&quot;&gt;&lt;/script&gt;
+    &lt;!-- Include all compiled plugins (below), or include individual files as needed--&gt;
+    &lt;script src=&quot;/assets/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;/assets/js/scroll.js&quot;&gt;&lt;/script&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;</content><author><name></name></author><category term="probability theory" /><summary type="html">Inverse Transform Method | Kiki’s Blog</summary></entry></feed>

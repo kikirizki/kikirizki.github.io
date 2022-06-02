@@ -1,0 +1,92 @@
+---
+title: Transforming Simple Distribution with Normalizing Flow 
+description: build up theoritical understanding of normalizing flow model
+category : "probability theory"
+number : "02"
+cite : kiki2022flow
+---
+<!DOCTYPE html>
+<html lang="en">
+{% include head-blog.html %}
+
+<body>
+  {% include navbar.html %}
+  {% include front-matter.html %}
+
+
+  <dt-article class="centered article-bg">
+
+    <h1>{{ page.title }}</h1>
+    <h2>{{ page.description }}</h2>
+    <dt-byline></dt-byline>
+    <h2>Overview</h2>
+    <p>Modeling a probability distribution has broad application in image generation, video interpolation, file compression an so on. In this article we will talk about one of interesting method to model a probability distribution called normalizing flow. In a nutshell, normalizing flow is a method to model a probability distribution by deforming a random variable to a simple predefined independent prior distribution, such as Gaussian to a more complex one. Given a random variable $\boldsymbol{X}\in \mathbb{R}^D$  from unknown complex distribution, normalizing flow model the distribution by train an  invertible parametric transformation  $f$ that map $\boldsymbol{X}$to $\boldsymbol{Z}$. During inference to get sample $\boldymbol{x}$, simply sample $\boldsymbol{z}$ then transform it by  $f^{-1}$. To more precise, let $\boldsymbol{x}, \boldsymbol{z}$ are samples from $\boldsymbol{X}$ and $\boldsymbol{Y}$  by change variable theorem : </p>
+    <p>
+      $p_X(\boldsymbol{x}) = p_Z(f(\boldsymbol{x}))|\text{det}\frac{\partial f(\boldsymbol{x})}{\partial \boldsymbol{x}}|
+$
+    </p>
+   
+    <p>
+      This way it is easy to sample $\boldsymbol{x}$, by use this following step:
+      
+       $\begin{aligned}\boldsymbol{z}&\sim  p_Z(\boldsymbol{z})\\ \boldsymbol{x}&=f^{-1}(\boldsymbol{z})\end{aligned}$
+      
+      To add expressiveness of the model,  $f$ is designed to be a composition of invertible functions
+      
+      $f=f_S\circ f_n\circ f_{n-1}\circ f_{n-2},\dots, f_1$ and let $\boldsymbol{y}_0=\boldsymbol{x},  \boldsymbol{y}_i=f_i(\boldsymbol{y}_{i-1})$. $f_S$ will be special layer that give relative importance the the output, we will talk more about this in next section. By the change variable rule we have
+    </p>
+    <p>
+      $$p_X(\boldsymbol{x}) = p_{Y_n}(\boldsymbol{y}_n)\left|\text{det}\frac{\partial \boldsymbol{y}_n}{\partial \boldsymbol{x}}\right|=p_{Y_n}(\boldsymbol{y}_n)\Pi_{i=1}^{n}\left|\text{det}\frac{\partial \boldsymbol{y}_i}{\partial\boldsymbol{y_{i-1}}}\right|$$
+    </p>
+    <h2>General Coupling Layer</h2>
+    <p>The function $f_i$ map  $\boldsymbol{y}_{i-1}$ to $\boldsymbol{y}_i$. Coupling layer is one choice of $f_i$ that was proposed in paper NICE<dt-cite
+      key="https://doi.org/10.48550/arxiv.1410.8516"></dt-cite> the idea is to design $f_i$ such that Jacobians are easy to compute. Before going further for simplicity let just think about the first layer and drop the subscript from $\boldsymbol{y}_i$ to $\boldsymbol{y}$. The idea begin by splitting $\boldsymbol{x}$ into two partitions $\boldsymbol{x}_{1:d}\in \mathbb{R}^{d} $ and $\boldsymbol{x}_{d+1:D}\in \mathbb{R}^{D-d}$. then  apply the following mapping</p>
+    <p>$$\begin{aligned}\boldsymbol{y}_{1:d}&= \boldsymbol{x}_{1:d}\\
+      \boldsymbol{y}_{d+1:D}&= g(\boldsymbol{x}_{d+1:D};m(\boldsymbol{x}_{1:d}))\end{aligned}$$</p>
+    <p>Above mapping is called coupling layer with arbitrary function $m$. The choice of $m$ can be anything such as artificial neural network. </p>
+    
+    <p>Now consider the jacobian of coupling layer mapping</p>
+    <p>$$\frac{\partial \boldsymbol{y}}{\partial \boldsymbol{x}} = \begin{bmatrix}\boldsymbol{I}_d & \boldsymbol{0}_d \\ \frac{\partial{\boldsymbol{y}_{d+1:D}}}{\partial \boldsymbol{x}_{1:d}} & \frac{\partial \boldsymbol{y}_{d+1:D}}{\partial \boldsymbol{x}_{d+1:D}}\end{bmatrix}$$</p>
+    <h2>Additive Coupling Layer</h2>
+    <p>Additive coupling layer is the coupling layer with</p>
+    <p>$$g(\boldsymbol{x}_{d+1:D};m(\boldsymbol{x}_{1:d})) = \boldsymbol{x}_{d+1:D}+ m(\boldsymbol{x}_{1:d})$$</p>
+    <p>$$\frac{\partial \boldsymbol{y}}{\partial \boldsymbol{x}}= \begin{bmatrix}I_d & \boldsymbol{0}_{d\times{D-d}} \\ \frac{\partial{y{d+1:D}}}{\partial x_{1:d}} & I_{D-d} \end{bmatrix}$$</p>
+    <p>Which is a lower triangular matrix, now we can easily compute jacobian $J=\left| \text{det}\frac{\partial \boldsymbol{y}}{\partial \boldsymbol{x}} \right|$ . Remember from linear algebra determinant of lower triangular matrix are the product of it’s diagonal entries (if you forget it please read your linear algebra book) and since our all diagonal entries equals to $1$ so $J=1$. It is easy to see recursively that $p_X(\boldsymbol{x}) = p_{Y_{n}}(\boldsymbol{y}_n)$.  </p>
+    <p>Since one part of coupling layer input partition is left unchanged (mapped to identity function), when composing coupling layers we should change the role  between those two input partitions. To add more expressiveness to the model on the top of layer, multiply  $\boldsymbol{y}_n$ with learnable diagonal matrix $\boldsymbol{S}\in \mathbb{R}^{DxD}$  , this way it allow to control relative importance for each elements of $\boldsymbol{y}_n$ so the final layer become $\begin{aligned}\boldsymbol{z}&=\boldsymbol{S}\boldsymbol{y}_n \end{aligned}$ . From vector calculus it is easy to show that $\frac{\partial \boldsymbol{z}}{\partial \boldsymbol{y}_n}=\boldsymbol{S}$. This also cause $\frac{\partial \boldsymbol{z}}{\partial \boldsymbol{x}}=\frac{\partial \boldsymbol{z}}{\partial \boldsymbol{y}_n}\frac{\partial \boldsymbol{y}_n}{\partial \boldsymbol{x}}=\boldsymbol{S}\boldsymbol{I}_D=\boldsymbol{S}$ so we get final equation as follow
+
+      $$p_X(\boldsymbol{x}) = p_{Z}(\boldsymbol{z})\left|\text{det}\frac{\partial  \boldsymbol{z}}{\partial \boldsymbol{x}}\right|=p_{Z}(\boldsymbol{z})\left|\text{det}\boldsymbol{S}\right|$$</p>
+    <h2>Loss Function</h2>
+    <p>The loss function is simply a log likelihood of our unknown distribution that generate our dataset$\text{log} (p_X(\boldsymbol{x}))$ and since prior distribution $p_Z(\boldsymbol{z})$ is independent then the loss function can be factorized into:</p>
+    <p>$$\begin{aligned}\text{log} (p_X(\boldsymbol{x}))&= \text{log}(p_Z(\boldsymbol{z}))+\text{log}\left|\text{det}\boldsymbol{S}\right|\\&=\sum_{i=1}^{D}\text{log}(p_{Z_i}(\boldsymbol{z}))+\sum_{i=1}^{D}\text{log}\left|S_{ii}\right|\\&=\sum_{i=1}^{D}\left[ \text{log}(p_{Z_i}(\boldsymbol{z}))+\text{log}\left|S_{ii}\right|\right]
+
+      \end{aligned}$$</p>  
+  </dt-article>
+
+  <!-- Appendix -->
+  
+    {% include appendix.html %}
+
+ 
+<script type="text/bibliography">
+  @misc{https://doi.org/10.48550/arxiv.1410.8516,
+    doi = {10.48550/ARXIV.1410.8516},
+    
+    url = {https://arxiv.org/abs/1410.8516},
+    
+    author = {Dinh, Laurent and Krueger, David and Bengio, Yoshua},
+    
+    keywords = {Machine Learning (cs.LG), FOS: Computer and information sciences, FOS: Computer and information sciences},
+    
+    title = {NICE: Non-linear Independent Components Estimation},
+    
+    publisher = {arXiv},
+    
+    year = {2014},
+    
+    copyright = {arXiv.org perpetual, non-exclusive license}
+  }
+</script>
+  {% include footer.html %}
+</body>
+
+</html>
