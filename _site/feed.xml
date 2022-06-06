@@ -1,4 +1,169 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-06-06T16:26:01+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Kiki’s Blog</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Transforming Simple Distribution with Normalizing Flow</title><link href="http://localhost:4000/probability%20theory/2022/05/26/normalizingflow.html" rel="alternate" type="text/html" title="Transforming Simple Distribution with Normalizing Flow" /><published>2022-05-26T00:00:00+07:00</published><updated>2022-05-26T00:00:00+07:00</updated><id>http://localhost:4000/probability%20theory/2022/05/26/normalizingflow</id><content type="html" xml:base="http://localhost:4000/probability%20theory/2022/05/26/normalizingflow.html">&lt;!DOCTYPE html&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-06-06T16:45:00+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Kiki’s Blog</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Clean Implementation of Normalizing Flow Using PyTorch</title><link href="http://localhost:4000/deeplearning/2022/06/06/nf-pytorch.html" rel="alternate" type="text/html" title="Clean Implementation of Normalizing Flow Using PyTorch" /><published>2022-06-06T00:00:00+07:00</published><updated>2022-06-06T00:00:00+07:00</updated><id>http://localhost:4000/deeplearning/2022/06/06/nf-pytorch</id><content type="html" xml:base="http://localhost:4000/deeplearning/2022/06/06/nf-pytorch.html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+    &lt;!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags--&gt;
+   &lt;!-- Begin Jekyll SEO tag v2.8.0 --&gt;
+&lt;title&gt;Clean Implementation of Normalizing Flow Using PyTorch | Kiki’s Blog&lt;/title&gt;
+&lt;meta name=&quot;generator&quot; content=&quot;Jekyll v3.9.2&quot; /&gt;
+&lt;meta property=&quot;og:title&quot; content=&quot;Clean Implementation of Normalizing Flow Using PyTorch&quot; /&gt;
+&lt;meta property=&quot;og:locale&quot; content=&quot;en_US&quot; /&gt;
+&lt;meta name=&quot;description&quot; content=&quot;A step-by-step tutorial to implement normalizing flow in PyTorch&quot; /&gt;
+&lt;meta property=&quot;og:description&quot; content=&quot;A step-by-step tutorial to implement normalizing flow in PyTorch&quot; /&gt;
+&lt;link rel=&quot;canonical&quot; href=&quot;http://localhost:4000/deeplearning/2022/06/06/nf-pytorch.html&quot; /&gt;
+&lt;meta property=&quot;og:url&quot; content=&quot;http://localhost:4000/deeplearning/2022/06/06/nf-pytorch.html&quot; /&gt;
+&lt;meta property=&quot;og:site_name&quot; content=&quot;Kiki’s Blog&quot; /&gt;
+&lt;meta property=&quot;og:type&quot; content=&quot;article&quot; /&gt;
+&lt;meta property=&quot;article:published_time&quot; content=&quot;2022-06-06T00:00:00+07:00&quot; /&gt;
+&lt;meta name=&quot;twitter:card&quot; content=&quot;summary&quot; /&gt;
+&lt;meta property=&quot;twitter:title&quot; content=&quot;Clean Implementation of Normalizing Flow Using PyTorch&quot; /&gt;
+&lt;script type=&quot;application/ld+json&quot;&gt;
+{&quot;@context&quot;:&quot;https://schema.org&quot;,&quot;@type&quot;:&quot;BlogPosting&quot;,&quot;dateModified&quot;:&quot;2022-06-06T00:00:00+07:00&quot;,&quot;datePublished&quot;:&quot;2022-06-06T00:00:00+07:00&quot;,&quot;description&quot;:&quot;A step-by-step tutorial to implement normalizing flow in PyTorch&quot;,&quot;headline&quot;:&quot;Clean Implementation of Normalizing Flow Using PyTorch&quot;,&quot;mainEntityOfPage&quot;:{&quot;@type&quot;:&quot;WebPage&quot;,&quot;@id&quot;:&quot;http://localhost:4000/deeplearning/2022/06/06/nf-pytorch.html&quot;},&quot;url&quot;:&quot;http://localhost:4000/deeplearning/2022/06/06/nf-pytorch.html&quot;}&lt;/script&gt;
+&lt;!-- End Jekyll SEO tag --&gt;
+ 
+
+
+    &lt;!-- Bootstrap--&gt;
+    &lt;link href=&quot;/assets/css/bootstrap.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+    &lt;!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries--&gt;
+    &lt;!-- WARNING: Respond.js doesn't work if you view the page via file://--&gt;
+    &lt;!--if lt IE 9script(src='https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js')
+script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')--&gt;
+    &lt;!-- &lt;link href=&quot;css/font-awesome.min.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;&gt; --&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;/assets/css/fontawesome.min.css&quot;&gt;
+
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;/assets/css/style.css&quot;&gt;
+
+    &lt;script&gt;window.console = window.console || function (t) {
+        };
+
+
+    &lt;/script&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css&quot; /&gt;
+
+    &lt;!-- Katex --&gt;
+    &lt;script defer src=&quot;https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script defer src=&quot;https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/auto-render.min.js&quot; onload=&quot;renderMathInElement(document.body,{
+    delimiters: [
+      { left: '$$',  right: '$$',  display: true  },
+      { left: '$',   right: '$',   display: false },
+      { left: '\\[', right: '\\]', display: true  },
+      { left: '\\(', right: '\\)', display: false }
+  ]});&quot;&gt;&lt;/script&gt;
+    
+    &lt;script src=&quot;/assets/js/template.v1.js&quot;&gt;&lt;/script&gt;
+
+    &lt;script src=&quot;/assets/js/d3.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;nav id=&quot;nav&quot; class=&quot;navbar navbar-fixed-top&quot;&gt;
+        &lt;!-- Brand and toggle get grouped for better mobile display --&gt;
+        &lt;div class=&quot;navbar-header&quot;&gt;
+            &lt;button type=&quot;button&quot; data-toggle=&quot;collapse&quot; data-target=&quot;#bs-example-navbar-collapse-1&quot;
+                aria-expanded=&quot;false&quot; class=&quot;navbar-toggle collapsed&quot;&gt;&lt;span class=&quot;sr-only&quot;&gt;Toggle
+                    navigation&lt;/span&gt;&lt;span class=&quot;glyphicon glyphicon glyphicon-menu-hamburger&quot;&gt;&lt;/span&gt;&lt;/button&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Collect the nav links, forms, and other content for toggling --&gt;
+        &lt;div id=&quot;bs-example-navbar-collapse-1&quot; class=&quot;collapse navbar-collapse navbar-ex1-collapse&quot;&gt;
+
+            &lt;ul class=&quot;nav navbar-nav&quot;&gt;
+                &lt;li class=&quot;active&quot;&gt;&lt;a href=&quot;#ml&quot; class=&quot;white-when-scroll&quot;&gt;Deep Learning&lt;span
+                            class=&quot;sr-only&quot;&gt;(current)&lt;/span&gt;&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;https://kikirizki.github.io/index.html#crypt&quot; class=&quot;white-when-scroll&quot;&gt;Cryptography&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;https://kikirizki.github.io/index.html#math&quot; class=&quot;white-when-scroll&quot;&gt;Probability
+                        Theory&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;https://kikirizki.github.io/index.html#about&quot; class=&quot;white-when-scroll&quot;&gt;About
+                        Me&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;https://github.com/kikirizki&quot;&gt;&lt;i class=&quot;fa-brands fa-github&quot;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;https://medium.com/@kkrzkrk&quot;&gt;&lt;i class=&quot;fa-brands fa-medium&quot;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;&lt;!-- /.navbar-collapse --&gt;
+    &lt;/nav&gt;
+
+    &lt;script type=&quot;text/front-matter&quot;&gt;
+    title: Clean Implementation of Normalizing Flow Using PyTorch
+    description: A step-by-step tutorial to implement normalizing flow in PyTorch
+    authors:
+    - Kiki Rizki Arpiandi: https://github.com/kikirizki
+    
+    affiliations:
+    - My Medium articles: https://medium.com/@kkrzkrk
+&lt;/script&gt;
+
+    &lt;dt-article class=&quot;centered article-bg&quot;&gt;
+        &lt;h1&gt;Clean Implementation of Normalizing Flow Using PyTorch&lt;/h1&gt;
+        &lt;h2&gt;A step-by-step tutorial to implement normalizing flow in PyTorch&lt;/h2&gt;
+        &lt;dt-byline&gt;&lt;/dt-byline&gt;
+        &lt;h2&gt;Overview&lt;/h2&gt;
+        &lt;p&gt;
+            first paragraph
+        &lt;/p&gt;
+        &lt;p&gt;
+            second paragraph
+        &lt;/p&gt;
+    &lt;/dt-article&gt;
+
+    &lt;!-- Appendix --&gt;
+
+    &lt;dt-appendix class=&quot;centered&quot;&gt;
+&lt;h3 id=&quot;citation&quot;&gt;Errors and Correction&lt;/h3&gt;
+&lt;p&gt;Please email me at kkrzkrk@gmail.com&lt;/p&gt;
+&lt;h3 id=&quot;citation&quot;&gt;Citations and Reuse&lt;/h3&gt;
+&lt;p&gt;Diagrams and text are licensed under Creative Commons Attribution &lt;a
+        href=&quot;https://creativecommons.org/licenses/by/2.0/&quot;&gt;CC-BY 2.0&lt;/a&gt;. The figures that have been reused
+    from other sources don't fall under this license and can be recognized by a note in their caption: “Figure
+    from …”.&lt;/p&gt;
+&lt;p&gt;For attribution in academic contexts, please cite this work as&lt;/p&gt;
+&lt;pre class=&quot;citation short&quot;&gt;Arpiandi, Kiki Rizki, &quot;Clean Implementation of Normalizing Flow Using PyTorch&quot;, 2022.&lt;/pre&gt;
+
+&lt;p&gt;BibTeX citation&lt;/p&gt;
+
+&lt;pre class=&quot;citation long&quot;&gt;@article
+{ 
+  kiki2022nfpytorch,
+  author = {Arpiandi, Kiki Rizki},
+  title = { Clean Implementation of Normalizing Flow Using PyTorch },
+  year = {2022},
+  url = {https://kikirizki.github.io/gan.html}
+}&lt;/pre&gt;
+&lt;/dt-appendix&gt;
+
+    &lt;script type=&quot;text/bibliography&quot;&gt;
+
+    &lt;/script&gt;
+    &lt;!-- jQuery (necessary for Bootstrap's JavaScript plugins)--&gt;
+&lt;script src=&quot;https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;!-- Include all compiled plugins (below), or include individual files as needed--&gt;
+&lt;script src=&quot;/assets/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/assets/js/scroll.js&quot;&gt;&lt;/script&gt;
+&lt;div id=&quot;disqus_thread&quot;&gt;&lt;/div&gt;
+&lt;script&gt;
+   /**
+   *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+   *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+   /*
+   var disqus_config = function () {
+   this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+   this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+   };
+   */
+   (function () { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://kiki-rizki-arpiandi.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+   })();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href=&quot;https://disqus.com/?ref_noscript&quot;&gt;comments powered by
+      Disqus.&lt;/a&gt;&lt;/noscript&gt;
+&lt;/body&gt;
+&lt;/html&gt;</content><author><name></name></author><category term="deeplearning" /><summary type="html">Clean Implementation of Normalizing Flow Using PyTorch | Kiki’s Blog</summary></entry><entry><title type="html">Transforming Simple Distribution with Normalizing Flow</title><link href="http://localhost:4000/probability%20theory/2022/05/26/normalizingflow.html" rel="alternate" type="text/html" title="Transforming Simple Distribution with Normalizing Flow" /><published>2022-05-26T00:00:00+07:00</published><updated>2022-05-26T00:00:00+07:00</updated><id>http://localhost:4000/probability%20theory/2022/05/26/normalizingflow</id><content type="html" xml:base="http://localhost:4000/probability%20theory/2022/05/26/normalizingflow.html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en&quot;&gt;
 &lt;head&gt;
     &lt;meta charset=&quot;utf-8&quot;&gt;
