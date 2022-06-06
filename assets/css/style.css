@@ -118,3 +118,8 @@ background-color: white;
   white-space: normal;
   text-indent: 0;
 }
+
+#disqus_thread{
+   padding-left: 25%;
+   padding-right: 25%;
+}

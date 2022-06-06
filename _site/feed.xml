@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-06-02T15:34:56+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Kiki’s Blog</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Transforming Simple Distribution with Normalizing Flow</title><link href="http://localhost:4000/probability%20theory/2022/05/26/normalizingflow.html" rel="alternate" type="text/html" title="Transforming Simple Distribution with Normalizing Flow" /><published>2022-05-26T00:00:00+07:00</published><updated>2022-05-26T00:00:00+07:00</updated><id>http://localhost:4000/probability%20theory/2022/05/26/normalizingflow</id><content type="html" xml:base="http://localhost:4000/probability%20theory/2022/05/26/normalizingflow.html">&lt;!DOCTYPE html&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-06-06T16:04:08+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Kiki’s Blog</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Transforming Simple Distribution with Normalizing Flow</title><link href="http://localhost:4000/probability%20theory/2022/05/26/normalizingflow.html" rel="alternate" type="text/html" title="Transforming Simple Distribution with Normalizing Flow" /><published>2022-05-26T00:00:00+07:00</published><updated>2022-05-26T00:00:00+07:00</updated><id>http://localhost:4000/probability%20theory/2022/05/26/normalizingflow</id><content type="html" xml:base="http://localhost:4000/probability%20theory/2022/05/26/normalizingflow.html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en&quot;&gt;
 &lt;head&gt;
     &lt;meta charset=&quot;utf-8&quot;&gt;
@@ -191,12 +191,31 @@ $
     copyright = {arXiv.org perpetual, non-exclusive license}
   }
 &lt;/script&gt;
-     &lt;!-- jQuery (necessary for Bootstrap's JavaScript plugins)--&gt;
-    &lt;script src=&quot;https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js&quot;&gt;&lt;/script&gt;
-    &lt;!-- Include all compiled plugins (below), or include individual files as needed--&gt;
-    &lt;script src=&quot;/assets/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
-    &lt;script src=&quot;/assets/js/scroll.js&quot;&gt;&lt;/script&gt;
-
+  &lt;!-- jQuery (necessary for Bootstrap's JavaScript plugins)--&gt;
+&lt;script src=&quot;https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;!-- Include all compiled plugins (below), or include individual files as needed--&gt;
+&lt;script src=&quot;/assets/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/assets/js/scroll.js&quot;&gt;&lt;/script&gt;
+&lt;div id=&quot;disqus_thread&quot;&gt;&lt;/div&gt;
+&lt;script&gt;
+   /**
+   *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+   *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+   /*
+   var disqus_config = function () {
+   this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+   this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+   };
+   */
+   (function () { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://kiki-rizki-arpiandi.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+   })();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href=&quot;https://disqus.com/?ref_noscript&quot;&gt;comments powered by
+      Disqus.&lt;/a&gt;&lt;/noscript&gt;
 &lt;/body&gt;
 
 &lt;/html&gt;</content><author><name></name></author><category term="probability theory" /><summary type="html">Transforming Simple Distribution with Normalizing Flow | Kiki’s Blog</summary></entry><entry><title type="html">Generative Adversarial Network with Bells and Whistle</title><link href="http://localhost:4000/deeplearning/2022/03/28/gan.html" rel="alternate" type="text/html" title="Generative Adversarial Network with Bells and Whistle" /><published>2022-03-28T00:00:00+07:00</published><updated>2022-03-28T00:00:00+07:00</updated><id>http://localhost:4000/deeplearning/2022/03/28/gan</id><content type="html" xml:base="http://localhost:4000/deeplearning/2022/03/28/gan.html">&lt;!DOCTYPE html&gt;
@@ -804,12 +823,31 @@ class Discriminator(nn.Module):
 &lt;/script&gt;
 &lt;script src=&quot;/assets/js/diagram.js&quot;&gt;&lt;/script&gt;
 &lt;script src=&quot;/assets/js/diagram-g.js&quot;&gt;&lt;/script&gt;
-     &lt;!-- jQuery (necessary for Bootstrap's JavaScript plugins)--&gt;
-    &lt;script src=&quot;https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js&quot;&gt;&lt;/script&gt;
-    &lt;!-- Include all compiled plugins (below), or include individual files as needed--&gt;
-    &lt;script src=&quot;/assets/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
-    &lt;script src=&quot;/assets/js/scroll.js&quot;&gt;&lt;/script&gt;
-
+  &lt;!-- jQuery (necessary for Bootstrap's JavaScript plugins)--&gt;
+&lt;script src=&quot;https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;!-- Include all compiled plugins (below), or include individual files as needed--&gt;
+&lt;script src=&quot;/assets/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/assets/js/scroll.js&quot;&gt;&lt;/script&gt;
+&lt;div id=&quot;disqus_thread&quot;&gt;&lt;/div&gt;
+&lt;script&gt;
+   /**
+   *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+   *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+   /*
+   var disqus_config = function () {
+   this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+   this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+   };
+   */
+   (function () { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://kiki-rizki-arpiandi.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+   })();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href=&quot;https://disqus.com/?ref_noscript&quot;&gt;comments powered by
+      Disqus.&lt;/a&gt;&lt;/noscript&gt;
 &lt;/body&gt;
 
 &lt;/html&gt;</content><author><name></name></author><category term="deeplearning" /><summary type="html">Generative Adversarial Network with Bells and Whistle | Kiki’s Blog Toggle navigation Deep Learning(current) Cryptography Probability Theory About Me</summary></entry><entry><title type="html">Inverse Transform Method</title><link href="http://localhost:4000/probability%20theory/2022/03/28/invt.html" rel="alternate" type="text/html" title="Inverse Transform Method" /><published>2022-03-28T00:00:00+07:00</published><updated>2022-03-28T00:00:00+07:00</updated><id>http://localhost:4000/probability%20theory/2022/03/28/invt</id><content type="html" xml:base="http://localhost:4000/probability%20theory/2022/03/28/invt.html">&lt;!DOCTYPE html&gt;
@@ -964,12 +1002,31 @@ script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')--&gt;
 &lt;script type=&quot;text/bibliography&quot;&gt;
 
 &lt;/script&gt;
-     &lt;!-- jQuery (necessary for Bootstrap's JavaScript plugins)--&gt;
-    &lt;script src=&quot;https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js&quot;&gt;&lt;/script&gt;
-    &lt;!-- Include all compiled plugins (below), or include individual files as needed--&gt;
-    &lt;script src=&quot;/assets/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
-    &lt;script src=&quot;/assets/js/scroll.js&quot;&gt;&lt;/script&gt;
-
+  &lt;!-- jQuery (necessary for Bootstrap's JavaScript plugins)--&gt;
+&lt;script src=&quot;https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;!-- Include all compiled plugins (below), or include individual files as needed--&gt;
+&lt;script src=&quot;/assets/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/assets/js/scroll.js&quot;&gt;&lt;/script&gt;
+&lt;div id=&quot;disqus_thread&quot;&gt;&lt;/div&gt;
+&lt;script&gt;
+   /**
+   *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+   *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+   /*
+   var disqus_config = function () {
+   this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+   this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+   };
+   */
+   (function () { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://kiki-rizki-arpiandi.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+   })();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href=&quot;https://disqus.com/?ref_noscript&quot;&gt;comments powered by
+      Disqus.&lt;/a&gt;&lt;/noscript&gt;
 &lt;/body&gt;
 
 &lt;/html&gt;</content><author><name></name></author><category term="probability theory" /><summary type="html">Inverse Transform Method | Kiki’s Blog</summary></entry></feed>
