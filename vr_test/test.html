@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <title>aframe-chromakey-material example</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-chromakey-material/dist/aframe-chromakey-material.min.js"></script>
+  </head>
+
+  <body>
+    <video style="opacity: 0;" id="greenscreenvideo" src="https://kikirizki.github.io/vr_test/meta.mp4" loop autoplay muted></video>
+    <video style="opacity: 0;" id="black" src="https://kikirizki.github.io/vr_test/goushi002.mp4" loop autoplay muted></video>
+    <a-scene>
+      <a-sky 
+        material="shader: chromakey; src: #greenscreenvideo; color: 0.1 0.9 0.2" 
+      ></a-sky>
+       <a-plane 
+        material="shader: chromakey; src: #black; color: 0.1 0.9 0.2" 
+        position="0 1 -10" 
+        scale="15 25 15"
+      ></a-plane>
+    </a-scene>
+  </body>
+</html>
