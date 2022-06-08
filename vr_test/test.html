@@ -6,14 +6,15 @@
   </head>
 
   <body>
-    <video style="opacity: 0;" id="greenscreenvideo" src="https://kikirizki.github.io/vr_test/meta.mp4" loop autoplay muted></video>
+    <video style="opacity: 0;" id="greenscreenvideo" src="https://kikirizki.github.io/vr_test/metareunia.mp4" loop autoplay muted></video>
     <video style="opacity: 0;" id="black" src="https://kikirizki.github.io/vr_test/goushi002.mp4" loop autoplay muted></video>
     <a-scene>
       <a-sky 
         material="shader: chromakey; src: #greenscreenvideo; color: 0.1 0.9 0.2" 
       ></a-sky>
-       <a-plane 
-        material="shader: chromakey; src: #black; color: 0.1 0.9 0.2" 
+       <a-plane
+                
+        material="shader: chromakey; src: #black; color: 0.1 0.9 0.2; transparent:true; opacity: 0.5" 
         position="0 1 -10" 
         scale="15 25 15"
       ></a-plane>
