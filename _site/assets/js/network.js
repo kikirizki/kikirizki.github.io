@@ -228,7 +228,10 @@ function Neuron(x, y) {
         strokeWeight(0);
         var b = map(this.sum,0,1,255,175);
         fill(b);
-        ellipse(this.position.x, this.position.y, this.r, this.r);
+        var rect_pos_x = this.position.x-(this.r/2)
+        var rect_pos_y = this.position.y-(this.r/2)
+        rect(rect_pos_x, rect_pos_y, this.r, this.r);
+
 
         this.r = lerp(this.r,32,0.1);
     }
