@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-08T21:19:05+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Kiki’s Blog</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Understand Transformer Paper Through Implementation</title><link href="http://localhost:4000/deeplearning/2022/07/27/transformer.html" rel="alternate" type="text/html" title="Understand Transformer Paper Through Implementation" /><published>2022-07-27T00:00:00+07:00</published><updated>2022-07-27T00:00:00+07:00</updated><id>http://localhost:4000/deeplearning/2022/07/27/transformer</id><content type="html" xml:base="http://localhost:4000/deeplearning/2022/07/27/transformer.html">&lt;!DOCTYPE html&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-08T21:23:40+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Kiki’s Blog</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Understand Transformer Paper Through Implementation</title><link href="http://localhost:4000/deeplearning/2022/07/27/transformer.html" rel="alternate" type="text/html" title="Understand Transformer Paper Through Implementation" /><published>2022-07-27T00:00:00+07:00</published><updated>2022-07-27T00:00:00+07:00</updated><id>http://localhost:4000/deeplearning/2022/07/27/transformer</id><content type="html" xml:base="http://localhost:4000/deeplearning/2022/07/27/transformer.html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en&quot;&gt;
 &lt;head&gt;
     &lt;meta charset=&quot;utf-8&quot;&gt;
@@ -10,8 +10,8 @@
 &lt;meta name=&quot;generator&quot; content=&quot;Jekyll v3.9.2&quot; /&gt;
 &lt;meta property=&quot;og:title&quot; content=&quot;Understand Transformer Paper Through Implementation&quot; /&gt;
 &lt;meta property=&quot;og:locale&quot; content=&quot;en_US&quot; /&gt;
-&lt;meta name=&quot;description&quot; content=&quot;a detailed implementation of transformer architecture as close as possible to it’s paper&quot; /&gt;
-&lt;meta property=&quot;og:description&quot; content=&quot;a detailed implementation of transformer architecture as close as possible to it’s paper&quot; /&gt;
+&lt;meta name=&quot;description&quot; content=&quot;a detailed implementation of binary classification using transformer encoder&quot; /&gt;
+&lt;meta property=&quot;og:description&quot; content=&quot;a detailed implementation of binary classification using transformer encoder&quot; /&gt;
 &lt;link rel=&quot;canonical&quot; href=&quot;http://localhost:4000/deeplearning/2022/07/27/transformer.html&quot; /&gt;
 &lt;meta property=&quot;og:url&quot; content=&quot;http://localhost:4000/deeplearning/2022/07/27/transformer.html&quot; /&gt;
 &lt;meta property=&quot;og:site_name&quot; content=&quot;Kiki’s Blog&quot; /&gt;
@@ -20,7 +20,7 @@
 &lt;meta name=&quot;twitter:card&quot; content=&quot;summary&quot; /&gt;
 &lt;meta property=&quot;twitter:title&quot; content=&quot;Understand Transformer Paper Through Implementation&quot; /&gt;
 &lt;script type=&quot;application/ld+json&quot;&gt;
-{&quot;@context&quot;:&quot;https://schema.org&quot;,&quot;@type&quot;:&quot;BlogPosting&quot;,&quot;dateModified&quot;:&quot;2022-07-27T00:00:00+07:00&quot;,&quot;datePublished&quot;:&quot;2022-07-27T00:00:00+07:00&quot;,&quot;description&quot;:&quot;a detailed implementation of transformer architecture as close as possible to it’s paper&quot;,&quot;headline&quot;:&quot;Understand Transformer Paper Through Implementation&quot;,&quot;mainEntityOfPage&quot;:{&quot;@type&quot;:&quot;WebPage&quot;,&quot;@id&quot;:&quot;http://localhost:4000/deeplearning/2022/07/27/transformer.html&quot;},&quot;url&quot;:&quot;http://localhost:4000/deeplearning/2022/07/27/transformer.html&quot;}&lt;/script&gt;
+{&quot;@context&quot;:&quot;https://schema.org&quot;,&quot;@type&quot;:&quot;BlogPosting&quot;,&quot;dateModified&quot;:&quot;2022-07-27T00:00:00+07:00&quot;,&quot;datePublished&quot;:&quot;2022-07-27T00:00:00+07:00&quot;,&quot;description&quot;:&quot;a detailed implementation of binary classification using transformer encoder&quot;,&quot;headline&quot;:&quot;Understand Transformer Paper Through Implementation&quot;,&quot;mainEntityOfPage&quot;:{&quot;@type&quot;:&quot;WebPage&quot;,&quot;@id&quot;:&quot;http://localhost:4000/deeplearning/2022/07/27/transformer.html&quot;},&quot;url&quot;:&quot;http://localhost:4000/deeplearning/2022/07/27/transformer.html&quot;}&lt;/script&gt;
 &lt;!-- End Jekyll SEO tag --&gt;
  
 
@@ -88,7 +88,7 @@ script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')--&gt;
 
   &lt;script type=&quot;text/front-matter&quot;&gt;
     title: Understand Transformer Paper Through Implementation
-    description: a detailed implementation of transformer architecture as close as possible to it's paper
+    description: a detailed implementation of binary classification using transformer encoder
     authors:
     - Kiki Rizki Arpiandi: https://github.com/kikirizki
     
@@ -100,7 +100,7 @@ script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')--&gt;
   &lt;dt-article class=&quot;centered article-bg&quot;&gt;
 
     &lt;h1&gt;Understand Transformer Paper Through Implementation&lt;/h1&gt;
-    &lt;h2&gt;a detailed implementation of transformer architecture as close as possible to it's paper&lt;/h2&gt;
+    &lt;h2&gt;a detailed implementation of binary classification using transformer encoder&lt;/h2&gt;
     &lt;dt-byline&gt;&lt;/dt-byline&gt;
 
 
