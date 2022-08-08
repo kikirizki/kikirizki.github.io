@@ -1,4 +1,692 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-06-28T14:32:59+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Kiki’s Blog</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Clean Implementation of Normalizing Flow Using PyTorch</title><link href="http://localhost:4000/deeplearning/2022/06/06/nf-pytorch.html" rel="alternate" type="text/html" title="Clean Implementation of Normalizing Flow Using PyTorch" /><published>2022-06-06T00:00:00+07:00</published><updated>2022-06-06T00:00:00+07:00</updated><id>http://localhost:4000/deeplearning/2022/06/06/nf-pytorch</id><content type="html" xml:base="http://localhost:4000/deeplearning/2022/06/06/nf-pytorch.html">&lt;!DOCTYPE html&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-08T21:19:05+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Kiki’s Blog</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Understand Transformer Paper Through Implementation</title><link href="http://localhost:4000/deeplearning/2022/07/27/transformer.html" rel="alternate" type="text/html" title="Understand Transformer Paper Through Implementation" /><published>2022-07-27T00:00:00+07:00</published><updated>2022-07-27T00:00:00+07:00</updated><id>http://localhost:4000/deeplearning/2022/07/27/transformer</id><content type="html" xml:base="http://localhost:4000/deeplearning/2022/07/27/transformer.html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+    &lt;!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags--&gt;
+   &lt;!-- Begin Jekyll SEO tag v2.8.0 --&gt;
+&lt;title&gt;Understand Transformer Paper Through Implementation | Kiki’s Blog&lt;/title&gt;
+&lt;meta name=&quot;generator&quot; content=&quot;Jekyll v3.9.2&quot; /&gt;
+&lt;meta property=&quot;og:title&quot; content=&quot;Understand Transformer Paper Through Implementation&quot; /&gt;
+&lt;meta property=&quot;og:locale&quot; content=&quot;en_US&quot; /&gt;
+&lt;meta name=&quot;description&quot; content=&quot;a detailed implementation of transformer architecture as close as possible to it’s paper&quot; /&gt;
+&lt;meta property=&quot;og:description&quot; content=&quot;a detailed implementation of transformer architecture as close as possible to it’s paper&quot; /&gt;
+&lt;link rel=&quot;canonical&quot; href=&quot;http://localhost:4000/deeplearning/2022/07/27/transformer.html&quot; /&gt;
+&lt;meta property=&quot;og:url&quot; content=&quot;http://localhost:4000/deeplearning/2022/07/27/transformer.html&quot; /&gt;
+&lt;meta property=&quot;og:site_name&quot; content=&quot;Kiki’s Blog&quot; /&gt;
+&lt;meta property=&quot;og:type&quot; content=&quot;article&quot; /&gt;
+&lt;meta property=&quot;article:published_time&quot; content=&quot;2022-07-27T00:00:00+07:00&quot; /&gt;
+&lt;meta name=&quot;twitter:card&quot; content=&quot;summary&quot; /&gt;
+&lt;meta property=&quot;twitter:title&quot; content=&quot;Understand Transformer Paper Through Implementation&quot; /&gt;
+&lt;script type=&quot;application/ld+json&quot;&gt;
+{&quot;@context&quot;:&quot;https://schema.org&quot;,&quot;@type&quot;:&quot;BlogPosting&quot;,&quot;dateModified&quot;:&quot;2022-07-27T00:00:00+07:00&quot;,&quot;datePublished&quot;:&quot;2022-07-27T00:00:00+07:00&quot;,&quot;description&quot;:&quot;a detailed implementation of transformer architecture as close as possible to it’s paper&quot;,&quot;headline&quot;:&quot;Understand Transformer Paper Through Implementation&quot;,&quot;mainEntityOfPage&quot;:{&quot;@type&quot;:&quot;WebPage&quot;,&quot;@id&quot;:&quot;http://localhost:4000/deeplearning/2022/07/27/transformer.html&quot;},&quot;url&quot;:&quot;http://localhost:4000/deeplearning/2022/07/27/transformer.html&quot;}&lt;/script&gt;
+&lt;!-- End Jekyll SEO tag --&gt;
+ 
+
+
+    &lt;!-- Bootstrap--&gt;
+    &lt;link href=&quot;/assets/css/bootstrap.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+    &lt;!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries--&gt;
+    &lt;!-- WARNING: Respond.js doesn't work if you view the page via file://--&gt;
+    &lt;!--if lt IE 9script(src='https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js')
+script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')--&gt;
+    &lt;!-- &lt;link href=&quot;css/font-awesome.min.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;&gt; --&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;/assets/css/fontawesome.min.css&quot;&gt;
+
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;/assets/css/style.css&quot;&gt;
+
+    &lt;script&gt;window.console = window.console || function (t) {
+        };
+
+
+    &lt;/script&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css&quot; /&gt;
+
+    &lt;!-- Katex --&gt;
+    &lt;script defer src=&quot;https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script defer src=&quot;https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/auto-render.min.js&quot; onload=&quot;renderMathInElement(document.body,{
+    delimiters: [
+      { left: '$$',  right: '$$',  display: true  },
+      { left: '$',   right: '$',   display: false },
+      { left: '\\[', right: '\\]', display: true  },
+      { left: '\\(', right: '\\)', display: false }
+  ]});&quot;&gt;&lt;/script&gt;
+    
+    &lt;script src=&quot;/assets/js/template.v1.js&quot;&gt;&lt;/script&gt;
+
+    &lt;script src=&quot;/assets/js/d3.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;nav id=&quot;nav&quot; class=&quot;navbar navbar-fixed-top&quot;&gt;
+        &lt;!-- Brand and toggle get grouped for better mobile display --&gt;
+        &lt;div class=&quot;navbar-header&quot;&gt;
+            &lt;button type=&quot;button&quot; data-toggle=&quot;collapse&quot; data-target=&quot;#bs-example-navbar-collapse-1&quot;
+                aria-expanded=&quot;false&quot; class=&quot;navbar-toggle collapsed&quot;&gt;&lt;span class=&quot;sr-only&quot;&gt;Toggle
+                    navigation&lt;/span&gt;&lt;span class=&quot;glyphicon glyphicon glyphicon-menu-hamburger&quot;&gt;&lt;/span&gt;&lt;/button&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Collect the nav links, forms, and other content for toggling --&gt;
+        &lt;div id=&quot;bs-example-navbar-collapse-1&quot; class=&quot;collapse navbar-collapse navbar-ex1-collapse&quot;&gt;
+
+            &lt;ul class=&quot;nav navbar-nav&quot;&gt;
+                &lt;li class=&quot;active&quot;&gt;&lt;a href=&quot;#ml&quot; class=&quot;white-when-scroll&quot;&gt;Deep Learning&lt;span
+                            class=&quot;sr-only&quot;&gt;(current)&lt;/span&gt;&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;https://kikirizki.github.io/index.html#crypt&quot; class=&quot;white-when-scroll&quot;&gt;Cryptography&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;https://kikirizki.github.io/index.html#math&quot; class=&quot;white-when-scroll&quot;&gt;Probability
+                        Theory&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;https://kikirizki.github.io/index.html#about&quot; class=&quot;white-when-scroll&quot;&gt;About
+                        Me&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;https://github.com/kikirizki&quot;&gt;&lt;i class=&quot;fa-brands fa-github&quot;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;https://medium.com/@kkrzkrk&quot;&gt;&lt;i class=&quot;fa-brands fa-medium&quot;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;&lt;!-- /.navbar-collapse --&gt;
+    &lt;/nav&gt;
+
+  &lt;script type=&quot;text/front-matter&quot;&gt;
+    title: Understand Transformer Paper Through Implementation
+    description: a detailed implementation of transformer architecture as close as possible to it's paper
+    authors:
+    - Kiki Rizki Arpiandi: https://github.com/kikirizki
+    
+    affiliations:
+    - My Medium articles: https://medium.com/@kkrzkrk
+&lt;/script&gt;
+
+
+  &lt;dt-article class=&quot;centered article-bg&quot;&gt;
+
+    &lt;h1&gt;Understand Transformer Paper Through Implementation&lt;/h1&gt;
+    &lt;h2&gt;a detailed implementation of transformer architecture as close as possible to it's paper&lt;/h2&gt;
+    &lt;dt-byline&gt;&lt;/dt-byline&gt;
+
+
+&lt;h2&gt;Introduction&lt;/h2&gt; 
+
+&lt;p&gt;In the recent years, transformer&lt;dt-cite key=&quot;https://doi.org/10.48550/arxiv.1706.03762&quot;&gt;&lt;/dt-cite&gt; architecture has gain much popularity in sequence modelling replacing the previously state of the art deep learning model such as LSTM &lt;dt-cite key=&quot;HochSchm97&quot;&gt;&lt;/dt-cite&gt; and GRU&lt;dt-cite key=&quot;https://doi.org/10.48550/arxiv.1412.3555&quot;&gt;&lt;/dt-cite&gt;, transformer also show capability in both NLP and computer vision which is very interesting, it open the gate of possibilities to build a neural network model that works well across multiple domains. In this article we will implement a binary classification model IMDB dataset &lt;dt-cite key=&quot;maas-EtAl:2011:ACL-HLT2011&quot;&gt;&lt;/dt-cite&gt;, which is a large movie review dataset contain labeled review as positive or negative.
+&lt;/p&gt;
+&lt;h2&gt;Self Attention&lt;/h2&gt;
+&lt;p&gt;Attention is a neural network layer that map  &lt;strike&gt;sequence to sequence&lt;/strike&gt; set to set. There are two kind of attention layer, self attention and cross attention, each can be a hard attention or soft attention. Suppose that $\{x_i\}_{i=0}^t$ a set of row vectors where $x_i^{\mathsf{T}}\in \mathbb{R}^d$, if $\{x_i\}_{i=0}^t$ is an input of self attention then the output is a set of linear combination
+$h=\alpha_0x_0+\dots +\alpha_tx_t=aX$, where $a={\begin{bmatrix}
+ \alpha_1 &amp; \alpha_2 &amp; \dots &amp; \alpha_t\\
+ \end{bmatrix}}^{\mathsf{T}}$
+ is a row vector called attention vector. When  $a$ is one hot encoding then the layer is called hard attention, otherwise it is called soft attention and the total sum of elements in $a$ equals to $1$, in practice we represent attention vectors as matrix $A$, which each row of $A$ is attention vector. In this article to match the mathematical convention with the original transformer paper we will represent sequence of vectors as matrix where the vertical axis is the sequence length and the horizontal axis is the vector dimension as depicted in the following diagram.
+&lt;/p&gt;
+ &lt;figure class=&quot;grid text-center&quot; style=&quot;grid-template-columns: 3fr 1fr;&quot;&gt;
+  &lt;img src=&quot;/assets/images/kqv_shape.svg&quot; style=&quot;max-width: 50%&quot;&gt;
+  &lt;figcaption&gt;vector sequence convention
+  &lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;
+The sequential order of attention layer input might lost during the computation, for instance let $V \in \mathbb{R}^{4\times3}$ , is a matrix represent sequence of four 3-dimensional (row) vectors, attention layer multiplies $V$ with an attention matrix $A$, if $A$ happened to be a permutation matrix we might lose the order information of $A$, to understand this please take a look at following illustration:&lt;/p&gt;
+
+$$H = AV = \begin{bmatrix}
+0 &amp; 1 &amp; 0\\
+0 &amp; 0 &amp; 1\\
+1 &amp; 0 &amp; 0\\
+\end{bmatrix} \begin{bmatrix}
+{\color{teal}v_0}\\
+{\color{orange}v_1}\\ 
+{\color{red}v_2}\\
+\end{bmatrix} =\begin{bmatrix}
+ {\color{orange}v_1}\\
+ {\color{red}v_2}\\ 
+ {\color{teal}v_0}\\
+\end{bmatrix}$$
+
+&lt;p&gt;as you can see that $A$ permutes the rows of matrix $V$ which mean it permutes the sequence order, in other words attention ignore positional information, so attention maps set to set, however the transformer paper propose a method to enforce attention to map sequence to sequence by encode a positional information and inject it to input matrix which will be explained in the later section of this article.
+
+   &lt;/p&gt;   
+   &lt;h2&gt;Queries, Keys and Values&lt;/h2&gt;
+   &lt;p&gt;
+    Transformer’s attention layer was inspired by key-value store mechanism, we usually find such mechanism in something like programming language data structure, for example python built-in dictionary, python dictionary has key-value pairs from which we can fetch a value by feeding a query to the dictionary, the dictionary then compare the query to each key if the query match a key it will return the value corresponding to that key, to mimic this behaviour, transformer’s attention layer transform input matrix $X$ into three entities; query, key, and value analogous to python dictionary. These entities are generated by transforming each row vector of input matrix with linear transformation, for instance to get a value vector $v$, multiply a row vector $x$ of $X$ with a matrix $W_{value} \in \mathbb{R}^{\text{input dimension}\times d_v}$, the same rule applies for key and query vector
+    
+    $$v=xW_{value}$$
+    
+    $$k = xW_{key}$$
+    
+    $$q=xW_{query}$$ 
+    
+    It is easy to show above operation in matrix form as follow 
+    $$V=XW_{value}$$
+    
+    $$K=XW_{key}$$
+    
+    $$Q=XW_{query}$$
+    
+    Lets get some intuition about this concept, suppose that $q$ is a query vector (a row of $Q$ matrix), $i^{th}$ element of attention vector $A$ is similarity value between the $q$ and the $i^{th}$ element of key matrix denoted by $k_i$, there are many ways to measure similarity between two vectors, one of the simplest form of similarity measure is dot product between $q$ and $k_i$, to compute dot product for each key vectors we can compute $qK^{\mathsf{T}}$ this mean we compute a query with every row of key matrix, furthermore to compute similarity between all query vector and all key vectors, simply calculate $QK^{\mathsf{T}}$. 
+    
+    &lt;/p&gt;&lt;p&gt;As mentioned in the previous section each attention vector (row of attention matrix $A$) should sum to 1 as in probability distribution, to achieve this we can apply $\text{argsoftmax}(\cdot)$ in the element-wise manner for each row of $A$ as follow
+    
+    $A=\text{argsoftmax}(\frac{QK^{\mathsf{T}}}{\beta})$ where $\beta$ is normalizing factor, the scaling factor is needed to make the variance stable as explained in the next section, to make $A$ hard attention we can replace $\text{argsoftmax}(\cdot)$ with $\text{argmax}(\cdot)$.
+    
+    Then output of self attention is $H=AV$ a row of $H$ is $h=aV$ without losing generality let imagine that $a$ is a one hot encoding vector intuitively multiplying vector $a$ with matrix $V$ is choosing a row of $V$ then return it as $h$, when $a$ is not a one hot encoding it will “mix” some rows of $V$ then return it as $h$.  The case where $a$ is a one hot encoding is almost identical with python dictionary meanwhile the softattention case is more like the flexible version of python dictionary, to better understand this let make an example, given a python dictionary :
+    
+    &lt;dt-code language=&quot;python&quot;&gt;H = {’a’:’cat’,’b’:’dog’,’c’:’dragon’}&lt;/dt-code&gt;
+    
+    suppose that we feed &lt;dt-code language=&quot;python&quot;&gt;‘b’&lt;/dt-code&gt; as query to the dictionary, in other word we are asking to the dictionary about what is the *value* corresponding to  &lt;dt-code language=&quot;python&quot;&gt;‘b’&lt;/dt-code&gt;  &lt;b&gt;key&lt;/b&gt;, the dictionary then compare the query to each keys if there is a match it will return the value corresponding to the matched *key*, this is analogy with computing $a=qK^{\mathsf{T}}$ each element of $a$, $\alpha_i$ represent similarity between $k_i$ and $q_i$ where $q$ is a row vector of matrix $Q$. fetching value of &lt;dt-code language=&quot;python&quot;&gt;H[’b’]&lt;/dt-code&gt; is analogous to computing $h = aV$. The only difference here is that in attention query and key does not to be exactly the same in order to be match, this rule does not apply for python dictionary though. 
+    
+    let’s make an example and a visualize the matrix shape to enhance our understanding, suppose that our input $X$ is a 4 sequence of 3-dimensional row vector, and $d_k=d_v=d_q=2$ are dimension of key vectors, value vectors and query vector respectively and $W_k\in\mathbb{R}^{3\times d_k},W_v\in\mathbb{R}^{3\times d_v}, W_q\in\mathbb{R}^{3\times d_q}$ are matrix that will transform $X$ to key, value and query matrix. &lt;/p&gt;
+    &lt;figure class=&quot;grid text-center&quot; style=&quot;grid-template-columns: 3fr 1fr;&quot;&gt;
+      &lt;img src=&quot;/assets/images/attention_layer_visualization.svg&quot; style=&quot;max-width:50%&quot;&gt;
+      &lt;figcaption&gt;attention layer visualization
+      &lt;/figcaption&gt;
+    &lt;/figure&gt;
+      &lt;p&gt;
+    to summarize this section the attention layer can be easily visualize through the following diagram
+    &lt;/p&gt;
+    &lt;figure class=&quot;grid text-center&quot; style=&quot;grid-template-columns: 3fr 1fr;&quot;&gt;
+      &lt;img src=&quot;/assets/images/attention_diagram.svg&quot; style=&quot;max-width:50%&quot;&gt;
+      &lt;figcaption&gt;attention layer diagram
+      &lt;/figcaption&gt;
+    &lt;/figure&gt;
+    &lt;p&gt;
+    or in more compact diagram, attention layer will look like the following diagram
+  &lt;/p&gt;
+  &lt;figure class=&quot;grid text-center&quot; style=&quot;grid-template-columns: 3fr 1fr;&quot;&gt;
+    &lt;img src=&quot;/assets/images/compact_attention_diagram.svg&quot; style=&quot;max-width:50%&quot;&gt;
+    &lt;figcaption&gt;compact attention layer diagram 
+    &lt;/figcaption&gt;
+  &lt;/figure&gt;
+    &lt;h2&gt;Scaled Argsoftmax&lt;/h2&gt;
+    &lt;p&gt;
+    This section mostly will deal with the mathematical derivation of the scale factor of scaled argsoftmax which the original paper does not explain in detail, if you are already familiar with probability theory for specific with notions of variance and mean of a random variable then this section is safe to be skipped.&lt;/p&gt;  
+    
+    &lt;p&gt;Large value of key vectors dimension ($d_k$) will cause high variance in  $QK^{\mathsf{T}}$ which will cause a negative impact on training as the paper mentioned :&lt;/p&gt;
+    
+    &lt;p&gt;&lt;q&gt;&lt;i&gt;We suspect that for large values of $d_k$, the dot products grow large in magnitude, pushing the softmax function into regions where it has extremely small gradients. To counteract this effect, we scale the dot products by $\frac{1}{\sqrt{d_k}}$&lt;/i&gt;&lt;/q&gt;&lt;/p&gt;
+    
+    &lt;p&gt;However it is unclear why the scaler should be $\frac{1}{\sqrt{d_k}}$, original paper mention that the reason is:&lt;/p&gt;
+    
+    &lt;p&gt;&lt;q&gt;&lt;i&gt;To illustrate why the dot products get large, assume that the components of $q$ and $k$ are independent random
+    variables with mean 0 and variance 1. Then their dot product, $q \cdot k =
+    \sum^{d_k}
+    _{i=1}q_ik_i$, has mean 0 and variance $d_k$&lt;/i&gt;&lt;/q&gt;&lt;/p&gt;
+    
+    &lt;p&gt;The first time I read above phrase, it was not very obvious for me, why the variance of $q\cdot k$ is $d_k$ and also why the scaler is $\frac{1}{\sqrt{d_k}}$. In this section we will proof it mathematically&lt;/p&gt;
+    
+    &lt;p&gt;The original paper of transformer assumes that the readers have some degree of familiarity with basic probability theory, but if you are like me, not super familiar with probability theory here is some refresher. suppose that $X$and $Y$ are both identical and independent random variable, then derived directly from variance definition it is easy to show that&lt;/p&gt;
+    $$\begin{aligned}E[X^2]&amp;=\text{Var}[X]+E[X]^2\\
+    E[Y^2]&amp;=\text{Var}[Y]+E[Y]^2\end{aligned}$$
+    &lt;p&gt;Then  
+    
+    $\begin{aligned}{\text{Var}[XY]} &amp;= E[X^2Y^2]-E[XY]^2 \\ &amp;= {\color{orange}E[X^2]}{\color{teal}E[Y^2]}-E[X]^2E[Y]^2\\&amp;=({\color{orange}\text{Var}[X]+E[X]^2})({\color{teal}\text{Var}[Y]+E[Y]^2})-E[X]^2E[Y]^2 \\&amp;=\text{Var}[X]\text{Var}[Y]+\text{Var}[X]E[Y]^2+\text{Var}[Y]E[X]^2+{\color{purple}E[X]^2E[Y]^2-E[X]^2E[Y]^2}\\&amp;=\text{Var}[X]\text{Var}[Y]+\text{Var}[X]E[Y]^2+\text{Var}[Y]E[X]^2\end{aligned}$
+    
+    Let assume that each row vector  of $K$ and $Q$ has zero mean and unit variance. Suppose that $k,q$ is column vector of $K$ and $Q$ respectively then $k\cdot q$ is an element of $K^{\mathsf{T}}Q$ and let consider. 
+    
+    $\begin{aligned}\text{Var}[k\cdot q]&amp;= \text{Var}[\sum _{i=1}^{d_k}k_iq_i]\\&amp;=\sum _{i=1}^{d_k}\text{Var}[k_iq_i]\\&amp;=\sum _{i=1}^{d_k}\text{Var}[k_i]\text{Var}[q_i]+{\color{teal}\text{Var}[k_i]E[q_i]^2}+{\color{orange}\text{Var}[q_i]E[k_i]^2}\\&amp;=\sum _{i=1}^{d_k}1+{\color{teal}0}+{\color{orange}0}\\&amp;=d_k\end{aligned}$
+    
+    Now elements of $QK^{\mathsf{T}}$ has zero mean and $d_k$ variance, the variance depend on the dimension of the key or query vector, this is unwanted behaviour since changing the dimension will also changing it’s variance too low variance will cause the  argsoftmax output to be hard and vice-versa. We want to keep zero mean and unit variance, since $\text{Var}(\alpha X)=\alpha^2\text{Var(X)}$  then we should scale $QK^{\mathsf{T}}$ by $\sqrt d_k$  such that
+    
+    $\begin{aligned}\text{Var}[\frac{k\cdot q}{\sqrt d_k}]&amp;=(\frac{1}{\sqrt d_k})^2Var[k\cdot q]\\&amp;=\frac{d_k}{d_k}\\ &amp;= 1\end{aligned}$                  
+    &lt;/p&gt;
+    &lt;p&gt;hence the attention matrix become $A=\text{argsoftmax}(\frac{K^{\mathsf{T}}Q}{\sqrt d_k})$&lt;/p&gt;
+
+
+
+
+    &lt;h2&gt;Positional Encoding&lt;/h2&gt;
+
+&lt;p&gt;Remember in the previous section the input of attention layer might lost it’s sequential order information. Before diving into the method proposed by author to enforce attention layer to maintain its input posititional information, lets think of some possibilities that we could do to maintain the positional information of attention layer input.&lt;/p&gt;
+&lt;p&gt;
+&lt;ol&gt;
+&lt;li&gt;The naive solution is concatenating index to the input for instance ${[0,v_1], [1,v_2], … ,[n,v_n]}$ this could work but this has serious drawback when we normalize it the index value will be varied depending on the sequence length.&lt;/li&gt;
+
+&lt;li&gt;Use binary number as index instead of decimal, this approach seem promising but still has flaw since the euclidean distance between two adjacent index is not consistent&lt;/li&gt; 
+&lt;/ol&gt;&lt;/p&gt;
+&lt;p&gt;
+The authors of paper attention is all you need propose a method using the following function
+
+$\text{PE} (pos,2i) = \sin\left({\frac{pos}{1000^{\frac{2i}{\text{d\_model}}}}}\right)$
+
+$\text{PE} (pos,2i+1) = \cos\left({\frac{pos}{1000^{\frac{2i}{\text{d\_model}}}}}\right)$
+
+this function is choose because it has desired  mathematical properties, $PE(pos,2k+i)$ is a linear mapping from $PE(pos, 2k)$, so the distance between index is consistent, and also the embedding is not concatenated with the input instead it use element-wise addition, the author argument that empirically there is no much different between concatenating and element wise addition between positional encoding with the input and pointwise addition yield small memory footprint. In recent development there are other ways to inject positional information to transformer input, but it is out of scope of this article.
+&lt;/p&gt;
+&lt;h2&gt;Multi Head Attention&lt;/h2&gt;
+&lt;p&gt;
+Multihead attention layer is simply multiple copies of attention layer where each copy does not share it’s weight parameters, on the top of it we add concatenation and fully connected layer to merge back the shape to the original single head output shape
+&lt;/p&gt;
+&lt;figure class=&quot;grid text-center&quot; style=&quot;grid-template-columns: 3fr 1fr;&quot;&gt;
+  &lt;img src=&quot;/assets/images/multihead_attention_diagram.svg&quot; style=&quot;max-width:50%&quot;&gt;
+  &lt;figcaption&gt;multihead attention diagram 
+  &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h2&gt;Build a Classifier Based on Transformer Architecture&lt;/h2&gt;
+
+&lt;p&gt;Now we have nuts and bolts needed to build our transformer architecture, time to put them together. In the original paper transformer consist of two parts encoder and decoder, but in this article we will not implement the decoder part, lets left it for next article, instead we will build the encoder part only of the transformer then add classification head on the top of it&lt;/p&gt;
+
+&lt;figure class=&quot;grid text-center&quot; style=&quot;grid-template-columns: 3fr 1fr;&quot;&gt;
+  &lt;img src=&quot;/assets/images/transformer_diagram.png&quot; style=&quot;max-width:50%&quot;&gt;
+  &lt;figcaption&gt;transformer encoder diagram
+  &lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;as you can see from the diagram, we have skip connection or residual connection like the one that resnet has, its connect the pointwise addition positional encoding to add norm layer, add norm layer simply matrix addition and layer normalization.&lt;/p&gt;
+&lt;h2&gt;Detailed Implementation&lt;/h2&gt; 
+
+&lt;p&gt;In this article we will not implement the sequence to sequence transformer like the one that demonstrated in the paper rather we will implement the simpler one; classification transformer  that classify if a sentence has positive or negative sentiment on IMDB dataset. Implementing the sequence to sequence transformer like in the original paper need more effort since it also need us to implement beam search, I think i will try it in the next article&lt;/p&gt;
+
+&lt;h3&gt;Generate Key, Query, Value Matrices&lt;/h3&gt;
+
+&lt;p&gt;The first thing we should do is to generate Key, Query and Value matrix this can easily achieved by using &lt;dt-code language=&quot;python&quot;&gt;torch.nn.linear(input_dim,head_size*d_model)&lt;/dt-code&gt; , we want the query tensor has &lt;dt-code language=&quot;python&quot;&gt;[batch_size, sequence_length, head_size*d_q]&lt;/dt-code&gt; the same size apply to key, and value vectors.&lt;/p&gt;
+
+&lt;dt-code block language=&quot;python&quot;&gt;
+import torch
+import torch.nn as nn
+
+class MultiHeadAttention(torch.nn.Module):
+    def __init__(self,input_dim, head_size,d_model):
+        super(MultiHeadAttention, self).__init__()
+        d_q, d_k, d_v = d_model
+
+        self.W_q = nn.Linear(input_dim,head_size*d_q)
+        self.W_k = nn.Linear(input_dim,head_size*d_k)
+        self.W_v = nn.Linear(input_dim,head_size*d_v)
+        
+    def forward(self,X_query,X_key,X_value):
+        Q,K,V = self.W_q(X_query), self.W_k(X_key), self.W_v(X_value)
+&lt;/dt-code&gt;
+
+&lt;h3&gt;Split Head&lt;/h3&gt;
+
+&lt;p&gt;Remember that our query from previous operation has the shape  &lt;dt-code language=&quot;python&quot;&gt;[batch_size, sequence_length, head_size*d_q]&lt;/dt-code&gt; . For simplicity let assume we &lt;dt-code language=&quot;python&quot;&gt;have batch_size = 1&lt;/dt-code&gt; so if we by squeezing the batch dimension we have &lt;dt-code language=&quot;python&quot;&gt;[sequence_length, head_size*d_q]&lt;/dt-code&gt; what we going to do is to view the tensor to be &lt;dt-code language=&quot;python&quot;&gt;[sequence_length, head_size, d_q]&lt;/dt-code&gt; simply illustrated in the diagram below&lt;/p&gt;
+
+&lt;figure class=&quot;grid text-center&quot; style=&quot;grid-template-columns: 3fr 1fr;&quot;&gt;
+  &lt;img src=&quot;/assets/images/split_diagram.svg&quot; style=&quot;max-width:75%&quot;&gt;
+  &lt;figcaption&gt;transformer head splitting visualization 
+  &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+ 
+
+&lt;p&gt;why we should split the head? it is because we will compute softargmax along the horizontal axis to make the horizontal axis sum to 1, if we don’t split we will end up applying softargmax across all head,next what we want to achieve is to make attention vector to sum up to one for each single head. This operation can be done by using &lt;dt-code language=&quot;python&quot;&gt;.view(batch_size, sequence_length, self.head_size,d_model)&lt;/dt-code&gt; function from pytorch, but we are not done yet, we will compute matrix multipication between $Q$ and $K^{\mathsf{T}}$ for each batch and each head, we will use pytorch’s `@` operator but we should make the &lt;dt-code language=&quot;python&quot;&gt;sequence_length&lt;/dt-code&gt; and &lt;dt-code language=&quot;python&quot;&gt;d_model&lt;/dt-code&gt; axis to the right side, since the attention matrix size is &lt;dt-code language=&quot;python&quot;&gt;[sequence_lengh, d_model]&lt;/dt-code&gt; so we want make each tensor $Q,K,V$ to be has this shape &lt;dt-code language=&quot;python&quot;&gt;[batch_size,head_size, sequence_length, d_q or d_k or d_q respectively]&lt;/dt-code&gt; to do that we switch axis 1 and axis 2 using &lt;dt-code language=&quot;python&quot;&gt;transpose(1,2)&lt;/dt-code&gt; . The overall code now should be like this:&lt;/p&gt;
+&lt;p&gt;
+&lt;dt-code block language=&quot;python&quot;&gt;
+import torch
+import torch.nn as nn
+
+class MultiHeadAttention(torch.nn.Module):
+    def __init__(self,input_dim, head_size,d_model):
+        super(MultiHeadAttention, self).__init__()
+        d_q, d_k, d_v = d_model
+        self.head_size = head_size
+
+        self.W_q = torch.nn.linear(input_dim,head_size*d_q)
+        self.W_k = torch.nn.linear(input_dim,head_size*d_k)
+        self.W_v = torch.nn.linear(input_dim,head_size*d_v)
+
+    def split(self,X):
+        batch_size, sequence_length, num_head_times_d_model = X.size()
+        d_model = num_head_times_d_model//self.head_size
+        X = X.view(batch_size, sequence_length, self.head_size,d_model).transpose(1,2)
+        return X
+
+    def forward(self,X_query,X_key,X_value):
+        Q,K,V = self.W_q(X_query), self.W_k(X_key), self.W_v(X_value)
+        Q,K,V = self.split(Q), self.split(K), self.split(V)
+&lt;/dt-code&gt;
+&lt;/p&gt;
+&lt;h3&gt;Scaled Dot Product Attention&lt;/h3&gt;
+
+&lt;p&gt;Implementing scaled dot product is pretty straight forward, but one thing should be noticed since the first and second axis of the key tensor is batch size and head size respectively, then the transpose should be done in third axis and fourth axis so it become  &lt;dt-code language=&quot;python&quot;&gt;K_T = K.transpose(2,3)&lt;/dt-code&gt; the rest of scaled dot product should look like this&lt;/p&gt;
+
+&lt;dt-code block language=&quot;python&quot;&gt;
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import math 
+
+class ScaledDotProductAttention(nn.Module):
+    def __init__(self):
+        super(ScaledDotProductAttention,self).__init__()
+        self.softargmax = F.softmax
+    def forward(self,Q,K,V):
+        batch_size, head_size, sequnce_length, d_k = K.size()
+        K_T = K.transpose(2,3)
+        A = self.softargmax((Q@K_T)/math.sqrt(d_k), dim = -1)
+        H = A@V
+        return H
+&lt;/dt-code&gt;
+
+&lt;p&gt;Now let update our multihead attention network and add scaled dot product to it dont forget to concat the result from &lt;dt-code language=&quot;python&quot;&gt;[batch_size,head_size, sequence_length, d_model]&lt;/dt-code&gt; to &lt;dt-code language=&quot;python&quot;&gt;[batch_size sequence_length, d_model*head_size]&lt;/dt-code&gt; simply by reversing the previous process of splitting the head &lt;dt-code language=&quot;python&quot;&gt;X = X.transpose(1,2).contiguous().view(batch_size, sequence_length, self.head_size*d_model)&lt;/dt-code&gt;. Okay now this is the complete code of multihead attention&lt;/p&gt;
+
+       
+
+&lt;dt-code block language=&quot;python&quot;&gt;
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import math 
+
+class ScaledDotProductAttention(nn.Module):
+    def __init__(self):
+        super(ScaledDotProductAttention,self).__init__()
+        self.softargmax = F.softmax
+    def forward(self,Q,K,V):
+        batch_size, head_size, sequnce_length, d_k = K.size()
+        K_T = K.transpose(2,3)
+        A = self.softargmax((Q@K_T)/math.sqrt(d_k), dim = -1)
+        H = A@V
+        return H
+
+class MultiHeadAttention(torch.nn.Module):
+    def __init__(self,input_dim, head_size,d_model):
+        super(MultiHeadAttention, self).__init__()
+        d_q= d_k= d_v = d_model
+        self.head_size = head_size
+        self.scaled_dot_product = ScaledDotProductAttention()
+
+        self.W_q = nn.Linear(input_dim,head_size*d_q)
+        self.W_k = nn.Linear(input_dim,head_size*d_k)
+        self.W_v = nn.Linear(input_dim,head_size*d_v)
+
+        self.W_h = nn.Linear(head_size*d_model,d_model)
+
+    def split(self,X):
+        batch_size, sequence_length, num_head_times_d_model = X.size()
+        d_model = num_head_times_d_model//self.head_size
+        X = X.view(batch_size, sequence_length, self.head_size,d_model).transpose(1,2)
+        return X
+
+    def concat(self,X):
+        batch_size, head_size, sequence_length, d_model = X.size()
+        assert(head_size == self.head_size)
+        X = X.transpose(1,2).contiguous().view(batch_size, sequence_length,head_size*d_model)
+        return X
+
+    def forward(self,X_query,X_key,X_value):
+        Q,K,V = self.W_q(X_query), self.W_k(X_key), self.W_v(X_value)
+        Q,K,V = self.split(Q), self.split(K), self.split(V)
+        H = self.scaled_dot_product(Q,K,V)
+        H = self.concat(H)
+        out = self.W_h(H)
+        return out
+&lt;/dt-code&gt;
+
+&lt;h3&gt;Feed Forward Network&lt;/h3&gt; 
+
+&lt;p&gt;This is a simple two layer multilayer perceptron with with ReLU activation in the middle which the input and output has size of &lt;dt-code language=&quot;python&quot;&gt;d_model&lt;/dt-code&gt; &lt;/p&gt;
+
+&lt;dt-code block language=&quot;python&quot;&gt;
+import torch
+import torch.nn as nn
+
+class FeedForward(nn.Module):
+    def __init__(self, d_model, d_hidden, dropout_prob):
+        super(FeedForward, self).__init__()
+        self.layer1 = nn.Linear(d_model, d_hidden)
+        self.layer2 = nn.Linear(d_hidden, d_model)
+        self.dropout = nn.Dropout(p=dropout_prob)
+        self.relu = nn.ReLU()
+      
+    def forward(self, x):
+        x = self.layer1(x)
+        x = self.relu(x)
+        x = self.dropout(x)
+        x = self.layer2(x)
+        return x
+&lt;/dt-code&gt;
+
+&lt;h3&gt;Positional Encoding&lt;/h3&gt;
+
+&lt;p&gt;The size of the positional encoding will be &lt;dt-code language=&quot;python&quot;&gt;[max_len, d_model]&lt;/dt-code&gt; and for numerical stability we modify denominator to be $\exp(\log(10000.0)\frac{2i}{\text{d\_model}})$ instead of using the original equation&lt;/p&gt;
+&lt;p&gt;
+&lt;dt-code block language=&quot;python&quot;&gt;
+import torch
+import torch.nn as nn
+
+class PositionalEncoding(nn.Module):
+    def __init__(self, d_model, max_len, dropout_prob):
+        super(PositionalEncoding, self).__init__()
+        self.dropout = nn.Dropout(p=dropout_prob)
+        position = torch.arange(0, max_len)
+        position = position.float().unsqueeze(dim=1)
+        
+        pe = torch.zeros(max_len, d_model)
+        div_term = torch.exp(torch.arange(0, d_model, step=2) * (-math.log(10000.0) / d_model))
+        
+        pe[:, 0::2] = torch.sin(position*div_term)
+        pe[:, 1::2] = torch.cos(position*div_term)
+        self.register_buffer('pe', pe)
+
+    def forward(self, x):
+        batch_size, seq_len, d_model = x.size()
+        return self.dropout(self.pe[:seq_len, :].unsqueeze(0)+x)
+&lt;/dt-code&gt;&lt;/p&gt;
+
+&lt;h3&gt;Encoder&lt;/h3&gt;
+
+&lt;p&gt;Lets take a look at the encoder architecture from the original diagram from the author, we need multihead attention, positional encoding, layer normalization, and mlp.&lt;/p&gt;
+
+&lt;dt-code block language=&quot;python&quot;&gt;
+import torch
+class EncoderLayer(torch.nn.Module):
+    def __init__(self,d_model,head_size,mlp_hidden_dim,dropout_prob = 0.1):
+        super().__init__()
+        input_dim = d_model
+        self.attention = MultiHeadAttention(input_dim, head_size, d_model)
+        self.layer_norm1 = nn.LayerNorm(normalized_shape=d_model, eps=1e-6)
+        self.layer_norm2 = nn.LayerNorm(normalized_shape=d_model, eps=1e-6)
+        self.mlp = FeedForward(d_model,mlp_hidden_dim, dropout_prob)
+
+    def forward(self, x):
+        # 1. compute self attention
+        _x = x
+        x = self.attention(x,x,x)
+        # 2. add and norm
+        x = self.layer_norm1(x + _x)
+        
+        # 3. positionwise feed forward network
+        _x = x
+        x = self.mlp(x)
+      
+        # 4. add and norm
+        x = self.layer_norm2(x + _x)
+        return x
+&lt;/dt-code&gt;
+
+&lt;h3&gt;Word Embedding&lt;/h3&gt;
+
+&lt;p&gt;Now lets implement the part that add positional encoding to the vector encoding as subclass of &lt;dt-code language=&quot;python&quot;&gt;torch.nn.Module&lt;/dt-code&gt; for specific we are implementing this part&lt;/p&gt;
+
+&lt;figure class=&quot;grid text-center&quot; style=&quot;grid-template-columns: 3fr 1fr;&quot;&gt;
+  &lt;img src=&quot;/assets/images/adding_positional_encoding.png&quot; style=&quot;max-width:75%&quot;&gt;
+  &lt;figcaption&gt;positional encoding 
+  &lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;dt-code block language=&quot;python&quot;&gt;
+class Embeddings(nn.Module):
+    def __init__(self, d_model, vocab_size, max_position_embeddings, p):
+        super().__init__()
+        self.word_embeddings = nn.Embedding(vocab_size, d_model, padding_idx=1)
+        self.positional_encoding = PositionalEncoding( d_model,max_position_embeddings,p)
+        self.layer_norm = nn.LayerNorm(d_model, eps=1e-12)
+
+    def forward(self, input_ids):
+        seq_length = input_ids.size(1)
+        
+        # Get word embeddings for each input id
+        word_embeddings = self.word_embeddings(input_ids)                   # (bs, max_seq_length, dim)
+        
+        
+        embeddings = self.positional_encoding(word_embeddings)
+        # Layer norm 
+        embeddings = self.layer_norm(embeddings)             # (bs, max_seq_length, dim)
+        return embeddings
+&lt;/dt-code&gt;
+
+&lt;h3&gt;Encoder&lt;/h3&gt;
+
+&lt;dt-code block language=&quot;python&quot;&gt;
+class Encoder(nn.Module):
+    def __init__(self, num_layers, d_model, head_size, mlp_hidden_dim, input_vocab_size,
+               maximum_position_encoding, p=0.1):
+        super().__init__()
+
+        self.d_model = d_model
+        self.num_layers = num_layers
+
+        self.embedding = Embeddings(d_model, input_vocab_size,maximum_position_encoding, p)
+
+        self.enc_layers = nn.ModuleList()
+        for _ in range(num_layers):
+            self.enc_layers.append(EncoderLayer(d_model, head_size, mlp_hidden_dim, p))
+        
+    def forward(self, x):
+        x = self.embedding(x) # Transform to (batch_size, input_seq_length, d_model)
+
+        for i in range(self.num_layers):
+            x = self.enc_layers[i](x)
+
+        return x  # (batch_size, input_seq_len, d_model)
+&lt;/dt-code&gt;
+
+&lt;h3&gt;Transformer Classifier&lt;/h3&gt;
+
+&lt;p&gt;We will add simple linear layer on the top of transformer for classification, I will not put the entire code here the other part which is training loop and dataset loading was taken from Alferdo Canziani great &lt;a href=&quot;https://www.youtube.com/watch?v=f01J0Dri-6k&quot;&gt;lecture&lt;/a&gt;. You can &lt;a href=&quot;https://colab.research.google.com/github/kikirizki/transformer/blob/main/transformer_sentiment_analysis.ipynb&quot;&gt;&lt;img src=&quot;https://colab.research.google.com/assets/colab-badge.svg&quot;&gt;&lt;/a&gt; to access my complete code&lt;/p&gt;
+&lt;p&gt;
+&lt;dt-code block language=&quot;python&quot;&gt;
+class TransformerClassifier(nn.Module):
+    def __init__(self, num_layers, d_model, head_size, conv_hidden_dim, input_vocab_size, num_answers):
+        super().__init__()
+        
+        self.encoder = Encoder(num_layers, d_model, head_size, conv_hidden_dim, input_vocab_size,
+                         maximum_position_encoding=10000)
+        self.linear_classifier = nn.Linear(d_model, num_answers)
+
+    def forward(self, x):
+        x = self.encoder(x)
+        
+        x, _ = torch.max(x, dim=1)
+        x = self.linear_classifier(x)
+        return x
+&lt;/dt-code&gt;
+&lt;/p&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;Implementing transformer is not trivial matter even when the authors say that idea behind transformer is simple but technical detail make the difficulty exponentially increasing.&lt;/p&gt;
+
+
+&lt;/dt-article&gt;
+
+  &lt;!-- Appendix --&gt;
+  
+    &lt;dt-appendix class=&quot;centered&quot;&gt;
+&lt;h3 id=&quot;citation&quot;&gt;Errors and Correction&lt;/h3&gt;
+&lt;p&gt;Please email me at kkrzkrk@gmail.com&lt;/p&gt;
+&lt;h3 id=&quot;citation&quot;&gt;Citations and Reuse&lt;/h3&gt;
+&lt;p&gt;Diagrams and text are licensed under Creative Commons Attribution &lt;a
+        href=&quot;https://creativecommons.org/licenses/by/2.0/&quot;&gt;CC-BY 2.0&lt;/a&gt;. The figures that have been reused
+    from other sources don't fall under this license and can be recognized by a note in their caption: “Figure
+    from …”.&lt;/p&gt;
+&lt;p&gt;For attribution in academic contexts, please cite this work as&lt;/p&gt;
+&lt;pre class=&quot;citation short&quot;&gt;Arpiandi, Kiki Rizki, &quot;Understand Transformer Paper Through Implementation&quot;, 2022.&lt;/pre&gt;
+
+&lt;p&gt;BibTeX citation&lt;/p&gt;
+
+&lt;pre class=&quot;citation long&quot;&gt;@article
+{ 
+  kiki2022transformer,
+  author = {Arpiandi, Kiki Rizki},
+  title = { Understand Transformer Paper Through Implementation },
+  year = {2022},
+  url = {https://kikirizki.github.io/gan.html}
+}&lt;/pre&gt;
+&lt;/dt-appendix&gt;
+
+ 
+&lt;script type=&quot;text/bibliography&quot;&gt;
+  @Article{HochSchm97,
+    author      = {Sepp Hochreiter and Jürgen Schmidhuber},
+    journal     = {Neural Computation},
+    title       = {Long Short-Term Memory},
+    year        = {1997},
+    number      = {8},
+    pages       = {1735--1780},
+    volume      = {9},
+    optabstract = {Learning to store information over extended time intervals by recurrent backpropagation takes a very long time, mostly because of insufficient, decaying error backflow. We briefly review Hochreiter's (1991) analysis of this problem, then address it by introducing a novel, efficient, gradient based method called long short-term memory (LSTM). Truncating the gradient where this does not do harm, LSTM can learn to bridge minimal time lags in excess of 1000 discrete-time steps by enforcing constant error flow through constant error carousels within special units. Multiplicative gate units learn to open and close access to the constant error flow. LSTM is local in space and time; its computational complexity per time step and weight is O. 1. Our experiments with artificial data involve local, distributed, real-valued, and noisy pattern representations. In comparisons with real-time recurrent learning, back propagation through time, recurrent cascade correlation, Elman nets, and neural sequence chunking, LSTM leads to many more successful runs, and learns much faster. LSTM also solves complex, artificial long-time-lag tasks that have never been solved by previous recurrent network algorithms.},
+    optdoi      = {10.1162/neco.1997.9.8.1735},
+    opteprint   = {http://dx.doi.org/10.1162/neco.1997.9.8.1735},
+    opturl      = {http://dx.doi.org/10.1162/neco.1997.9.8.1735},
+  }
+  @misc{https://doi.org/10.48550/arxiv.1412.3555,
+    doi = {10.48550/ARXIV.1412.3555},
+    
+    url = {https://arxiv.org/abs/1412.3555},
+    
+    author = {Chung, Junyoung and Gulcehre, Caglar and Cho, KyungHyun and Bengio, Yoshua},
+    
+    keywords = {Neural and Evolutionary Computing (cs.NE), Machine Learning (cs.LG), FOS: Computer and information sciences, FOS: Computer and information sciences},
+    
+    title = {Empirical Evaluation of Gated Recurrent Neural Networks on Sequence Modeling},
+    
+    publisher = {arXiv},
+    
+    year = {2014},
+    
+    copyright = {arXiv.org perpetual, non-exclusive license}
+  }
+  @misc{https://doi.org/10.48550/arxiv.1706.03762,
+    doi = {10.48550/ARXIV.1706.03762},
+    
+    url = {https://arxiv.org/abs/1706.03762},
+    
+    author = {Vaswani, Ashish and Shazeer, Noam and Parmar, Niki and Uszkoreit, Jakob and Jones, Llion and Gomez, Aidan N. and Kaiser, Lukasz and Polosukhin, Illia},
+    
+    keywords = {Computation and Language (cs.CL), Machine Learning (cs.LG), FOS: Computer and information sciences, FOS: Computer and information sciences},
+    
+    title = {Attention Is All You Need},
+    
+    publisher = {arXiv},
+    
+    year = {2017},
+    
+    copyright = {arXiv.org perpetual, non-exclusive license}
+  }
+  @InProceedings{maas-EtAl:2011:ACL-HLT2011,
+    author    = {Maas, Andrew L.  and  Daly, Raymond E.  and  Pham, Peter T.  and  Huang, Dan  and  Ng, Andrew Y.  and  Potts, Christopher},
+    title     = {Learning Word Vectors for Sentiment Analysis},
+    booktitle = {Proceedings of the 49th Annual Meeting of the Association for Computational Linguistics: Human Language Technologies},
+    month     = {June},
+    year      = {2011},
+    address   = {Portland, Oregon, USA},
+    publisher = {Association for Computational Linguistics},
+    pages     = {142--150},
+    url       = {http://www.aclweb.org/anthology/P11-1015}
+  }
+&lt;/script&gt;
+  &lt;!-- jQuery (necessary for Bootstrap's JavaScript plugins)--&gt;
+&lt;script src=&quot;https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;!-- Include all compiled plugins (below), or include individual files as needed--&gt;
+&lt;script src=&quot;/assets/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/assets/js/scroll.js&quot;&gt;&lt;/script&gt;
+&lt;div id=&quot;disqus_thread&quot;&gt;&lt;/div&gt;
+&lt;script&gt;
+   /**
+   *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+   *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+   /*
+   var disqus_config = function () {
+   this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+   this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+   };
+   */
+   (function () { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://kiki-rizki-arpiandi.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+   })();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href=&quot;https://disqus.com/?ref_noscript&quot;&gt;comments powered by
+      Disqus.&lt;/a&gt;&lt;/noscript&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</content><author><name></name></author><category term="deeplearning" /><summary type="html">Understand Transformer Paper Through Implementation | Kiki’s Blog</summary></entry><entry><title type="html">Clean Implementation of Normalizing Flow Using PyTorch</title><link href="http://localhost:4000/deeplearning/2022/06/06/nf-pytorch.html" rel="alternate" type="text/html" title="Clean Implementation of Normalizing Flow Using PyTorch" /><published>2022-06-06T00:00:00+07:00</published><updated>2022-06-06T00:00:00+07:00</updated><id>http://localhost:4000/deeplearning/2022/06/06/nf-pytorch</id><content type="html" xml:base="http://localhost:4000/deeplearning/2022/06/06/nf-pytorch.html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en&quot;&gt;
 &lt;head&gt;
     &lt;meta charset=&quot;utf-8&quot;&gt;
